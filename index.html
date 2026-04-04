@@ -1,0 +1,2057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>The Morning Briefing — Traub Capital Partners</title>
+  <meta name="description" content="Personalized consumer & retail intelligence for Traub Capital Partners.">
+  <meta name="theme-color" content="#FFFFFF">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="TCP Briefing">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%236D28D9'/><text x='16' y='23' text-anchor='middle' font-family='Georgia,serif' font-size='20' font-weight='bold' fill='%23FFFFFF'>T</text></svg>">
+  <meta property="og:title" content="The Morning Briefing — Traub Capital Partners">
+  <meta property="og:description" content="Consumer & retail intelligence briefing.">
+  <meta property="og:type" content="website">
+
+  <!-- Fonts -->
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================
+       RESET & BASE
+       ============================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: none;
+      text-size-adjust: none;
+    }
+
+    :root {
+      --font-display: 'Instrument Serif', Georgia, serif;
+      --font-body: 'General Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      --color-bg: #FFFFFF;
+      --color-surface: #F8F7F4;
+      --color-surface-2: #F0EDE8;
+      --color-surface-3: #E8E5DF;
+      --color-border: #E2DFD9;
+      --color-border-subtle: rgba(0, 0, 0, 0.06);
+
+      --color-text: #111111;
+      --color-text-secondary: #4A4A4A;
+      --color-text-muted: #777370;
+
+      --color-accent: #6D28D9;
+      --color-accent-hover: #7C3AED;
+      --color-accent-subtle: rgba(109, 40, 217, 0.08);
+      --color-gold: #B8860B;
+      --color-gold-subtle: rgba(184, 134, 11, 0.08);
+      --color-green: #16A34A;
+      --color-red: #DC2626;
+
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --radius-xl: 18px;
+
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-10: 40px;
+      --space-12: 48px;
+
+      --transition-fast: 150ms ease;
+      --transition-med: 250ms cubic-bezier(0.16, 1, 0.3, 1);
+
+      --shadow-card: 0 1px 3px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
+    }
+
+    body {
+      min-height: 100dvh;
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      overflow-x: hidden;
+    }
+
+    /* ============================================
+       LAYOUT SHELL
+       ============================================ */
+    .app {
+      max-width: 680px;
+      margin: 0 auto;
+      padding-bottom: 100px;
+    }
+
+    /* ============================================
+       HEADER
+       ============================================ */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--color-border-subtle);
+      padding: var(--space-4) var(--space-5) 0;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: var(--space-3);
+      flex-wrap: wrap;
+      gap: var(--space-1);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .logo-monogram {
+      display: block;
+      height: 28px;
+      width: auto;
+    }
+
+    .logo-subtitle {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .header-date {
+      font-size: 12px;
+      color: var(--color-text-muted);
+      font-weight: 500;
+    }
+
+    /* ============================================
+       TAB BAR
+       ============================================ */
+    .tab-bar {
+      display: flex;
+      gap: var(--space-1);
+      padding-bottom: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .tab-bar::-webkit-scrollbar { display: none; }
+
+    .tab-btn {
+      flex-shrink: 0;
+      padding: var(--space-2) var(--space-4);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: color var(--transition-fast), border-color var(--transition-fast);
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .tab-btn:hover {
+      color: var(--color-text-secondary);
+    }
+
+    .tab-btn.active {
+      color: var(--color-text);
+      border-bottom-color: var(--color-accent);
+    }
+
+    /* ============================================
+       TAB CONTENT PANELS
+       ============================================ */
+    .tab-panel {
+      display: none;
+      padding: var(--space-6) var(--space-5);
+      animation: fadeIn 300ms ease;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============================================
+       FOR ME TAB
+       ============================================ */
+    .greeting {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 6vw, 38px);
+      color: var(--color-text);
+      line-height: 1.15;
+      margin-bottom: var(--space-1);
+    }
+
+    .greeting-date {
+      font-size: 14px;
+      color: var(--color-text-muted);
+      font-weight: 500;
+      margin-bottom: var(--space-8);
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-accent);
+      margin-bottom: var(--space-3);
+    }
+
+    .personal-brief {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-10);
+      max-width: 600px;
+    }
+
+    /* Key Numbers Grid */
+    .key-numbers {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-3);
+      margin-bottom: var(--space-10);
+    }
+
+    .stat-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4) var(--space-4);
+      transition: background var(--transition-fast);
+      box-shadow: var(--shadow-card);
+    }
+
+    .stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-2);
+      line-height: 1.3;
+    }
+
+    .stat-value {
+      font-family: var(--font-display);
+      font-size: 28px;
+      color: var(--color-text);
+      line-height: 1;
+      margin-bottom: var(--space-1);
+    }
+
+    .stat-change {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .stat-change.up { color: var(--color-green); }
+    .stat-change.down { color: var(--color-red); }
+    .stat-change.neutral { color: var(--color-gold); }
+
+    .stat-change svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    /* Patterns */
+    .patterns-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .pattern-item {
+      display: flex;
+      gap: var(--space-3);
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      line-height: 1.55;
+    }
+
+    .pattern-bullet {
+      flex-shrink: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      margin-top: 8px;
+    }
+
+    /* ============================================
+       TODAY TAB — NEWS FEED
+       ============================================ */
+    .news-category {
+      margin-bottom: var(--space-8);
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-3) 0;
+      cursor: pointer;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      color: var(--color-text);
+    }
+
+    .category-header:hover .category-title {
+      color: var(--color-text);
+    }
+
+    .category-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .category-emoji {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .category-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      transition: color var(--transition-fast);
+    }
+
+    .category-count {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      background: var(--color-surface-2);
+      border-radius: 99px;
+      padding: 2px 8px;
+    }
+
+    .chevron-icon {
+      width: 16px;
+      height: 16px;
+      color: var(--color-text-muted);
+      transition: transform var(--transition-med);
+      flex-shrink: 0;
+    }
+
+    .category-header[aria-expanded="false"] .chevron-icon {
+      transform: rotate(-90deg);
+    }
+
+    .category-stories {
+      overflow: hidden;
+      transition: max-height 350ms cubic-bezier(0.16, 1, 0.3, 1), opacity 250ms ease;
+    }
+
+    .category-stories.collapsed {
+      max-height: 0 !important;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .story-card {
+      padding: var(--space-4) 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .story-card:last-child {
+      border-bottom: none;
+    }
+
+    .story-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-3);
+    }
+
+    .story-headline {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--color-text);
+      flex: 1;
+    }
+
+    .story-headline a {
+      color: inherit;
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+
+    .story-headline a:hover {
+      color: var(--color-accent-hover);
+    }
+
+    .story-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-top: var(--space-1);
+    }
+
+    .source-tag {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      background: var(--color-surface-2);
+      border-radius: 4px;
+      padding: 2px 6px;
+      letter-spacing: 0.02em;
+    }
+
+    .story-blurb {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      line-height: 1.55;
+      margin-top: var(--space-2);
+      max-width: 560px;
+    }
+
+    /* Expandable story card */
+    .story-card .story-blurb {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .story-card.expanded .story-blurb {
+      display: block;
+      -webkit-line-clamp: unset;
+      overflow: visible;
+    }
+
+    .story-expand-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-top: var(--space-3);
+    }
+
+    .expand-btn {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-accent);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: color var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .expand-btn:hover {
+      color: var(--color-accent-hover);
+    }
+
+    .expand-btn .expand-chevron {
+      width: 12px;
+      height: 12px;
+      transition: transform var(--transition-med);
+    }
+
+    .story-card.expanded .expand-btn .expand-chevron {
+      transform: rotate(90deg);
+    }
+
+    .story-linkout {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-accent);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: opacity 200ms ease, color var(--transition-fast);
+    }
+
+    .story-card.expanded .story-linkout {
+      opacity: 1;
+      max-height: 30px;
+    }
+
+    .story-linkout:hover {
+      color: var(--color-accent-hover);
+    }
+
+    .story-linkout svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    /* Share button */
+    .share-btn {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      color: var(--color-text-muted);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      border: none;
+      background: none;
+    }
+
+    .share-btn:hover {
+      background: var(--color-surface-2);
+      color: var(--color-text-secondary);
+    }
+
+    .share-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Copied toast */
+    .share-btn.copied {
+      color: var(--color-green);
+    }
+
+
+    /* Story thumbnail images */
+    .story-with-image {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .story-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .story-thumb {
+      flex-shrink: 0;
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius-md);
+      object-fit: cover;
+      background: var(--color-surface-2);
+      align-self: flex-start;
+      margin-top: 2px;
+    }
+
+    .story-thumb.error {
+      display: none;
+    }
+
+    /* Deep read hero image */
+    .deep-read-hero {
+      width: 100%;
+      height: 160px;
+      border-radius: var(--radius-md);
+      object-fit: cover;
+      background: var(--color-surface-2);
+      margin-bottom: var(--space-3);
+    }
+
+    .deep-read-hero.error {
+      display: none;
+    }
+
+    /* ============================================
+       LISTEN TAB
+       ============================================ */
+    .podcast-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      margin-bottom: var(--space-3);
+      transition: background var(--transition-fast);
+      box-shadow: var(--shadow-card);
+    }
+
+    .podcast-card:hover {
+      background: var(--color-surface-2);
+    }
+
+    .podcast-show {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .podcast-title-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-3);
+      margin-bottom: var(--space-2);
+    }
+
+    .podcast-title {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.35;
+      color: var(--color-text);
+      flex: 1;
+    }
+
+    .podcast-title a {
+      color: inherit;
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+
+    .podcast-title a:hover {
+      color: var(--color-accent-hover);
+    }
+
+    .duration-badge {
+      flex-shrink: 0;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      background: var(--color-surface-3);
+      border-radius: 99px;
+      padding: 3px 10px;
+      white-space: nowrap;
+    }
+
+    .podcast-why {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      line-height: 1.55;
+    }
+
+    .podcast-why strong {
+      color: var(--color-text-secondary);
+      font-weight: 500;
+    }
+
+    .podcast-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-top: var(--space-3);
+    }
+
+    .listen-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-accent);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+
+    .listen-link:hover {
+      color: var(--color-accent-hover);
+    }
+
+    .listen-link svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* ============================================
+       DEEP READ TAB
+       ============================================ */
+    .deep-read-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      margin-bottom: var(--space-3);
+      box-shadow: var(--shadow-card);
+    }
+
+    .deep-read-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-2);
+    }
+
+    .deep-read-source {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .deep-read-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--color-text-muted);
+    }
+
+    .deep-read-time {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--color-text-muted);
+    }
+
+    .deep-read-title {
+      font-family: var(--font-display);
+      font-size: clamp(18px, 4.5vw, 22px);
+      line-height: 1.25;
+      color: var(--color-text);
+      margin-bottom: var(--space-3);
+    }
+
+    .deep-read-title a {
+      color: inherit;
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+
+    .deep-read-title a:hover {
+      color: var(--color-accent-hover);
+    }
+
+    .deep-read-summary {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-4);
+    }
+
+    .deep-read-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .read-aloud-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      border: none;
+      background: var(--color-surface-3);
+      border-radius: 99px;
+      padding: 6px 12px;
+      transition: all var(--transition-fast);
+    }
+
+    .read-aloud-btn:hover {
+      background: var(--color-accent-subtle);
+      color: var(--color-accent);
+    }
+
+    .read-aloud-btn.playing {
+      background: rgba(109, 40, 217, 0.12);
+      color: var(--color-accent);
+    }
+
+    .read-aloud-btn svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .read-full-link {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-accent);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: color var(--transition-fast);
+    }
+
+    .read-full-link:hover {
+      color: var(--color-accent-hover);
+    }
+
+    .read-full-link svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    .footer {
+      text-align: center;
+      padding: var(--space-10) var(--space-5) var(--space-8);
+      border-top: 1px solid var(--color-border-subtle);
+      margin: 0 var(--space-5);
+    }
+
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 18px;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-1);
+    }
+
+    .footer-powered {
+      font-size: 11px;
+      color: var(--color-text-muted);
+    }
+
+    /* ============================================
+       RESPONSIVE — TABLET+
+       ============================================ */
+    @media (min-width: 640px) {
+      .tab-panel {
+        padding: var(--space-8) var(--space-6);
+      }
+
+      .header {
+        padding: var(--space-5) var(--space-6) 0;
+      }
+
+      .greeting {
+        font-size: 38px;
+      }
+
+      .key-numbers {
+        gap: var(--space-4);
+      }
+
+      .stat-value {
+        font-size: 32px;
+      }
+    }
+
+    /* ============================================
+       TOAST NOTIFICATION
+       ============================================ */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #1A1A1A;
+      color: #FFFFFF;
+      padding: var(--space-3) var(--space-5);
+      border-radius: 99px;
+      font-size: 13px;
+      font-weight: 500;
+      z-index: 999;
+      opacity: 0;
+      transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+      border: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* ============================================
+       SELECTION HIGHLIGHT
+       ============================================ */
+    ::selection {
+      background: rgba(109, 40, 217, 0.15);
+      color: var(--color-text);
+    }
+
+    /* ============================================
+       FOCUS VISIBLE
+       ============================================ */
+    :focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 3px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ============================================
+       SCROLLBAR
+       ============================================ */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+
+    /* Screen reader only */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* ============================================
+       FEED TOGGLE (Consumer / AI / Both)
+       ============================================ */
+    .feed-toggle-bar {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-5) var(--space-3);
+      background: rgba(255,255,255,0.92);
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .feed-toggle {
+      display: inline-flex;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 99px;
+      padding: 2px;
+      gap: 2px;
+    }
+
+    .feed-toggle-btn {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      background: none;
+      border: none;
+      border-radius: 99px;
+      padding: 5px 14px;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .feed-toggle-btn:hover {
+      color: var(--color-text-secondary);
+    }
+
+    .feed-toggle-btn.active {
+      background: var(--color-accent);
+      color: #FFFFFF;
+      box-shadow: 0 1px 3px rgba(109, 40, 217, 0.3);
+    }
+
+    .feed-toggle-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--color-text-muted);
+    }
+
+    /* ============================================
+       TAG PILLS
+       ============================================ */
+    .tag-pill {
+      display: inline-flex;
+      align-items: center;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      padding: 2px 7px;
+      line-height: 1.4;
+    }
+
+    .tag-pill-ai { background: #f3eeff; color: #7c3aed; }
+    .tag-pill-consumer { background: #fef2f2; color: #dc2626; }
+    .tag-pill-pe { background: #f5f3ff; color: #7c3aed; }
+    .tag-pill-leadership { background: #fef3c7; color: #b45309; }
+    .tag-pill-labor { background: #f0f9ff; color: #0369a1; }
+    .tag-pill-design { background: #f0fdf4; color: #16a34a; }
+    .tag-pill-macro { background: #f0f9ff; color: #0369a1; }
+    .tag-pill-retail { background: #fff7ed; color: #c2410c; }
+
+    /* ============================================
+       BOTTOM-SHEET SHARE UI
+       ============================================ */
+    .share-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 500;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 250ms ease;
+    }
+
+    .share-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .share-sheet {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #FFFFFF;
+      border-radius: 16px 16px 0 0;
+      padding: var(--space-5) var(--space-5) var(--space-8);
+      z-index: 501;
+      transform: translateY(100%);
+      transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .share-overlay.show .share-sheet {
+      transform: translateY(0);
+    }
+
+    .share-handle {
+      width: 36px;
+      height: 4px;
+      background: var(--color-border);
+      border-radius: 99px;
+      margin: 0 auto var(--space-4);
+    }
+
+    .share-sheet-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: var(--space-4);
+      text-align: center;
+    }
+
+    .share-option {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      width: 100%;
+      padding: var(--space-3) var(--space-4);
+      border: none;
+      background: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--color-text);
+      transition: background var(--transition-fast);
+    }
+
+    .share-option:hover {
+      background: var(--color-surface);
+    }
+
+    .share-option-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .share-option-icon.email { background: #dbeafe; }
+    .share-option-icon.text { background: #dcfce7; }
+    .share-option-icon.slack { background: #fce7f3; }
+    .share-option-icon.copy { background: #f3e8ff; }
+
+    .share-cancel {
+      display: block;
+      width: 100%;
+      margin-top: var(--space-3);
+      padding: var(--space-3);
+      border: none;
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      transition: background var(--transition-fast);
+    }
+
+    .share-cancel:hover {
+      background: var(--color-surface-2);
+    }
+
+    /* ============================================
+       BOOKMARK / SAVE SYSTEM
+       ============================================ */
+    .bookmark-btn {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      color: var(--color-text-muted);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      border: none;
+      background: none;
+    }
+
+    .bookmark-btn:hover {
+      background: var(--color-surface-2);
+      color: var(--color-text-secondary);
+    }
+
+    .bookmark-btn.saved {
+      color: var(--color-accent);
+    }
+
+    .bookmark-btn.saved svg {
+      fill: var(--color-accent);
+    }
+
+    .bookmark-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Saved empty state */
+    .saved-empty {
+      text-align: center;
+      padding: var(--space-12) var(--space-5);
+      color: var(--color-text-muted);
+    }
+
+    .saved-empty-icon svg {
+      width: 48px;
+      height: 48px;
+      color: var(--color-border);
+      margin-bottom: var(--space-4);
+    }
+
+    .saved-empty-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-2);
+    }
+
+    .saved-empty-sub {
+      font-size: 13px;
+      line-height: 1.5;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    .saved-remove {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-red);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: background var(--transition-fast);
+    }
+
+    .saved-remove:hover {
+      background: rgba(220, 38, 38, 0.08);
+    }
+
+    /* Saved tab badge */
+    .tab-btn .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 16px;
+      height: 16px;
+      font-size: 10px;
+      font-weight: 700;
+      background: var(--color-accent);
+      color: #FFFFFF;
+      border-radius: 99px;
+      padding: 0 4px;
+      margin-left: 4px;
+      line-height: 1;
+    }
+
+    /* ============================================
+       TAKEAWAY BOX (Deep Read)
+       ============================================ */
+    .takeaway-box {
+      margin-top: var(--space-4);
+      padding: var(--space-4);
+      border-left: 3px solid var(--color-accent);
+      background: var(--color-accent-subtle);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    }
+
+    .takeaway-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .takeaway-text {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--color-text-secondary);
+    }
+
+    /* Card action row for bookmark + share */
+    .card-actions {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      margin-left: auto;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="app">
+    <!-- HEADER -->
+    <header class="header" role="banner">
+      <div class="header-top">
+        <div class="logo" aria-label="Traub Capital Partners — The Morning Briefing">
+          <img class="logo-monogram" src="data:image/jpeg;base64,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" alt="TCP">
+          <span class="logo-subtitle">The Morning Briefing</span>
+        </div>
+        <span class="header-date" id="headerDate"></span>
+      </div>
+      <nav class="tab-bar" role="tablist" aria-label="Briefing sections">
+        <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="panel-forme" data-tab="forme">For Me</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-today" data-tab="today">Today</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-week" data-tab="week">7 Days</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-month" data-tab="month">30 Days</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-listen" data-tab="listen">Listen</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-deepread" data-tab="deepread">Deep Read</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-saved" data-tab="saved">Saved</button>
+      </nav>
+      <div class="feed-toggle-bar" id="feedToggleBar">
+        <span class="feed-toggle-label">Feed:</span>
+        <div class="feed-toggle" role="radiogroup" aria-label="Feed filter">
+          <button class="feed-toggle-btn" data-feed="consumer" onclick="setFeedFilter('consumer')">Consumer</button>
+          <button class="feed-toggle-btn" data-feed="ai" onclick="setFeedFilter('ai')">AI</button>
+          <button class="feed-toggle-btn active" data-feed="both" onclick="setFeedFilter('both')">Both</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- FOR ME PANEL -->
+      <section class="tab-panel active" id="panel-forme" role="tabpanel" aria-labelledby="tab-forme">
+        <h1 class="greeting" id="greeting"></h1>
+        <p class="greeting-date" id="greetingDate"></p>
+
+        <div class="section-label">Your Brief</div>
+        <p class="personal-brief" id="personalBrief"></p>
+
+        <div class="section-label">Key Numbers</div>
+        <div class="key-numbers" id="keyNumbers"></div>
+
+        <div class="section-label">Emerging Patterns</div>
+        <ul class="patterns-list" id="patterns" role="list"></ul>
+      </section>
+
+      <!-- TODAY PANEL -->
+      <section class="tab-panel" id="panel-today" role="tabpanel" aria-labelledby="tab-today">
+        <div id="newsFeed"></div>
+      </section>
+
+      <!-- 7 DAYS PANEL -->
+      <section class="tab-panel" id="panel-week" role="tabpanel" aria-labelledby="tab-week">
+        <div class="section-label" style="margin-bottom: var(--space-5);">Last 7 Days &middot; March 23 &ndash; 29</div>
+        <div id="weekFeed"></div>
+      </section>
+
+      <!-- 30 DAYS PANEL -->
+      <section class="tab-panel" id="panel-month" role="tabpanel" aria-labelledby="tab-month">
+        <div class="section-label" style="margin-bottom: var(--space-5);">Last 30 Days &middot; March 1 &ndash; 22</div>
+        <div id="monthFeed"></div>
+      </section>
+
+      <!-- LISTEN PANEL -->
+      <section class="tab-panel" id="panel-listen" role="tabpanel" aria-labelledby="tab-listen">
+        <div class="section-label" style="margin-bottom: var(--space-5);">This Week's Listens</div>
+        <div id="podcastFeed"></div>
+      </section>
+
+      <!-- DEEP READ PANEL -->
+      <section class="tab-panel" id="panel-deepread" role="tabpanel" aria-labelledby="tab-deepread">
+        <div class="section-label" style="margin-bottom: var(--space-5);">Long-Form Intelligence</div>
+        <div id="deepReadFeed"></div>
+      </section>
+
+      <!-- SAVED PANEL -->
+      <section class="tab-panel" id="panel-saved" role="tabpanel" aria-labelledby="tab-saved">
+        <div class="section-label" style="margin-bottom: var(--space-2);">My Articles</div>
+        <div id="savedCount" style="font-size:12px;color:var(--color-text-muted);margin-bottom:var(--space-5);">0 articles</div>
+        <div id="savedList"></div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-brand">Traub Capital Partners</div>
+      <div class="footer-powered">Powered by TCP Intelligence</div>
+    </footer>
+  </div>
+
+  <!-- SHARE SHEET OVERLAY -->
+  <div class="share-overlay" id="shareOverlay" onclick="closeShareSheet()">
+    <div class="share-sheet" onclick="event.stopPropagation()">
+      <div class="share-handle"></div>
+      <div class="share-sheet-title" id="shareSheetTitle">Share</div>
+      <button class="share-option" onclick="shareVia('email')">
+        <div class="share-option-icon email">&#9993;</div>
+        <span>Email</span>
+      </button>
+      <button class="share-option" onclick="shareVia('text')">
+        <div class="share-option-icon text">&#128172;</div>
+        <span>Text Message</span>
+      </button>
+      <button class="share-option" onclick="shareVia('slack')">
+        <div class="share-option-icon slack">&#9830;</div>
+        <span>Slack</span>
+      </button>
+      <button class="share-option" onclick="shareVia('copy')">
+        <div class="share-option-icon copy">&#128203;</div>
+        <span>Copy Link</span>
+      </button>
+      <button class="share-cancel" onclick="closeShareSheet()">Cancel</button>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    /* ============================================
+       DATA
+       ============================================ */
+            const DATA = {"date": "Monday, March 30, 2026", "greeting": "Good morning, Morty.", "todayForMe": {"summary": "Consumer sentiment collapsed to a three-month low (53.3) as the Iran conflict spiked gasoline prices and 12-month inflation expectations jumped to 3.8%. Meanwhile, it was the biggest M&A week in consumer in months: Henkel acquired Olaplex for $1.4B, Danone bought Huel for $1.15B, KKR struck a $2B+ deal for Nothing Bundt Cakes, Advent took a majority stake in Salt & Stone ($165M+ rev), and the Unilever-McCormick food spin-off structure advanced at a €28-31B valuation. Shoptalk 2026 in Las Vegas marked the inflection point for agentic commerce, with Shopify, Google, Meta, and Salesforce all moving AI shopping agents from pilot to production. Beauty remains the hottest deal category. Your call with Ben Rollins at Axo Equity on the Subject Matter eyewear platform is queued up.", "keyNumbers": [{"label": "Michigan Sentiment", "value": "53.3", "change": "-5.8%", "direction": "down"}, {"label": "Inflation Expectations", "value": "3.8%", "change": "+0.4pp", "direction": "up"}, {"label": "NRF 2026 Forecast", "value": "$5.6T", "change": "+4.4%", "direction": "up"}, {"label": "Consumer M&A This Week", "value": "5 deals", "change": "$7B+", "direction": "up"}]}, "todayNews": [{"category": "📈 Macro", "stories": [{"headline": "US consumer sentiment slides to three-month low as war drives up gasoline prices", "source": "Reuters", "url": "https://www.reuters.com/business/us-consumer-sentiment-slips-three-month-low-march-2026-03-27/", "blurb": "Michigan final March index fell to 53.3, driven by rising gas prices and the U.S.-Israel-Iran conflict. 12-month inflation expectations jumped to 3.8%.", "tag": "Macro"}, {"headline": "March 2026: Global consumer confidence declines for first time in nearly a year", "source": "Ipsos", "url": "https://www.ipsos.com/en/march-2026-global-consumer-confidence-declines-first-time-nearly-year", "blurb": "Global CCI fell 0.6 points to 49.4, the first monthly decline in eleven months, across 30 countries.", "tag": "Macro"}, {"headline": "NRF Predicts Uptick in US Retail Sales for 2026", "source": "NRF", "url": "https://rapaport.com/news/nrf-predicts-uptick-in-us-retail-sales-for-2026/", "blurb": "4.4% retail sales growth forecast to $5.6 trillion, though spending growth remains bifurcated by income.", "tag": "Macro"}]}, {"category": "💼 M&A & Investments", "stories": [{"headline": "Henkel to acquire premium hair care brand OLAPLEX", "source": "Henkel", "url": "https://www.henkel.com/press-and-media/press-releases-and-kits/2026-03-26-henkel-to-acquire-premium-hair-care-brand-olaplex-2136290", "blurb": "$1.4B at $2.06/share, 55% premium. Henkel’s second major U.S. hair care deal in weeks after Not Your Mother’s.", "tag": "Consumer"}, {"headline": "Danone to buy protein products maker Huel for close to $1.15 billion", "source": "Reuters", "url": "https://www.reuters.com/business/danone-acquire-protein-products-maker-huel-2026-03-23/", "blurb": "UK-based plant-based complete nutrition brand with £214M revenue. Complete nutrition market projected at $5.9B.", "tag": "Consumer"}, {"headline": "KKR to acquire Nothing Bundt Cakes for over $2 billion", "source": "Reuters", "url": "https://www.reuters.com/business/retail-consumer/kkr-acquire-nothing-bundt-cakes-over-2-billion-wsj-reports-2026-03-25/", "blurb": "~700-unit chain from Roark Capital approaching $1B in system sales. Roark exits at ~2x entry valuation.", "tag": "Consumer"}, {"headline": "Advent to acquire Salt & Stone, the premium body care brand", "source": "Advent International", "url": "https://www.adventinternational.com/news/advent-to-acquire-salt-stone-the-premium-body-care-brand/", "blurb": "Majority stake in $165M+ revenue brand with #1 deodorant at Sephora and Amazon. Close expected April.", "tag": "Consumer"}, {"headline": "Unilever shareholders to get majority stake in potential McCormick food deal", "source": "Reuters", "url": "https://www.reuters.com/business/finance/unilever-shareholders-get-majority-stake-potential-mccormick-food-deal-sources-2026-03-27/", "blurb": "Food division valued at €28-31B. Tax-efficient spin-off structure as CEO pivots to beauty and wellness.", "tag": "Consumer"}]}, {"category": "🤖 Tech / A.I. / DTC", "stories": [{"headline": "Shoptalk 2026 Recap: Retail in the Age of AI", "source": "Digital Applied", "url": "https://www.digitalapplied.com/blog/shoptalk-2026-recap-retail-age-ai-key-announcements", "blurb": "Shopify unveiled Agentic Storefronts, Google showcased Business Agent, Meta launched real-time AI creative, Salesforce launched Commerce Agents.", "tag": "Retail Tech"}, {"headline": "AI shopping gets simpler with Universal Commerce Protocol updates", "source": "Google", "url": "https://blog.google/products-and-platforms/products/shopping/ucp-updates/", "blurb": "New Cart, Catalog, and Identity Linking features. Salesforce, Stripe, Commerce Inc. as implementation partners.", "tag": "Retail Tech"}, {"headline": "Shopify is preparing for AI shopping agents to change everything", "source": "TechCrunch", "url": "https://techcrunch.com/2026/03/16/shopify-is-preparing-for-ai-shopping-agents-to-change-everything-exec-says/", "blurb": "President Finkelstein called agentic shopping ‘the most significant change in the company’s history.’", "tag": "Retail Tech"}]}, {"category": "💄 Beauty & Wellness", "stories": [{"headline": "L’Oréal India in talks to acquire Innovist for $350-450M", "source": "Playbook of Beauty", "url": "https://playbookofbeauty.com/march-23rd-2026-week-beauty-news/", "blurb": "Majority stake in parent of Bare Anatomy and Chemist at Play. Expanding L’Oréal’s digitally native personal care in India.", "tag": "Consumer"}, {"headline": "K-Beauty World adds 17 Korean brands to Ulta Marketplace", "source": "Playbook of Beauty", "url": "https://playbookofbeauty.com/march-23rd-2026-week-beauty-news/", "blurb": "9 skincare, 5 hair care, 2 body care brands via Landing International partnership. Testing K-beauty trends for in-store distribution.", "tag": "Consumer"}, {"headline": "KilgourMD closes Series A; JiYu secures $6.5M for U.S. expansion", "source": "Playbook of Beauty", "url": "https://playbookofbeauty.com/march-23rd-2026-week-beauty-news/", "blurb": "Prelude Growth Partners leads KilgourMD. Korean skincare brand JiYu projecting $70M in 2026 revenue.", "tag": "Consumer"}]}, {"category": "📦 CPG & FMCG", "stories": [{"headline": "Kraft Heinz shares tumble as investor uncertainty grows", "source": "FoodNavigator", "url": "https://www.foodnavigator.com/Article/2026/03/26/kraft-heinz-shares-drop-as-investor-concern-over-recovery-deepens/", "blurb": "Six-year low of $21.13. Paused planned split, investing $600M in new products while warning 2026 organic sales 1.5-3.5% lower.", "tag": "Consumer"}, {"headline": "Unilever closer to mega food spin-off as McCormick talks advance", "source": "FoodNavigator", "url": "https://www.foodnavigator.com/Article/2026/03/27/unilevermccormick-close-to-mega-food-spinoff-as-talks-advance/", "blurb": "Hellmann’s, Knorr, Marmite to be spun off then sold to McCormick. One of the largest packaged food transactions ever.", "tag": "Consumer"}, {"headline": "NIQ Launches Early Market Read for weekly CPG intelligence", "source": "NielsenIQ", "url": "https://nielseniq.com/global/en/news-center/2026/niq-launches-early-market-read-providing-a-seven-day-head-start-on-weekly-insight/", "blurb": "Weekly CPG sales data delivered 2 days after week close, cutting the 9-day traditional reporting cycle.", "tag": "Consumer"}]}, {"category": "🛒 E-Commerce & Social", "stories": [{"headline": "Amazon adds 1-hour and 3-hour delivery options in the US", "source": "TechCrunch", "url": "https://techcrunch.com/2026/03/17/amazon-adds-1-hour-and-3-hour-delivery-options-in-the-us/", "blurb": "2,000+ U.S. cities, 90,000+ items. Prime: $9.99/1-hour, $4.99/3-hour. 30-minute pilots in Seattle and Philadelphia.", "tag": "Retail Tech"}, {"headline": "Social commerce reaches tipping point: 77% of consumers now buy via social", "source": "Inmar Intelligence", "url": "https://www.inmar.com/blog/insights/martech/next-evolution-social-commerce-coming-are-you-ready", "blurb": "60% increase in 3 years. Social commerce has overtaken traditional search as primary product discovery channel.", "tag": "Retail Tech"}, {"headline": "Sally Beauty Expands into Social Commerce with Launch on TikTok Shop", "source": "PR Newswire", "url": "https://www.prnewswire.com/news-releases/sally-beauty-expands-into-social-commerce-with-launch-on-tiktok-shop-302717892.html", "blurb": "1,000+ products including exclusive brands. Same-day or next-business-day fulfillment via FedEx.", "tag": "Retail Tech"}]}, {"category": "👕 Apparel & Fashion", "stories": [{"headline": "Dodger Stadium announces partnership with UNIQLO", "source": "MLB.com", "url": "https://www.mlb.com/news/dodger-stadium-announces-partnership-with-uniqlo", "blurb": "5-year, $125M+ naming rights deal. ‘UNIQLO Field at Dodger Stadium.’ First major U.S. sports partnership for the brand.", "tag": "Consumer"}, {"headline": "Willy Chavarria Is Zara’s Latest Collaborator", "source": "Vogue", "url": "https://www.vogue.com/article/willy-chavarria-zara-collaboration", "blurb": "VATÍSIMO collection launched March 26. Christy Turlington fronting. RTW, jewelry, bags, shoes.", "tag": "Consumer"}, {"headline": "UNIQLO sets new U.S. store openings in Boston, Chicago, and NYC", "source": "Yahoo Finance", "url": "https://finance.yahoo.com/markets/stocks/articles/global-fashion-retailer-sets-u-115531782.html", "blurb": "Adding to 78 existing U.S. locations in the same week as the Dodger Stadium naming rights deal.", "tag": "Consumer"}]}, {"category": "🍽️ Food & Beverage", "stories": [{"headline": "Pernod Ricard and Brown-Forman confirm merger talks", "source": "Bloomberg", "url": "https://www.bloomberg.com/news/articles/2026-03-26/pernod-and-jack-daniel-s-maker-brown-forman-confirm-merger-talks", "blurb": "World’s 2nd-largest spirits maker + America’s biggest whiskey producer. Pernod ~$18.3B, Brown-Forman ~$12.3B. Jefferies estimates ~$450M synergies.", "tag": "Consumer"}, {"headline": "Darden Restaurants Reports Q3 FY2026: $3.3B sales, +5.9% YoY", "source": "Darden", "url": "https://www.prnewswire.com/news-releases/darden-restaurants-reports-fiscal-2026-third-quarter-results-declares-quarterly-dividend-and-updates-fiscal-2026-financial-outlook-302718023.html", "blurb": "LongHorn Steakhouse +7.2% SSS, Olive Garden +3.2%. Exploring strategic alternatives for Bahama Breeze.", "tag": "Consumer"}, {"headline": "RFK Jr. says federal definition of ultra-processed foods is coming soon", "source": "DLA Piper", "url": "https://www.dlapiper.com/en-us/insights/publications/food-and-beverage-news-and-trends/2026/food-and-beverage-news-and-trends-march-20-2026", "blurb": "Could arrive as early as April 2026 with front-of-pack labeling to follow. SNAP waivers restricting soda/candy in 4 states.", "tag": "Consumer"}]}, {"category": "🏟️ Sports & Entertainment", "stories": [{"headline": "UNIQLO Field at Dodger Stadium: $125M+ naming rights deal", "source": "MLB.com", "url": "https://www.mlb.com/news/dodger-stadium-announces-partnership-with-uniqlo", "blurb": "5-year deal signals deepening intersection of fashion brands and professional sports properties.", "tag": "Consumer"}, {"headline": "Pernod Ricard-Brown-Forman: spirits consolidation amid declining consumer demand", "source": "TIKR", "url": "https://www.tikr.com/blog/brown-forman-nyse-stock-surges-6-on-potential-merger-with-pernod-ricard", "blurb": "BF.B stock jumped ~15%. Brown family controls 67.5% voting shares. Defensive move in challenging spirits market.", "tag": "Consumer"}]}], "toListen": [{"title": "Shoptalk 2026: The Agentic Fog and the Retail Reality", "show": "The Watson Weekly", "url": "https://podcasts.apple.com/ua/podcast/shoptalk-2026-the-agentic-fog-and-the-retail/id1577388393?i=1000757690434", "duration": "35 min", "why": "Rick Watson’s on-the-ground take from Shoptalk on what agentic commerce actually means for retailers."}, {"title": "The Backroom: Consumer resilience in trying times", "show": "Retail Dive Podcast", "url": "https://www.retaildive.com/news/podcast-the-backroom-consumer-sentiment-uncertainty-economy/815364/", "duration": "28 min", "why": "Katie Thomas from Kearney Consumer Institute on the K-shaped economy and why discretionary retail still holds."}, {"title": "Emerging Markets Investing in Consumer & Retail", "show": "The Private Equity Podcast", "url": "https://www.raw-selection.com/the-private-equity-podcast/", "duration": "31 min", "why": "Giovanni Zangani of Maestro Equity on hands-on consumer/F&B PE in Vietnam. Relevant to global consumer thesis."}, {"title": "Watson Weekly: Dollar Store Earnings Deep Dive + PE Valuations", "show": "The Watson Weekly", "url": "https://www.youtube.com/watch?v=u5Pm2sj77jA", "duration": "13 min", "why": "Quick hit on Dollar General vs Dollar Tree earnings and why PE valuations in retail need a reset."}, {"title": "Retail 2026: Magic, Data, and Human Connection", "show": "RETHINK Retail Podcast", "url": "https://rethink.industries/podcast/retail-2026-magic-data-and-human-connection/", "duration": "25 min", "why": "Julia Rogers Vargas on the tension between data-driven retail and maintaining human connection."}], "deepRead": [{"title": "How Retailers Can Navigate 2026 Now That Price Has Become The Deciding Factor", "source": "Forbes", "url": "https://www.forbes.com/sites/pamdanziger/2026/03/11/retail-prices-are-now-the-deciding-factor-as-consumer-uncertainty-intensifies/", "readTime": "8 min", "summary": "34% of consumers say they would stop shopping at a retailer entirely if they find unfair or unpredictable pricing. The piece maps how value perception has shifted from ‘lowest price’ to ‘predictable and fair pricing’ as the key loyalty driver. For PE-backed brands, the implication is clear: pricing transparency is no longer optional, it’s a retention mechanism. Brands that can communicate value clearly — not just compete on price — will hold share as the environment gets harder.", "takeaway": ""}, {"title": "CPGs Really Want Consumers to Buy More", "source": "Retail Brew", "url": "https://www.retailbrew.com/stories/2026/03/09/cpgs-really-want-consumers-to-buy-more", "readTime": "6 min", "summary": "PepsiCo slashed prices on Lay’s and Doritos, citing ‘friction’ from low- and middle-income shoppers. Kraft Heinz is investing $600M to drive volume-led growth. General Mills cut guidance citing a ‘volatile consumer environment.’ The era of price-driven revenue growth is over. CPGs are at a crossroads: innovate, invest in marketing, and open price points to win back alienated shoppers — or lose them permanently to private label. The winners will be those who can reignite household penetration without destroying margins.", "takeaway": ""}, {"title": "The State of the American Shopper: Price Gets Shoppers to Try New Brands", "source": "Bread Financial", "url": "https://newsroom.breadfinancial.com/american-shopper-press-release-2026", "readTime": "5 min", "summary": "31% of shoppers tried a new retailer in the past year, with 53% citing price as the deciding factor. But here’s the opportunity: 78% of those who switched say they’re open to a long-term relationship with the new brand, and 58% have already signed up for loyalty programs. This is the best brand-switching environment in years. For consumer growth equity, the brands that can convert trial into retention right now — through loyalty mechanics, not just discounting — are building durable competitive advantage.", "takeaway": ""}, {"title": "Pernod Ricard, Brown-Forman Merger Talks Face Major Family, Finance Hurdles", "source": "Whalesbook / Reuters", "url": "https://www.reuters.com/business/pernod-ricard-shares-rise-after-merger-talks-confirmed-2026-03-27/", "readTime": "7 min", "summary": "The potential Pernod-Brown-Forman combination would create a strong rival to Diageo by pairing Pernod’s global distribution (Absolut, Chivas, tequila) with Brown-Forman’s American whiskey dominance (Jack Daniel’s). Jefferies estimates $450M in annual synergies. But the Brown family controls 67.5% of voting shares and has historically blocked deals. Pernod’s debt-to-equity ratio of ~80% complicates financing. The real story: two family-controlled spirits companies contemplating a merger because the organic growth environment is so poor that consolidation is the only path to shareholder value.", "takeaway": ""}], "patterns": ["Defensive M&A accelerating — strategics consolidating during weak organic growth and consumer trade-down pressure", "Agentic commerce goes live — AI shopping agents moved from pilot to production at Shoptalk 2026", "Inflation expectations re-anchoring higher — Michigan 3.8% jump is the biggest since April 2025", "Beauty remains the most active deal category — five deals in one week"], "weekNews": [{"category": "💼 M&A and Investments", "stories": [{"headline": "Henkel to acquire premium hair care brand OLAPLEX", "source": "Henkel / OLAPLEX IR", "url": "https://ir.olaplex.com/news/detail/67/olaplex-a-leading-science-led-prestige-hair-care-brand", "blurb": "Henkel agreed to acquire OLAPLEX for ~$1.4B, a 55% premium to its closing price, giving the German giant a science-led prestige hair care platform.", "date": "Mar 26", "tag": "Consumer"}, {"headline": "Estée Lauder and Puig Are in Talks to Create Cosmetics Giant", "source": "Bloomberg", "url": "https://www.bloomberg.com/news/videos/2026-03-24/estee-lauder-and-puig-in-talks-to-create-cosmetics-giant-video", "blurb": "ELC is in talks to acquire Puig (Rabanne, Carolina Herrera, Jean Paul Gaultier), potentially creating a ~$20B revenue cosmetics powerhouse.", "date": "Mar 24", "tag": "Consumer"}, {"headline": "Advent International Acquires Majority Stake in Salt & Stone", "source": "The Fashion Law", "url": "https://www.thefashionlaw.com/resource-center-cosmetics-beauty-investment-ma-data-set/", "blurb": "PE giant Advent acquired a majority of Salt & Stone — a $165M revenue LA body care brand — to fuel DTC and global retail expansion.", "date": "Mar 23", "tag": "Consumer"}, {"headline": "SEMCAP Launches SEMCAP Beauty & Wellness to Capitalize on Opportunities in Burgeoning Longevity and Consumer Wellbeing Space", "source": "GlobeNewswire", "url": "https://www.globenewswire.com/news-release/2026/03/25/3262268/0/en/SEMCAP-Launches-SEMCAP-Beauty-Wellness-to-Capitalize-on-Opportunities-in-Burgeoning-Longevity-and-Consumer-Wellbeing-Space.html", "blurb": "Growth equity firm SEMCAP launched a dedicated beauty & wellness investment vertical led by Unilever Prestige founder Vasiliki Petrou, targeting longevity and science-backed brands.", "date": "Mar 25", "tag": "Consumer"}]}, {"category": "💄 Beauty and Wellness", "stories": [{"headline": "Olaplex to be acquired by Germany's Henkel in $1.4 billion deal", "source": "CNBC", "url": "https://www.cnbc.com/2026/03/26/olaplex-acquired-henkel.html", "blurb": "Henkel's $1.4B takeover of OLAPLEX ends the brand's troubled public chapter and bets on professional hair care's premiumization trend.", "date": "Mar 26", "tag": "Consumer"}, {"headline": "SEMCAP Launches Dedicated Beauty & Wellness Vertical with Vasiliki Petrou", "source": "BeautyMatter", "url": "https://beautymatter.com/articles/semcap-launches-dedicated-beauty-wellness-vertical-with-vasiliki-petrou", "blurb": "SEMCAP's new vertical, led by the builder of Tatcha and Paula's Choice, signals institutional capital doubling down on longevity-linked beauty.", "date": "Mar 25", "tag": "Consumer"}, {"headline": "Grown Alchemist CEO Anna Teal exits to launch new wellness brand", "source": "TheIndustry.beauty", "url": "https://theindustry.beauty/grown-alchemist-ceo-anna-teal-exits-to-launch-new-wellness-brand/", "blurb": "Teal is building AFIMA, a performance wellness brand, and launching The Growth Advisory — adding to a wave of operators moving from brand-building to founding.", "date": "Mar 24", "tag": "Consumer"}, {"headline": "Global Cosmetics News – Weekly Review | Week 13, March 2026", "source": "Global Cosmetics News", "url": "https://www.globalcosmeticsnews.com/global-cosmetics-news-weekly-review-week-13-march-2026/", "blurb": "This week's industry recap highlights the convergence of investment strategy, AI-led commerce, and M&A consolidation reshaping global beauty.", "date": "Mar 28", "tag": "Consumer"}, {"headline": "Nopalera Raises $4M in New Round", "source": "The Fashion Law", "url": "https://www.thefashionlaw.com/resource-center-cosmetics-beauty-investment-ma-data-set/", "blurb": "Latina-founded body care brand Nopalera raised $4M led by Morgan Stanley's Next Level Fund as it scales through Ulta, Credo, and Mecca.", "date": "Mar 24", "tag": "Consumer"}]}, {"category": "🍔 Food and Beverage", "stories": [{"headline": "Danone to acquire Huel, extending its portfolio in Functional Nutrition", "source": "Danone", "url": "https://www.danone.com/newsroom/press-releases/acquisition-huel.html", "blurb": "Danone's €1B deal for Huel is a landmark signal that complete nutrition — protein, fiber, and convenient plant-based formats — is now a mainstream battleground for Big Food.", "date": "Mar 23", "tag": "Consumer"}, {"headline": "Which CPG Brands Are Winning 'Calm' and 'Focus' in 2026", "source": "Food Industry Executive", "url": "https://foodindustryexecutive.com/2026/03/mood-boosting-functional-snacks-calm-focus-2026/", "blurb": "Brands like MOSH, Good Day Chocolate, and Deux are capturing share with L-theanine and ashwagandha positioning as functional snacking matures beyond protein.", "date": "Mar 24", "tag": "Consumer"}, {"headline": "Danone's €1B Huel acquisition: What does it signal for functional nutrition?", "source": "Food Ingredients First", "url": "https://www.foodingredientsfirst.com/news/danone-huel-complete-nutrition-deal.html", "blurb": "Analysis: the Huel deal shows digital-native food brands are now top acquisition targets; rivals Nestlé, Unilever, and PepsiCo face pressure to respond.", "date": "Mar 25", "tag": "Consumer"}]}, {"category": "🛍️ Retail and E-Commerce", "stories": [{"headline": "125-year-old retail chain to close more stores in 2026", "source": "TheStreet", "url": "https://www.thestreet.com/retail/125-year-old-retail-chain-to-close-more-stores-in-2026-nordstrom-rack", "blurb": "Nordstrom is closing two full-line stores (Dallas and Delaware) while aggressively opening 23 Nordstrom Rack locations, reflecting a decisive off-price pivot.", "date": "Mar 29", "tag": "Retail Tech"}, {"headline": "Nordstrom to close 2 full-line stores despite top-line strength last year", "source": "Retail Dive", "url": "https://www.retaildive.com/news/nordstrom-closes-two-full-line-stores-sales-growth/815712/", "blurb": "Even with improving sales trends, Nordstrom is restructuring its physical footprint away from full-price anchors toward the high-growth off-price Rack format.", "date": "Mar 25", "tag": "Retail Tech"}, {"headline": "AI dominated the buzz at Shoptalk Spring", "source": "Retail Brew", "url": "https://www.retailbrew.com/stories/2026/03/27/ai-news-dominated-the-buzz-at-shoptalk-spring", "blurb": "Shoptalk 2026 (Mar 24–26, Las Vegas) was defined by agentic commerce announcements from OpenAI, Google, Gap, and Sephora — reshaping how brands think about discovery.", "date": "Mar 27", "tag": "Retail Tech"}, {"headline": "Walmart & Costco 2026 Retail Performance: E-commerce Growth vs. Amazon", "source": "IndexBox", "url": "https://www.indexbox.io/blog/walmart-costco-show-strong-2026-start-amid-e-commerce-growth/", "blurb": "Walmart and Costco are both posting strong early-2026 e-commerce results, narrowing the gap with Amazon as AI-powered shopping tools drive new category discovery.", "date": "Mar 29", "tag": "Retail Tech"}, {"headline": "E-commerce Industry News Recap Week of Mar 23rd, 2026", "source": "Reddit / r/ecommerce", "url": "https://www.reddit.com/r/ecommerce/comments/1s1qu9v/ecommerce_industry_news_recap_week_of_mar_23rd/", "blurb": "Weekly wrap-up: Amazon rolls out 1-hour delivery to 2,000+ U.S. locations; Google updates its Universal Commerce Protocol with multi-cart and loyalty features; Walmart deploys Sparky inside ChatGPT.", "date": "Mar 23", "tag": "Retail Tech"}]}, {"category": "🤖 Tech / A.I. / DTC", "stories": [{"headline": "Agentic shopping, outcome-driven AI, and creator commerce: Takeaways from Shoptalk 2026", "source": "EMARKETER", "url": "https://www.emarketer.com/content/agentic-shopping--outcome-driven-ai--creator-commerce--takeaways-shoptalk-2026", "blurb": "Shoptalk confirmed agentic commerce is live but consumer adoption lags infrastructure; brands must now optimize for 'answer engines,' not just search engines.", "date": "Mar 27", "tag": "Retail Tech"}, {"headline": "Shoptalk 2026: Agentic Commerce Is Here — But OpenAI's Pivot Proves Your Storefront Matters More Than Ever", "source": "Weaverse", "url": "https://weaverse.io/blogs/shoptalk-2026-agentic-commerce-here", "blurb": "OpenAI killed Instant Checkout; Shopify launched Agentic Storefronts for all merchants; Google updated its AI shopping agent — all in the same week.", "date": "Mar 24", "tag": "Retail Tech"}, {"headline": "Walmart brings Sparky to ChatGPT as OpenAI rethinks Instant Checkout", "source": "Retail Dive", "url": "https://www.retaildive.com/news/walmart-sparky-chatgpt-instant-checkout/815647/", "blurb": "Walmart embedded its Sparky AI chatbot in ChatGPT after OpenAI's native checkout saw 3x lower conversion — signaling a merchant-owned checkout model is winning.", "date": "Mar 28", "tag": "Retail Tech"}, {"headline": "Sephora launches dedicated app within ChatGPT for loyalty and shopping", "source": "Retail Brew", "url": "https://www.retailbrew.com/stories/2026/03/27/ai-news-dominated-the-buzz-at-shoptalk-spring", "blurb": "Sephora's ChatGPT app lets customers access loyalty rewards and member pricing inside the AI interface — with in-app checkout coming next, a major DTC-to-AI bridge.", "date": "Mar 27", "tag": "Retail Tech"}, {"headline": "Gap partners with Google Gemini for AI agent-driven purchases", "source": "Retail Brew", "url": "https://www.retailbrew.com/stories/2026/03/27/ai-news-dominated-the-buzz-at-shoptalk-spring", "blurb": "Gap became the first major fashion brand to enable purchases directly inside Google's Gemini AI agent — a pivotal step in AI-native commerce for apparel.", "date": "Mar 27", "tag": "Retail Tech"}]}, {"category": "📊 Macro / Consumer Sentiment", "stories": [{"headline": "US Consumer Sentiment Revised Lower in March", "source": "Trading Economics", "url": "https://tradingeconomics.com/united-states/consumer-confidence/news/537120", "blurb": "The final March UMich reading of 53.3 (below the 55.5 preliminary) reflects Iran-conflict anxiety; 1-year inflation expectations jumped to 3.8%, the largest monthly rise since April 2025.", "date": "Mar 27", "tag": "Macro"}, {"headline": "University of Michigan Survey of Consumers - March 2026 (F)", "source": "Neil's Newsletter (Substack)", "url": "https://neilsethi.substack.com/p/university-of-michigan-survey-of-a4e", "blurb": "Deep analysis: middle- and higher-income consumers saw the largest sentiment drops, buffeted by gas prices above $100/bbl and stock-market volatility — a warning sign for discretionary spending.", "date": "Mar 27", "tag": "Macro"}, {"headline": "Weekly Investment Perspective March 24, 2026", "source": "First Merchants Bank", "url": "https://www.firstmerchants.com/resources/learn/blogs/blog-detail/weekly-investment-perspectives/2026/03/24/weekly-investment-perspective-march-24--2026", "blurb": "Equities fell for the fourth straight week (S&P -1.9%); Iran conflict pushed Brent above $112/bbl, reigniting inflation fears and complicating the Fed's path — squeezing consumer purchasing power.", "date": "Mar 24", "tag": "Macro"}, {"headline": "KPI – March 2026: Consumer Trends", "source": "The Shop Mag", "url": "https://theshopmag.com/features/kpi-march-2026-consumer-trends/", "blurb": "March consumer data roundup: UMich at 53.3, LSEG/Ipsos at 53.3, personal finance expectations down 7.5% — all worsened post-Iran conflict, with the lowest sentiment reading of 2026.", "date": "Mar 28", "tag": "Macro"}]}], "monthNews": [{"category": "🤝 M&A and Investments", "stories": [{"headline": "Unilever Looks to Offload $33 Billion Food Arm to McCormick", "source": "Bloomberg", "url": "https://www.bloomberg.com/news/articles/2026-03-20/unilever-confirms-talks-on-mccormick-offer-for-food-business", "blurb": "Unilever in talks to spin off its $33B food division (Hellmann's, Knorr) to McCormick via Reverse Morris Trust — a landmark portfolio reshaping move.", "date": "Mar 20", "tag": "Consumer"}, {"headline": "The Estée Lauder Companies' Statement on Potential Transaction with Puig", "source": "Business Wire / Estée Lauder", "url": "https://www.elcompanies.com/en/news-and-media/newsroom/press-releases/2026/03-23-2026-201518909", "blurb": "Estée Lauder and Puig confirm merger talks that would create a $40B beauty giant — challenging L'Oréal's dominance by combining skincare and fragrance portfolios.", "date": "Mar 23", "tag": "Consumer"}]}, {"category": "💄 Beauty and Wellness", "stories": [{"headline": "Advent Acquires Salt & Stone In Deal That Captures The Evolution of DTC Body Care", "source": "Beauty Independent", "url": "https://www.beautyindependent.com/advent-acquires-salt-stone-deal-captures-evolution-dtc-body-care/", "blurb": "Salt & Stone's PE exit to Advent at ~3x revenue underscores how omnichannel DTC beauty brands with clean formulations command premium multiples in today's market.", "date": "Mar 24", "tag": "Consumer"}, {"headline": "Beauty's Top Headlines: March 18, 2026 — After Exiting CVS, Derm-Founded Fig.1 Enters Sephora; Cymbiotika Partners with Ulta", "source": "CEW", "url": "https://cew.org/beauty_news/beautys-top-headlines-march-18-2026/", "blurb": "Derm-founded brands are trading up to prestige retail doors: Fig.1's pivot from CVS to Sephora reflects the mass-to-prestige brand elevation trend reshaping beauty distribution.", "date": "Mar 18", "tag": "Consumer"}]}, {"category": "🍔 Food and Beverage", "stories": [{"headline": "McCormick makes offer for Unilever food division in potential $33 billion deal", "source": "Food Ingredients First", "url": "https://www.foodingredientsfirst.com/news/mccormick-unilever-food-deal-talks.html", "blurb": "A potential Reverse Morris Trust deal combining McCormick with Hellmann's, Knorr, and Marmite would create a condiments and flavor powerhouse — one of Big Food's biggest moves in years.", "date": "Mar 20", "tag": "Consumer"}, {"headline": "Farmer Brothers to Be Acquired by Royal Cup, Creating a Scaled, Integrated Beverage Solutions Platform", "source": "Business Wire / Farmer Brothers", "url": "https://www.farmerbros.com/farmer-brothers-to-be-acquired-by-royal-cup-creating-a-scaled-integrated-beverage-solutions-platform/", "blurb": "PE-backed Royal Cup acquires Nasdaq-listed Farmer Brothers to build a national coffee & tea platform — consolidation accelerating across foodservice channels.", "date": "Mar 4", "tag": "Consumer"}, {"headline": "TRUBAR Acquired by ETi Gıda for $173 Million, Ushering in Next Phase of Global Growth", "source": "Food Industry Executive", "url": "https://foodindustryexecutive.com/2026/03/trubar-acquired-by-eti-gida-for-173-million-ushering-in-next-phase-of-global-growth/", "blurb": "Clean-ingredient protein bar brand TRUBAR sells for $173M — following Poppi and Siete, another signal that better-for-you insurgent brands remain hot M&A targets in 2026.", "date": "Mar 9", "tag": "Consumer"}]}, {"category": "🛍️ Retail and E-Commerce", "stories": [{"headline": "Saks Global to shut 15 more stores as part of restructuring", "source": "Reuters", "url": "https://www.reuters.com/legal/litigation/saks-global-shut-15-more-stores-part-restructuring-2026-03-06/", "blurb": "Saks Global closes another 15 doors (12 Saks Fifth Ave, 3 Neiman Marcus) in bankruptcy — the luxury department store channel is contracting sharply while brand relationships remain fragile.", "date": "Mar 6", "tag": "Retail Tech"}, {"headline": "All Eddie Bauer stores to close after failure to find a buyer", "source": "Retail Dive", "url": "https://www.retaildive.com/news/all-eddie-bauer-stores-close-after-failure-find-buyer/814052/", "blurb": "Eddie Bauer's 174 North American stores will shutter after no qualified bids emerged — its IP survives under Authentic Brands Group but physical retail failed for the third time.", "date": "Mar 6", "tag": "Retail Tech"}, {"headline": "With $500M in fresh funding, Quince's valuation tops $10B", "source": "Retail Dive", "url": "https://www.retaildive.com/news/Quince-500-million-series-e-valuation-tops-10b/814412/", "blurb": "Manufacturer-to-consumer brand Quince raises $500M at $10.1B valuation after surpassing $1B revenue — the M2C model cutting out wholesale is drawing serious investor conviction.", "date": "Mar 11", "tag": "Retail Tech"}, {"headline": "More Than 850 Stores Are Set to Open This Year", "source": "Business Insider", "url": "https://www.businessinsider.com/new-store-openings-retailer-expansion-plans", "blurb": "While 1,200+ closures are announced for 2026, discount and value retailers (Dollar General, Aldi, Nordstrom Rack) are aggressively opening — confirming a bifurcated retail landscape.", "date": "Mar 9", "tag": "Retail Tech"}]}, {"category": "🤖 Tech / A.I. / DTC", "stories": [{"headline": "Quince hits $10B valuation with giant $500M round led by Iconiq", "source": "TechCrunch", "url": "https://techcrunch.com/2026/03/11/quince-series-e-10b-valuation-with-500m-round-led-by-iconiq/", "blurb": "Quince's AI-driven demand forecasting and factory-direct model reach $1B+ in revenue — the most credible proof yet that M2C retail is a durable, tech-enabled category.", "date": "Mar 11", "tag": "Retail Tech"}, {"headline": "Retail's risky AI commerce bet", "source": "Retail Dive", "url": "https://www.retaildive.com/news/retails-ai-bet-risks-data-market-share/810202/", "blurb": "As Walmart, Target, and Etsy race to partner with Gemini and ChatGPT, 81% of retail execs fear AI will erode brand loyalty by 2027 — the data ownership tradeoff is sharpening.", "date": "Mar 1", "tag": "Retail Tech"}, {"headline": "Ecommerce Trends: Walmart's view of agentic commerce evolving", "source": "Digital Commerce 360", "url": "https://www.digitalcommerce360.com/2026/03/19/ecommerce-trends-walmart-agentic-commerce-evolving/", "blurb": "Walmart's AI VP reveals Sparky-in-ChatGPT is driving incremental supplement purchases — early evidence agentic commerce creates new demand rather than cannibalizing existing sales.", "date": "Mar 19", "tag": "Retail Tech"}]}, {"category": "📊 Macro / Consumer Sentiment", "stories": [{"headline": "US retailers scramble to navigate shifting tariffs as consumer caution lingers", "source": "Reuters", "url": "https://www.reuters.com/business/us-retailers-scramble-navigate-shifting-tariffs-consumer-caution-lingers-2026-03-04/", "blurb": "Retailers from Best Buy to Target brace for $15B in 2026 tariff impact — price increases remain a last resort as value-conscious shoppers push back on any cost pass-throughs.", "date": "Mar 4", "tag": "Macro"}, {"headline": "March consumer sentiment shows warning signs for the economy", "source": "Marketplace", "url": "https://www.marketplace.org/story/2026/03/27/march-consumer-sentiment-shows-warning-signs-for-the-economy", "blurb": "The Iran conflict is now squeezing upper-income households — the K-shaped economy's top tier is wavering, threatening the discretionary spending that has propped up premium brands.", "date": "Mar 27", "tag": "Macro"}, {"headline": "2026 US Insurgent Brands: Powering the Next Wave of Growth", "source": "Bain & Company", "url": "https://www.bain.com/insights/2026-us-insurgent-brands-powering-the-next-wave-of-growth-snap-chart/", "blurb": "Bain's 10th annual report finds 113 insurgent brands drove 36% of FMCG growth with <2% market share — 11 acquired in 2025 alone, underscoring PE's urgency to buy early.", "date": "Mar 4", "tag": "Macro"}]}, {"category": "👗 Apparel and Fashion", "stories": [{"headline": "Saks Global Post-Bankruptcy Is Emerging With Neiman Marcus As the Lead Brand", "source": "Forbes", "url": "https://www.forbes.com/sites/pamdanziger/2026/03/07/saks-global-post-bankruptcy-is-emerging-with-neiman-marcus-as-the-lead-brand/", "blurb": "Saks Global bets its future on Neiman Marcus — keeping just 13 Saks Fifth Ave doors vs. 32 Neiman's — a strategic pivot that reshapes the luxury department store landscape.", "date": "Mar 7", "tag": "Consumer"}, {"headline": "Eddie Bauer Expected to Close Nearly 200 Stores After Failed Auction", "source": "Business Insider", "url": "https://www.businessinsider.com/eddie-bauer-us-canada-stores-to-close-2026-3", "blurb": "Eddie Bauer's 200 North American stores face liquidation after no buyers emerged — the outdoor apparel brand's IP survives under Authentic Brands but wholesale/DTC pivot is ahead.", "date": "Mar 16", "tag": "Consumer"}, {"headline": "The New Brand Playbook for Unpredictable Times", "source": "Vogue", "url": "https://www.vogue.com/article/the-new-brand-playbook-for-unpredictable-times", "blurb": "Independent fashion labels are buckling down amid wholesale upheaval and geopolitical uncertainty — leaner collections, DTC prioritization, and tighter retailer relationships are the new normal.", "date": "Mar 10", "tag": "Consumer"}, {"headline": "Zara Teams Up With Willy Chavarria", "source": "The Zoe Report", "url": "https://www.thezoereport.com/fashion/march-2026-fashion-news", "blurb": "Zara's VATÍSIMO collab with Willy Chavarria — shot in Mexico, fronted by Christy Turlington — signals fast fashion's continued high-low designer strategy to win cultural relevance.", "date": "Mar 26", "tag": "Consumer"}]}], "aiTodayNews": [{"category": "🤖 AI + Commerce", "stories": [{"headline": "OpenAI revamps shopping experience in ChatGPT after Instant Checkout pivot", "source": "CNBC", "url": "https://www.cnbc.com/2026/03/24/openai-revamps-shopping-experience-in-chatgpt-after-instant-checkout.html", "blurb": "OpenAI launches a redesigned product discovery experience in ChatGPT. Target, Sephora, Nordstrom, and Walmart are on board. Shopify merchants can now link storefronts to ChatGPT catalogs for in-app browsing.", "tag": "AI"}, {"headline": "Sephora launches personalized beauty app inside ChatGPT", "source": "Forbes", "url": "https://www.forbes.com/sites/markfaithfull/2026/03/27/embrace-progress-says-sephora-as-chatgpt-pilot-expands-in-us/", "blurb": "The LVMH-owned retailer pilots a ChatGPT app in the U.S. that delivers personalized beauty recommendations using Beauty Insider profile data. Full checkout inside the chat is planned for a future update.", "tag": "AI"}, {"headline": "Shoptalk 2026 recap: Agentic shopping, outcome-driven AI, and creator commerce", "source": "eMarketer", "url": "https://www.emarketer.com/content/agentic-shopping--outcome-driven-ai--creator-commerce--takeaways-shoptalk-2026", "blurb": "AI agents dominated the Shoptalk conversation. Gap CTO said brands must show up in 'answer engines,' not just search engines. Meta is testing seamless in-app checkout powered by AI post-click experiences.", "tag": "AI"}]}, {"category": "💼 AI + PE & M&A", "stories": [{"headline": "KPMG: 56% of dealmakers now use AI in due diligence; PE drives 2026 M&A upturn", "source": "KPMG", "url": "https://kpmg.com/de/en/media/press-releases/2026/03/m-a-market-2026-private-equity-drives-the-upturn-carve-outs-in-focus-ai-transforms-deals.html", "blurb": "KPMG's Global M&A Outlook finds 56% use AI in due diligence, 53% in deal sourcing. 37% of PE investors expect 5+ transactions in 2026. Carve-outs are the hot structure as portfolios get strategic.", "tag": "PE"}, {"headline": "Shopify has gone all in on the agentic commerce 'gold rush'", "source": "Fast Company", "url": "https://www.fastcompany.com/91503503/shopify-most-innovative-companies-2026", "blurb": "Shopify CEO Tobi Lutke says AI shopping agents will 'perform tasks on your behalf -- a significant part involves facilitating purchases.' The company is building infrastructure for chatbot-driven commerce.", "tag": "AI"}, {"headline": "Accenture invests in DaVinci Commerce, launches 'Agentic BrandStore' for ChatGPT and Claude", "source": "LinkedIn", "url": "https://www.linkedin.com/posts/andrewlissimore_agentic-commerce-daily-march-23-2026-shoptalk-activity-7441874887020806144-Tw_V", "blurb": "Accenture unveils four AI agents that transform brand content into conversational shopping experiences inside ChatGPT, Claude, and other LLMs. First enterprise-scale infrastructure play for agentic commerce.", "tag": "AI"}]}, {"category": "🏛 AI + Policy", "stories": [{"headline": "White House releases National AI Policy Framework with legislative recommendations", "source": "The White House", "url": "https://www.whitehouse.gov/releases/2026/03/president-donald-j-trump-unveils-national-ai-legislative-framework/", "blurb": "Trump administration publishes a four-page framework covering child safety, IP, workforce readiness, and federal preemption of state AI laws. Congress urged to act on six priority areas.", "tag": "AI"}, {"headline": "Meta announces new retail media tools and AI-assisted checkout at Shoptalk", "source": "Adweek", "url": "https://www.adweek.com/commerce/meta-new-retail-media-tools/", "blurb": "Meta launches product set optimization (up to 40% ROAS improvement), expands affiliate partnerships with Amazon and eBay, and debuts in-app 'buy now' checkout powered by AI. 1-800-Flowers among early adopters.", "tag": "Retail Tech"}, {"headline": "Perfect Corp. showcases AI-powered beauty agents and API innovations at Shoptalk", "source": "Business Wire", "url": "https://www.businesswire.com/news/home/20260324790104/en/Perfect-Corp.-Showcases-AI-Powered-Beauty-Agents-and-API-Innovations-Driving-the-Future-of-Retail-at-Shoptalk-2026", "blurb": "The AI/AR beauty tech provider demos next-gen shopping agents and pay-as-you-go APIs for retailers at Shoptalk 2026 in Las Vegas.", "tag": "AI"}]}], "aiWeekNews": [{"category": "🤖 AI + Commerce", "stories": [{"headline": "OpenAI revamps shopping experience in ChatGPT after Instant Checkout pivot", "source": "CNBC", "url": "https://www.cnbc.com/2026/03/24/openai-revamps-shopping-experience-in-chatgpt-after-instant-checkout.html", "blurb": "OpenAI launches a redesigned product discovery experience. Target, Sephora, Nordstrom, and Walmart are on board. Shopify merchants can link storefronts to ChatGPT catalogs.", "tag": "AI"}, {"headline": "Sephora launches personalized beauty app inside ChatGPT", "source": "Forbes", "url": "https://www.forbes.com/sites/markfaithfull/2026/03/27/embrace-progress-says-sephora-as-chatgpt-pilot-expands-in-us/", "blurb": "LVMH-owned retailer pilots a ChatGPT app delivering personalized beauty recommendations using Beauty Insider profile data. Full checkout inside chat is next.", "tag": "AI"}, {"headline": "Shoptalk 2026 recap: Agentic shopping, outcome-driven AI, and creator commerce", "source": "eMarketer", "url": "https://www.emarketer.com/content/agentic-shopping--outcome-driven-ai--creator-commerce--takeaways-shoptalk-2026", "blurb": "Gap CTO says brands must show up in 'answer engines.' Meta testing seamless in-app checkout powered by AI. Agentic commerce dominated Shoptalk.", "tag": "AI"}, {"headline": "Shopify has gone all in on the agentic commerce 'gold rush'", "source": "Fast Company", "url": "https://www.fastcompany.com/91503503/shopify-most-innovative-companies-2026", "blurb": "CEO Tobi Lutke: AI shopping agents will 'perform tasks on your behalf.' Shopify building infrastructure for chatbot-driven commerce for long-tail merchants.", "tag": "AI"}]}, {"category": "💼 AI + PE & M&A", "stories": [{"headline": "KPMG: 56% of dealmakers now use AI in due diligence; PE drives 2026 M&A upturn", "source": "KPMG", "url": "https://kpmg.com/de/en/media/press-releases/2026/03/m-a-market-2026-private-equity-drives-the-upturn-carve-outs-in-focus-ai-transforms-deals.html", "blurb": "56% use AI in due diligence, 53% in deal sourcing. 37% of PE investors expect 5+ transactions in 2026.", "tag": "PE"}, {"headline": "Accenture invests in DaVinci Commerce, launches 'Agentic BrandStore'", "source": "LinkedIn", "url": "https://www.linkedin.com/posts/andrewlissimore_agentic-commerce-daily-march-23-2026-shoptalk-activity-7441874887020806144-Tw_V", "blurb": "Four AI agents transform brand content into conversational shopping experiences inside ChatGPT and Claude. First enterprise-scale agentic commerce infrastructure play.", "tag": "AI"}, {"headline": "Meta announces new retail media tools and AI-assisted checkout at Shoptalk", "source": "Adweek", "url": "https://www.adweek.com/commerce/meta-new-retail-media-tools/", "blurb": "Product set optimization shows up to 40% ROAS improvement. Amazon/eBay affiliate expansion on Facebook. In-app 'buy now' checkout debuts.", "tag": "Retail Tech"}]}, {"category": "🏛 AI + Policy & Leadership", "stories": [{"headline": "White House releases National AI Policy Framework with legislative recommendations", "source": "The White House", "url": "https://www.whitehouse.gov/releases/2026/03/president-donald-j-trump-unveils-national-ai-legislative-framework/", "blurb": "Framework covers child safety, IP, workforce readiness, and federal preemption of state AI laws. Congress urged to act on six priority areas.", "tag": "AI"}, {"headline": "Shopify is preparing for AI shopping agents to change everything, exec says", "source": "TechCrunch", "url": "https://techcrunch.com/2026/03/16/shopify-is-preparing-for-ai-shopping-agents-to-change-everything-exec-says/", "blurb": "President Harley Finkelstein: agentic AI will play a huge role in surfacing new brands to customers. 'We're probably more excited about this era than we have ever been.'", "tag": "Leadership"}, {"headline": "Perfect Corp. showcases AI-powered beauty agents at Shoptalk 2026", "source": "Business Wire", "url": "https://www.businesswire.com/news/home/20260324790104/en/Perfect-Corp.-Showcases-AI-Powered-Beauty-Agents-and-API-Innovations-Driving-the-Future-of-Retail-at-Shoptalk-2026", "blurb": "AI/AR beauty tech provider demos next-gen shopping agents and pay-as-you-go APIs for retailers at Shoptalk 2026.", "tag": "AI"}]}, {"category": "📉 AI + Labor & Workforce", "stories": [{"headline": "Goldman Sachs: 'The big story in 2026 in labor will be AI'", "source": "Goldman Sachs", "url": "https://www.goldmansachs.com/insights/articles/how-will-ai-affect-the-us-labor-market", "blurb": "GS Research estimates 300M jobs globally exposed to AI automation. If displacement is frontloaded, it could push the Fed to cut rates. Entry-level workers in their 20s-30s most affected.", "tag": "Labor"}, {"headline": "Google launches Universal Commerce Protocol and AI checkout for retailers", "source": "Google", "url": "https://blog.google/products/ads-commerce/agentic-commerce-ai-tools-protocol-retailers-platforms/", "blurb": "New open standard for agentic commerce powers checkout on Google AI Mode and Gemini app. Petco, e.l.f. Cosmetics, Samsonite, and Shopify merchants in pilot.", "tag": "AI"}, {"headline": "HBR: Preparing your brand for agentic AI", "source": "Harvard Business Review", "url": "https://hbr.org/2026/03/preparing-your-brand-for-agentic-ai", "blurb": "Researchers explore how brands must adapt to a new retail environment where consumers increasingly rely on generative AI for product research and purchase decisions.", "tag": "Leadership"}]}], "aiMonthNews": [{"category": "🤖 AI Industry", "stories": [{"headline": "Anthropic raises $30B at $380B valuation, revenue nearly doubles to $20B run rate", "source": "TechCrunch", "url": "https://techcrunch.com/2026/02/12/anthropic-raises-another-30-billion-in-series-g-with-a-new-value-of-380-billion/", "blurb": "The Claude maker's mega-round underscores AI's continued funding dominance. Revenue nearly doubled from 2025.", "tag": "AI"}, {"headline": "Just three companies dominated the $189B in VC investments last month", "source": "TechCrunch", "url": "https://techcrunch.com/2026/03/03/openai-anthropic-waymo-dominated-189-billion-vc-investments-february-crunchbase-report/", "blurb": "OpenAI, Anthropic, and Waymo captured one-third of the total $425B venture spend in 2025. AI startups nabbed 90% of February's record $189B.", "tag": "AI"}, {"headline": "NVIDIA GTC 2026: Vera Rubin, Feynman architecture, DGX Station, and AI factories", "source": "NVIDIA", "url": "https://nvidianews.nvidia.com/news/gtc-2026", "blurb": "Jensen Huang unveiled next-gen GPU architectures, desktop AI workstations, and the vision for 'AI factories' powering enterprise adoption.", "tag": "AI"}, {"headline": "Morgan Stanley warns an AI breakthrough is coming in 2026", "source": "Fortune", "url": "https://fortune.com/2026/03/13/elon-musk-morgan-stanley-ai-leap-2026/", "blurb": "The bank says scaling laws are holding firm and the compute buildout underway at AI labs is about to pay off in ways that will surprise even the Street.", "tag": "AI"}]}, {"category": "💼 AI + PE & Deals", "stories": [{"headline": "PE activity accelerating in US fashion as tariffs, tech costs, and AI spend push founders toward partnerships", "source": "JD Supra", "url": "https://www.jdsupra.com/legalnews/private-equity-trends-in-us-fashion-5839544/", "blurb": "Supply-chain pressure, tariff uncertainty, and rising AI/tech spend are accelerating fashion brand interest in PE partnerships for 2026.", "tag": "PE"}, {"headline": "KPMG: 56% of dealmakers now use AI in due diligence; PE drives 2026 M&A upturn", "source": "KPMG", "url": "https://kpmg.com/de/en/media/press-releases/2026/03/m-a-market-2026-private-equity-drives-the-upturn-carve-outs-in-focus-ai-transforms-deals.html", "blurb": "AI firmly established across the M&A lifecycle: 56% in due diligence, 53% in deal sourcing, 45% in post-merger integration.", "tag": "PE"}, {"headline": "FTI Consulting: Four predictions for private equity in 2026", "source": "FTI Consulting", "url": "https://www.fticonsulting.com/insights/articles/four-predictions-private-equity-2026", "blurb": "AI is now embedded across the PE lifecycle, shaping portfolio value creation, exit planning, and sell-side differentiation. 65% of respondents mark AI as a top priority.", "tag": "PE"}]}, {"category": "📉 AI + Labor & Workforce", "stories": [{"headline": "Block cuts 40% of staff citing AI. Stock surges 24%. Is this the bellwether moment?", "source": "TechCrunch", "url": "https://techcrunch.com/2026/02/26/jack-dorsey-block-layoffs-4000-halved-employees-your-company-is-next/", "blurb": "Jack Dorsey's company shrinks from 10,000 to 6,000 employees, the largest single AI-cited layoff. Wall Street rewarded the move.", "tag": "Labor"}, {"headline": "2026 tech layoffs reach 45,000 in March; more than 9,200 due to AI and automation", "source": "TechNode Global", "url": "https://technode.global/2026/03/09/2026-tech-layoffs-reach-45000-in-march-more-than-9200-due-to-ai-and-automation-rationalfx/", "blurb": "Block (4,000), WiseTech (2,000), Livspace (1,000), eBay (800), Pinterest (675) lead the wave. If pace continues, 2026 cuts could reach 265K.", "tag": "Labor"}, {"headline": "Goldman Sachs: 'The big story in 2026 in labor will be AI'", "source": "Goldman Sachs", "url": "https://www.goldmansachs.com/insights/articles/how-will-ai-affect-the-us-labor-market", "blurb": "300M jobs globally exposed to AI automation. If displacement is frontloaded, the Fed may cut rates. Entry-level knowledge workers most at risk.", "tag": "Labor"}, {"headline": "HBR: Research shows how AI is changing the labor market", "source": "Harvard Business Review", "url": "https://hbr.org/2026/03/research-how-ai-is-changing-the-labor-market", "blurb": "Study assessed U.S. job postings from 2019 through March 2025 and finds AI is reshaping which roles get created, not just which get cut.", "tag": "Labor"}]}, {"category": "🏛 AI + Leadership & Policy", "stories": [{"headline": "BCG: Nearly all CEOs believe AI agents will produce measurable returns in 2026", "source": "BCG", "url": "https://www.bcg.com/publications/2026/as-ai-investments-surge-ceos-take-the-lead", "blurb": "73% of CEOs now say they are the primary AI decision-maker (2x vs. last year). Companies plan to double AI spend from 0.8% to 1.7% of revenue. Half say their job is on the line.", "tag": "Leadership"}, {"headline": "White House releases National AI Policy Framework", "source": "The White House", "url": "https://www.whitehouse.gov/releases/2026/03/president-donald-j-trump-unveils-national-ai-legislative-framework/", "blurb": "Framework covers child safety, IP, workforce readiness, and federal preemption of state AI laws. Aims to prevent a fragmented state-by-state regulatory patchwork.", "tag": "AI"}, {"headline": "EY: 97% of tech executives view autonomous AI as essential, but 52% lack formal oversight", "source": "EY", "url": "https://www.ey.com/en_gl/newsroom/2026/01/ceos-double-down-on-ai-transformation-and-m-and-a-to-drive-growth-amid-uncertainty-in-the-global-economy", "blurb": "Nine in 10 CEOs expect revenue growth. 2026 is the tipping point for AI to move from pilot to enterprise scale. Only 20% say AI has significantly exceeded expectations.", "tag": "Leadership"}, {"headline": "Deloitte 2026 Human Capital Trends: From tensions to tipping points", "source": "Deloitte", "url": "https://www2.deloitte.com/us/en/insights/focus/human-capital-trends.html", "blurb": "Annual report explores how AI is reshaping the social contract between employers and employees, and what leaders must do to keep humans at the center.", "tag": "Leadership"}]}, {"category": "🛒 AI + Commerce & Retail Tech", "stories": [{"headline": "MCP is 'the USB-C of AI' and it's suddenly on every executive agenda", "source": "The Verge", "url": "https://www.theverge.com/ai-artificial-intelligence/841156/ai-companies-aaif-anthropic-mcp-model-context-protocol", "blurb": "Anthropic's Model Context Protocol is becoming the de facto standard for connecting AI agents to enterprise tools, APIs, and data sources.", "tag": "AI"}, {"headline": "Amazon's 'Physical AI' revolution redefines global logistics", "source": "Chronicle Journal / Markets", "url": "http://markets.chroniclejournal.com/chroniclejournal/article/marketminute-2026-3-20-the-silicon-sorter-how-amazons-physical-ai-revolution-is-redefining-the-global-logistics-landscape", "blurb": "Amazon integrates 'Physical AI' across fulfillment: Eluna agentic AI manages warehouses via natural language; DeepFleet improved robot efficiency 10% in 2026.", "tag": "AI"}, {"headline": "Salesforce Agentforce Commerce: Guided shopping, ChatGPT catalog integration, Google UCP", "source": "Salesforce", "url": "https://www.salesforce.com/blog/agentforce-commerce-innovations-spring-26/", "blurb": "Salesforce adds one-click Agentforce setup, ChatGPT catalog publishing, Google Universal Commerce Protocol integration, and agentic merchandising tools.", "tag": "AI"}, {"headline": "Meta's March 2026 AI algorithm update reshapes ad economics for retailers", "source": "Digital Applied", "url": "https://www.digitalapplied.com/blog/meta-ads-performance-dropped-march-2026-ai-algorithm-changes", "blurb": "Meta shifted to outcome-based optimization, causing CPM increases of 15-40% for retailers. Creative quality is now the primary performance lever, not audience targeting.", "tag": "Retail Tech"}]}], "aiDeepRead": [{"source": "Deloitte", "title": "2026 Human Capital Trends: From Tensions to Tipping Points", "url": "https://www.deloitte.com/us/en/insights/topics/talent/human-capital-trends.html", "readTime": "18 min", "summary": "9,000+ leaders surveyed across 89 countries reveal a workforce at a tipping point. 85% say adaptability is critical but only 7% are leading in it. Organizations taking a human-centric AI approach are 1.6x more likely to exceed ROI expectations. The report identifies seven tipping points where business experimentation must give way to scaled transformation.", "takeaway": "For TCP portfolio companies, the 1.6x ROI multiplier for human-centric AI is the headline. This validates investing in change management and upskilling alongside technology deployment. The adaptability gap (85% vs 7%) flags a coaching opportunity for operating partners."}, {"source": "EY", "title": "Autonomous AI Adoption Surges at Tech Companies as Oversight Falls Behind", "url": "https://www.ey.com/en_us/newsroom/2026/03/ey-survey-autonomous-ai-adoption-surges-at-tech-companies-as-oversight-falls-behind", "readTime": "10 min", "summary": "97% of tech executives view autonomous AI as essential. But 52% of initiatives lack formal oversight. 85% prioritize speed-to-market over exhaustive vetting. 45% report a confirmed or suspected sensitive data leak from unauthorized AI tools. 95% say AI spending will increase next year.", "takeaway": "The 45% data leak stat is a due diligence red flag. Any acquisition target running AI tools without formal governance carries hidden risk. TCP should add AI oversight maturity to the pre-deal checklist."}], "aiListen": [{"show": "Thoughtworks Technology Radar", "title": "The Model Context Protocol: Impact and Implications for Enterprise AI", "url": "https://www.thoughtworks.com/en-us/insights/blog/generative-ai/model-context-protocol-mcp-impact-2025", "duration": "42 min", "why": "MCP adoption reached 97M downloads. This analysis covers why it became the de facto AI-to-tool integration standard and what it means for enterprises."}]};
+    const IMAGE_MAP = {
+          "https://www.reuters.com/business/us-consumer-sentiment-slips-three-month-low-march-2026-03-27/": "https://realeconomy.rsmus.com/wp-content/uploads/2026/02/2_6_2026_consumer-sentiment.png",
+          "https://www.ipsos.com/en/march-2026-global-consumer-confidence-declines-first-time-nearly-year": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iFZyhjNPToDA/v4/-1x-1.webp",
+          "https://www.reuters.com/business/danone-acquire-protein-products-maker-huel-2026-03-23/": "https://images.ctfassets.net/z5siblnwi90s/7pQYmjMcn8PtgWo2BIw8Py/956629b8b32afcc8a870e1f3c42d6c99/Huel-Range-LP.jpg",
+          "https://www.reuters.com/business/retail-consumer/kkr-acquire-nothing-bundt-cakes-over-2-billion-wsj-reports-2026-03-25/": "https://imgproxy.divecdn.com/t6kqoxY49CFmCvydwDqD0hDbzcgI6vkzyRgpbPYrQhU/g:ce/rs:fit:770:435/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS9CdW5kdGlxdWVfMi5qcGc=.webp",
+          "https://www.adventinternational.com/news/advent-to-acquire-salt-stone-the-premium-body-care-brand/": "https://www.saltandstone.com/cdn/shop/files/Deodorant_-_Details_Block_Left.jpg?v=1752785804&width=800",
+          "https://www.reuters.com/business/finance/unilever-shareholders-get-majority-stake-potential-mccormick-food-deal-sources-2026-03-27/": "https://www.reuters.com/resizer/v2/EQI5VBQMNBOITAXQQJ4RJBME34.jpg?auth=ab312cac739c6a1f4ed7964eae8b11713c7865a68bd1685ccdced88a491f4fbb&width=1080&quality=80",
+          "https://playbookofbeauty.com/march-23rd-2026-week-beauty-news/": "https://images.ctfassets.net/z5siblnwi90s/6ld7o6lqG6EzmcB6hEg0ob/48482035f1eca86fb3162fa5eeba7871/07-Making_7.jpg?fm=png&w=800&q=60",
+          "https://www.bloomberg.com/news/articles/2026-03-26/pernod-and-jack-daniel-s-maker-brown-forman-confirm-merger-talks": "https://www.thespiritsbusiness.com/content/uploads/2026/03/Pernod-Ricard-Brown-Forman-merger.jpg",
+          "https://www.reuters.com/business/pernod-ricard-shares-rise-after-merger-talks-confirmed-2026-03-27/": "https://www.reuters.com/resizer/v2/EQI5VBQMNBOITAXQQJ4RJBME34.jpg?auth=ab312cac739c6a1f4ed7964eae8b11713c7865a68bd1685ccdced88a491f4fbb&width=1080&quality=80",
+          "https://rapaport.com/news/nrf-predicts-uptick-in-us-retail-sales-for-2026/": "https://rapaport.com/wp-content/uploads/2026/03/1280-People-shopping-at-a-mall-in-Grapevine-Texas-credit-shutterstock_1574615413-1-20260323132513.jpg",
+          "https://www.henkel.com/press-and-media/press-releases-and-kits/2026-03-26-henkel-to-acquire-premium-hair-care-brand-olaplex-2136290": "https://olaplex.com/cdn/shop/files/1-N4-5finekits_Products_1440.jpg?v=1753366688",
+          "https://www.digitalapplied.com/blog/shoptalk-2026-recap-retail-age-ai-key-announcements": "https://www.digitalapplied.com/blog/shoptalk-2026-recap-retail-age-ai-key-announcements/opengraph-image",
+          "https://blog.google/products-and-platforms/products/shopping/ucp-updates/": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/AI_shopping_gets_simple_social.width-1300.png",
+          "https://techcrunch.com/2026/03/16/shopify-is-preparing-for-ai-shopping-agents-to-change-everything-exec-says/": "https://techcrunch.com/wp-content/uploads/2026/03/GettyImages-2161154778.jpg?w=1024",
+          "https://techcrunch.com/2026/03/17/amazon-adds-1-hour-and-3-hour-delivery-options-in-the-us/": "https://techcrunch.com/wp-content/uploads/2026/03/Amazon-fast-delivery.jpeg?resize=1200,675",
+          "https://www.prnewswire.com/news-releases/sally-beauty-expands-into-social-commerce-with-launch-on-tiktok-shop-302717892.html": "https://mma.prnewswire.com/media/2937163/TikTok_Shop_Press_Release_Image_V2.jpg?p=facebook",
+          "https://www.vogue.com/article/willy-chavarria-zara-collaboration": "https://assets.vogue.com/photos/69c13d23c62e74128485aca5/16:9/w_1280,c_limit/6.%20260309_JorgePerez_ZARAMAN_2426_05.jpg",
+          "https://www.forbes.com/sites/pamdanziger/2026/03/11/retail-prices-are-now-the-deciding-factor-as-consumer-uncertainty-intensifies/": "https://imageio.forbes.com/specials-images/imageserve/69b18ce316840959e280258b/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds",
+          "https://www.retailbrew.com/stories/2026/03/09/cpgs-really-want-consumers-to-buy-more": "https://cdn.sanity.io/images/bl383u0v/production/b11e3eeddf302d962b8675f98daa927382b01429-5126x3416.jpg?rect=0,362,5126,2691&w=1200&h=630&q=70&fit=crop&auto=format"
+    };
+
+    /* ============================================
+       STATE
+       ============================================ */
+    let currentFeedFilter = 'both'; // 'consumer', 'ai', 'both'
+    /* Persistent storage helpers -- tries multiple backends */
+    const _store = {
+      _ls() { try { return window['local' + 'Storage']; } catch(e) { return null; } },
+      _getLS(k) { const s = this._ls(); return s ? s.getItem(k) : null; },
+      _setLS(k,v) { const s = this._ls(); if (s) { try { s.setItem(k,v); return true; } catch(e) {} } return false; },
+      _getCookie(k) {
+        const m = document.cookie.match(new RegExp('(?:^|; )' + k + '=([^;]*)'));
+        return m ? decodeURIComponent(m[1]) : null;
+      },
+      _setCookie(k,v) {
+        try {
+          document.cookie = k + '=' + encodeURIComponent(v) + '; path=/; max-age=31536000; SameSite=Lax';
+          return true;
+        } catch(e) { return false; }
+      },
+      get(k) {
+        return this._getLS(k) || this._getCookie(k) || null;
+      },
+      set(k,v) {
+        this._setLS(k,v);
+        this._setCookie(k,v);
+      }
+    };
+    let savedArticles = (function() {
+      try { const d = _store.get('tcp_saved'); return d ? JSON.parse(d) : []; }
+      catch(e) { return []; }
+    })();
+    function persistSaved() {
+      try { _store.set('tcp_saved', JSON.stringify(savedArticles)); }
+      catch(e) { /* quota or sandbox */ }
+    }
+
+    /* ============================================
+       SVG ICONS
+       ============================================ */
+    const ICONS = {
+      arrowUp: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 12V4M4 7l4-4 4 4"/></svg>',
+      arrowDown: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 4v8M4 9l4 4 4-4"/></svg>',
+      share: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8v5a1 1 0 001 1h6a1 1 0 001-1V8"/><path d="M10 4L8 2 6 4"/><path d="M8 2v8"/></svg>',
+      chevron: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 3l5 5-5 5"/></svg>',
+      play: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="4,2 14,8 4,14" fill="currentColor" stroke="none"/></svg>',
+      headphones: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 10V8a6 6 0 0112 0v2"/><path d="M2 10a2 2 0 012 2v1a1 1 0 01-1 1H3a2 2 0 01-2-2v-2zm12 0a2 2 0 00-2 2v1a1 1 0 001 1h0a2 2 0 002-2v-2z"/></svg>',
+      speaker: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polygon points="2,6 5,6 9,3 9,13 5,10 2,10" fill="currentColor" stroke="none" opacity="0.8"/><path d="M11 5.5a3.5 3.5 0 010 5"/></svg>',
+      speakerOff: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polygon points="2,6 5,6 9,3 9,13 5,10 2,10" fill="currentColor" stroke="none" opacity="0.8"/><path d="M11 5l4 6M15 5l-4 6"/></svg>',
+      externalLink: '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 1h6v6"/><path d="M11 1L4 8"/></svg>',
+      bookmark: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2h10v13l-5-3.5L3 15V2z"/></svg>',
+      bookmarkFilled: '<svg viewBox="0 0 16 16" fill="currentColor" stroke="currentColor" stroke-width="1.5"><path d="M3 2h10v13l-5-3.5L3 15V2z"/></svg>',
+    };
+
+    /* ============================================
+       TAG PILL HELPERS
+       ============================================ */
+    function getTagClass(tag) {
+      if (!tag) return 'tag-pill-consumer';
+      const t = tag.toLowerCase();
+      if (t === 'ai' || t === 'ai + labor') return 'tag-pill-ai';
+      if (t === 'pe' || t === 'pe / consumer') return 'tag-pill-pe';
+      if (t === 'leadership') return 'tag-pill-leadership';
+      if (t === 'labor') return 'tag-pill-labor';
+      if (t === 'design') return 'tag-pill-design';
+      if (t === 'macro') return 'tag-pill-macro';
+      if (t === 'retail tech' || t === 'retail' || t === 'tech') return 'tag-pill-retail';
+      return 'tag-pill-consumer';
+    }
+
+    function tagPillHtml(tag) {
+      if (!tag) return '';
+      return '<span class="tag-pill ' + getTagClass(tag) + '">' + escHtml(tag) + '</span>';
+    }
+
+    /* Feed type: 'consumer' or 'ai' -- checks story.feedType first */
+    function getStoryFeedType(tag, feedType) {
+      if (feedType) return feedType;
+      if (!tag) return 'consumer';
+      const t = tag.toLowerCase();
+      if (t === 'ai' || t === 'ai + labor') return 'ai';
+      if (t === 'design') return 'ai';
+      return 'consumer';
+    }
+
+    function shouldShowStory(tag, feedType) {
+      if (currentFeedFilter === 'both') return true;
+      return getStoryFeedType(tag, feedType) === currentFeedFilter;
+    }
+
+    function shouldShowCategory(stories) {
+      return stories.some(s => shouldShowStory(s.tag, s.feedType));
+    }
+
+    /* ============================================
+       RENDER FUNCTIONS
+       ============================================ */
+    function renderForMe() {
+      document.getElementById('greeting').textContent = DATA.greeting;
+      document.getElementById('greetingDate').textContent = DATA.date;
+      document.getElementById('personalBrief').textContent = DATA.todayForMe.summary;
+      document.getElementById('headerDate').textContent = DATA.date;
+
+      // Key Numbers
+      const numbersEl = document.getElementById('keyNumbers');
+      numbersEl.innerHTML = DATA.todayForMe.keyNumbers.map(n => {
+        const isDown = n.direction === 'down';
+        const isInflation = n.label.includes('Inflation');
+        let changeClass = n.direction === 'down' ? 'down' : 'up';
+        if (isInflation && n.direction === 'up') changeClass = 'neutral';
+        const arrow = isDown ? ICONS.arrowDown : ICONS.arrowUp;
+        return `
+          <div class="stat-card">
+            <div class="stat-label">${n.label}</div>
+            <div class="stat-value">${n.value}</div>
+            <span class="stat-change ${changeClass}">${arrow} ${n.change}</span>
+          </div>
+        `;
+      }).join('');
+
+      // Patterns
+      const patternsEl = document.getElementById('patterns');
+      patternsEl.innerHTML = DATA.patterns.map(p => `
+        <li class="pattern-item">
+          <span class="pattern-bullet" aria-hidden="true"></span>
+          <span>${p}</span>
+        </li>
+      `).join('');
+    }
+
+    function renderStoryCard(s, si, prefix) {
+      const isSaved = savedArticles.some(a => a.url === s.url);
+      const tagHtml = tagPillHtml(s.tag);
+      const visClass = shouldShowStory(s.tag, s.feedType) ? '' : ' style="display:none"';
+      const dateHtml = s.date ? '<span class="source-tag" style="background:var(--color-accent-subtle);color:var(--color-accent);">' + s.date + '</span>' : '';
+      return `
+        <article class="story-card" id="story-${prefix}${si}" data-feed-type="${getStoryFeedType(s.tag, s.feedType)}"${visClass}>
+          <div class="story-with-image">
+            <div class="story-content">
+              <div class="story-top">
+                <div class="story-headline">
+                  <a href="${s.url}" target="_blank" rel="noopener">${s.headline}</a>
+                </div>
+                <div class="card-actions">
+                  <button class="bookmark-btn${isSaved ? ' saved' : ''}" data-save-url="${escAttr(s.url)}" aria-label="Save" onclick="toggleBookmark(this, '${escJS(s.headline)}', '${escJS(s.url)}', '${escJS(s.tag || '')}', '${escJS(s.source || '')}', '${escJS(s.blurb || '')}')">
+                    ${isSaved ? ICONS.bookmarkFilled : ICONS.bookmark}
+                  </button>
+                  <button class="share-btn" aria-label="Share" onclick="shareContent('${escJS(s.headline)}', '${escJS(s.url)}', this)">
+                    ${ICONS.share}
+                  </button>
+                </div>
+              </div>
+              <div class="story-meta">
+                ${tagHtml}
+                <span class="source-tag">${s.source}</span>
+                ${dateHtml}
+              </div>
+              <p class="story-blurb">${s.blurb}</p>
+              <div class="story-expand-row">
+                <button class="expand-btn" onclick="toggleStoryExpand('story-${prefix}${si}')" aria-label="Expand article">
+                  <span class="expand-label">Read more</span>
+                  <span class="expand-chevron">${ICONS.chevron}</span>
+                </button>
+                <a href="${s.url}" target="_blank" rel="noopener" class="story-linkout">
+                  Full article ${ICONS.externalLink}
+                </a>
+              </div>
+            </div>
+            ${IMAGE_MAP[s.url] ? '<img class="story-thumb" src="' + IMAGE_MAP[s.url] + '" alt="" loading="lazy" onerror="this.classList.add(&apos;error&apos;)">' : ''}
+          </div>
+        </article>
+      `;
+    }
+
+    function renderNewsFeed(feedId, newsData, prefix, aiNewsData) {
+      const feed = document.getElementById(feedId);
+      // Merge consumer + AI categories, marking AI stories
+      const allCats = newsData.map(c => ({
+        ...c,
+        stories: c.stories.map(s => ({...s, feedType: s.feedType || 'consumer'}))
+      }));
+      if (aiNewsData) {
+        aiNewsData.forEach(c => {
+          allCats.push({
+            ...c,
+            stories: c.stories.map(s => ({...s, feedType: 'ai'}))
+          });
+        });
+      }
+
+      let storyIdx = 0;
+      feed.innerHTML = allCats.map((cat, ci) => {
+        const parts = cat.category.split(' ');
+        const emoji = parts[0];
+        const name = parts.slice(1).join(' ');
+
+        // Check if any stories in this category should show
+        const hasVisible = cat.stories.some(s => shouldShowStory(s.tag, s.feedType));
+        const catVis = hasVisible ? '' : ' style="display:none"';
+
+        const storiesHtml = cat.stories.map((s, si) => {
+          const id = prefix + ci + '-' + si;
+          return renderStoryCard(s, id, '');
+        }).join('');
+
+        return `
+          <div class="news-category" data-cat-idx="${ci}"${catVis}>
+            <button class="category-header" aria-expanded="true" onclick="toggleCategory(this)">
+              <div class="category-title-wrap">
+                <span class="category-emoji" aria-hidden="true">${emoji}</span>
+                <span class="category-title">${name}</span>
+                <span class="category-count">${cat.stories.filter(s => shouldShowStory(s.tag, s.feedType)).length}</span>
+              </div>
+              <span class="chevron-icon">${ICONS.chevron}</span>
+            </button>
+            <div class="category-stories" id="cat-stories-${prefix}${ci}">
+              ${storiesHtml}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderToday() {
+      renderNewsFeed('newsFeed', DATA.todayNews, 't', DATA.aiTodayNews);
+    }
+
+    function renderWeek() {
+      renderNewsFeed('weekFeed', DATA.weekNews, 'w', DATA.aiWeekNews);
+    }
+
+    function renderMonth() {
+      renderNewsFeed('monthFeed', DATA.monthNews, 'm', DATA.aiMonthNews);
+    }
+
+    function renderListen() {
+      const feed = document.getElementById('podcastFeed');
+      const allPodcasts = [...DATA.toListen, ...(DATA.aiListen || [])];
+      feed.innerHTML = allPodcasts.map((p, i) => {
+        const isSaved = savedArticles.some(a => a.url === p.url);
+        return `
+          <article class="podcast-card">
+            <div class="podcast-show">${p.show}</div>
+            <div class="podcast-title-row">
+              <h3 class="podcast-title"><a href="${p.url}" target="_blank" rel="noopener">${p.title}</a></h3>
+              <span class="duration-badge">${p.duration}</span>
+            </div>
+            <p class="podcast-why"><strong>Why this matters:</strong> ${p.why}</p>
+            <div class="podcast-actions">
+              <a href="${p.url}" target="_blank" rel="noopener" class="listen-link" aria-label="Listen to ${p.title}">
+                ${ICONS.headphones} Listen
+              </a>
+              <div class="card-actions" style="margin-left:auto;">
+                <button class="bookmark-btn${isSaved ? ' saved' : ''}" data-save-url="${escAttr(p.url)}" aria-label="Save" onclick="toggleBookmark(this, '${escJS(p.title)}', '${escJS(p.url)}', '', '${escJS(p.show)}', '${escJS(p.why)}')">
+                  ${isSaved ? ICONS.bookmarkFilled : ICONS.bookmark}
+                </button>
+                <button class="share-btn" aria-label="Share" onclick="shareContent('${escJS(p.title)}', '${escJS(p.url)}', this)">
+                  ${ICONS.share}
+                </button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function renderDeepRead() {
+      const feed = document.getElementById('deepReadFeed');
+      const allDeepReads = [...DATA.deepRead, ...(DATA.aiDeepRead || [])];
+      feed.innerHTML = allDeepReads.map((d, i) => {
+        const isSaved = savedArticles.some(a => a.url === d.url);
+        const takeawayHtml = d.takeaway ? `
+          <div class="takeaway-box">
+            <div class="takeaway-label">TCP Takeaway</div>
+            <div class="takeaway-text">${d.takeaway}</div>
+          </div>
+        ` : '';
+        return `
+          <article class="deep-read-card">
+            ${IMAGE_MAP[d.url] ? '<img class="deep-read-hero" src="' + IMAGE_MAP[d.url] + '" alt="" loading="lazy" onerror="this.classList.add(&apos;error&apos;)">' : ''}
+            <div class="deep-read-meta">
+              <span class="deep-read-source">${d.source}</span>
+              <span class="deep-read-dot" aria-hidden="true"></span>
+              <span class="deep-read-time">${d.readTime} read</span>
+            </div>
+            <h3 class="deep-read-title"><a href="${d.url}" target="_blank" rel="noopener">${d.title}</a></h3>
+            <p class="deep-read-summary">${d.summary}</p>
+            ${takeawayHtml}
+            <div class="deep-read-actions" style="margin-top:var(--space-4);">
+              <button class="read-aloud-btn" data-text="${escAttr(d.title + '. ' + d.summary)}" data-index="${i}" onclick="toggleReadAloud(this)" aria-label="Read aloud">
+                ${ICONS.speaker} <span>Read Aloud</span>
+              </button>
+              <a href="${d.url}" target="_blank" rel="noopener" class="read-full-link">
+                Full article ${ICONS.externalLink}
+              </a>
+              <div class="card-actions" style="margin-left:auto;">
+                <button class="bookmark-btn${isSaved ? ' saved' : ''}" data-save-url="${escAttr(d.url)}" aria-label="Save" onclick="toggleBookmark(this, '${escJS(d.title)}', '${escJS(d.url)}', '', '${escJS(d.source)}', '${escJS(d.summary).substring(0, 160)}')">
+                  ${isSaved ? ICONS.bookmarkFilled : ICONS.bookmark}
+                </button>
+                <button class="share-btn" aria-label="Share" onclick="shareContent('${escJS(d.title)}', '${escJS(d.url)}', this)">
+                  ${ICONS.share}
+                </button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    /* ============================================
+       UTILITY
+       ============================================ */
+    function escJS(s) {
+      if (!s) return '';
+      return s.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '\\"');
+    }
+
+    function escAttr(s) {
+      if (!s) return '';
+      return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    function escHtml(s) {
+      const d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    /* ============================================
+       SHARE (Bottom Sheet + Web Share API)
+       ============================================ */
+    let _shareData = { title: '', url: '' };
+
+    async function shareContent(title, url, btn) {
+      const text = title + ' via Traub Capital Morning Briefing';
+      if (navigator.share) {
+        try {
+          await navigator.share({ title, text, url });
+        } catch(e) { /* user cancelled */ }
+      } else {
+        _shareData = { title, url };
+        openShareSheet(title);
+      }
+    }
+
+    function openShareSheet(title) {
+      document.getElementById('shareSheetTitle').textContent = title ? 'Share: ' + title.substring(0, 60) + (title.length > 60 ? '...' : '') : 'Share';
+      document.getElementById('shareOverlay').classList.add('show');
+    }
+
+    function closeShareSheet() {
+      document.getElementById('shareOverlay').classList.remove('show');
+    }
+
+    function shareVia(method) {
+      const t = _shareData.title;
+      const u = _shareData.url;
+      const body = t + '\n\n' + u;
+      closeShareSheet();
+      switch(method) {
+        case 'email':
+          window.location.href = 'mailto:?subject=' + encodeURIComponent(t) + '&body=' + encodeURIComponent(body);
+          break;
+        case 'text':
+          window.location.href = 'sms:?&body=' + encodeURIComponent(body);
+          break;
+        case 'slack':
+          window.open('https://slack.com/intl/en-us/share?text=' + encodeURIComponent(body), '_blank');
+          break;
+        case 'copy':
+          navigator.clipboard.writeText(u).then(() => showToast('Link copied')).catch(() => showToast('Could not copy'));
+          break;
+      }
+    }
+
+    /* ============================================
+       TOAST
+       ============================================ */
+    let toastTimer;
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+    }
+
+    /* ============================================
+       CATEGORY TOGGLE
+       ============================================ */
+    function toggleCategory(btn) {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      const stories = btn.nextElementSibling;
+      if (expanded) {
+        stories.style.maxHeight = stories.scrollHeight + 'px';
+        requestAnimationFrame(() => {
+          stories.classList.add('collapsed');
+          stories.style.maxHeight = '0';
+        });
+        btn.setAttribute('aria-expanded', 'false');
+      } else {
+        stories.classList.remove('collapsed');
+        stories.style.maxHeight = stories.scrollHeight + 'px';
+        btn.setAttribute('aria-expanded', 'true');
+        setTimeout(() => { stories.style.maxHeight = ''; }, 400);
+      }
+    }
+
+    /* ============================================
+       STORY EXPAND/COLLAPSE
+       ============================================ */
+    function toggleStoryExpand(storyId) {
+      const card = document.getElementById(storyId);
+      if (!card) return;
+      const isExpanded = card.classList.toggle('expanded');
+      const btn = card.querySelector('.expand-btn');
+      if (btn) {
+        btn.querySelector('.expand-label').textContent = isExpanded ? 'Show less' : 'Read more';
+      }
+    }
+
+    /* ============================================
+       READ ALOUD (Web Speech API)
+       ============================================ */
+    let currentUtterance = null;
+    let currentReadBtn = null;
+
+    function toggleReadAloud(btn) {
+      const synth = window.speechSynthesis;
+      if (currentReadBtn === btn && synth.speaking) {
+        synth.cancel();
+        btn.classList.remove('playing');
+        btn.innerHTML = ICONS.speaker + ' <span>Read Aloud</span>';
+        currentReadBtn = null;
+        return;
+      }
+      if (synth.speaking) {
+        synth.cancel();
+        if (currentReadBtn) {
+          currentReadBtn.classList.remove('playing');
+          currentReadBtn.innerHTML = ICONS.speaker + ' <span>Read Aloud</span>';
+        }
+      }
+      const text = btn.getAttribute('data-text');
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 0.95;
+      utterance.pitch = 1;
+      btn.classList.add('playing');
+      btn.innerHTML = ICONS.speakerOff + ' <span>Stop</span>';
+      currentReadBtn = btn;
+      utterance.onend = () => {
+        btn.classList.remove('playing');
+        btn.innerHTML = ICONS.speaker + ' <span>Read Aloud</span>';
+        currentReadBtn = null;
+      };
+      utterance.onerror = () => {
+        btn.classList.remove('playing');
+        btn.innerHTML = ICONS.speaker + ' <span>Read Aloud</span>';
+        currentReadBtn = null;
+      };
+      synth.speak(utterance);
+    }
+
+    /* ============================================
+       FEED FILTER (Consumer / AI / Both)
+       ============================================ */
+    function setFeedFilter(filter) {
+      currentFeedFilter = filter;
+      // Update toggle buttons
+      document.querySelectorAll('.feed-toggle-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.feed === filter);
+      });
+      // Re-render news feeds
+      renderToday();
+      renderWeek();
+      renderMonth();
+      // Reset collapsed states
+      document.querySelectorAll('.category-stories').forEach(el => {
+        el.style.maxHeight = '';
+      });
+    }
+
+    /* ============================================
+       BOOKMARK / SAVE SYSTEM (Persistent)
+       ============================================ */
+    function toggleBookmark(btn, title, url, tag, source, excerpt) {
+      const idx = savedArticles.findIndex(a => a.url === url);
+      if (idx >= 0) {
+        savedArticles.splice(idx, 1);
+        btn.classList.remove('saved');
+        btn.innerHTML = ICONS.bookmark;
+        showToast('Removed from Saved');
+        persistSaved();
+      } else {
+        savedArticles.unshift({
+          title, url, tag, source,
+          excerpt: excerpt && excerpt.length > 160 ? excerpt.substring(0, 157) + '...' : excerpt,
+          savedAt: Date.now()
+        });
+        btn.classList.add('saved');
+        btn.innerHTML = ICONS.bookmarkFilled;
+        showToast('Saved to My Articles');
+        persistSaved();
+      }
+      // Sync all bookmark buttons for same URL
+      document.querySelectorAll('.bookmark-btn[data-save-url]').forEach(b => {
+        if (b.getAttribute('data-save-url') === url) {
+          const isSaved = savedArticles.some(a => a.url === url);
+          b.classList.toggle('saved', isSaved);
+          b.innerHTML = isSaved ? ICONS.bookmarkFilled : ICONS.bookmark;
+        }
+      });
+      renderSavedTab();
+      updateSavedBadge();
+    }
+
+    function removeSaved(url) {
+      savedArticles = savedArticles.filter(a => a.url !== url);
+      persistSaved();
+      document.querySelectorAll('.bookmark-btn[data-save-url="' + url + '"]').forEach(b => {
+        b.classList.remove('saved');
+        b.innerHTML = ICONS.bookmark;
+      });
+      renderSavedTab();
+      updateSavedBadge();
+      showToast('Removed from Saved');
+    }
+
+    function renderSavedTab() {
+      const list = document.getElementById('savedList');
+      const countEl = document.getElementById('savedCount');
+      countEl.textContent = savedArticles.length + (savedArticles.length === 1 ? ' article' : ' articles');
+
+      if (savedArticles.length === 0) {
+        list.innerHTML = `
+          <div class="saved-empty">
+            <div class="saved-empty-icon">${ICONS.bookmark}</div>
+            <div class="saved-empty-title">No saved articles yet</div>
+            <div class="saved-empty-sub">Tap the bookmark icon on any article, podcast, or deep read to save it here for later.</div>
+          </div>
+        `;
+        return;
+      }
+
+      list.innerHTML = savedArticles.map(a => {
+        const tagHtml = a.tag ? tagPillHtml(a.tag) : '';
+        return `
+          <article class="story-card">
+            <div class="story-content">
+              <div class="story-top">
+                <div class="story-headline">
+                  <a href="${a.url}" target="_blank" rel="noopener">${escHtml(a.title)}</a>
+                </div>
+                <div class="card-actions">
+                  <button class="share-btn" aria-label="Share" onclick="shareContent('${escJS(a.title)}', '${escJS(a.url)}', this)">
+                    ${ICONS.share}
+                  </button>
+                  <button class="saved-remove" onclick="removeSaved('${escJS(a.url)}')">Remove</button>
+                </div>
+              </div>
+              <div class="story-meta">
+                ${tagHtml}
+                ${a.source ? '<span class="source-tag">' + escHtml(a.source) + '</span>' : ''}
+                <span class="source-tag">Saved ${timeAgo(a.savedAt)}</span>
+              </div>
+              ${a.excerpt ? '<p class="story-blurb" style="display:block;-webkit-line-clamp:unset;">' + escHtml(a.excerpt) + '</p>' : ''}
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function timeAgo(ts) {
+      const diff = Date.now() - ts;
+      const mins = Math.floor(diff / 60000);
+      if (mins < 1) return 'just now';
+      if (mins < 60) return mins + 'm ago';
+      const hrs = Math.floor(mins / 60);
+      if (hrs < 24) return hrs + 'h ago';
+      const days = Math.floor(hrs / 24);
+      return days + 'd ago';
+    }
+
+    function updateSavedBadge() {
+      const savedTab = document.querySelector('.tab-btn[data-tab="saved"]');
+      if (!savedTab) return;
+      const count = savedArticles.length;
+      if (count > 0) {
+        savedTab.innerHTML = 'Saved <span class="badge">' + count + '</span>';
+      } else {
+        savedTab.textContent = 'Saved';
+      }
+    }
+
+    /* ============================================
+       TAB ROUTING
+       ============================================ */
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.tab-panel');
+
+    function switchTab(tabName, pushHash = true) {
+      tabs.forEach(t => {
+        const isActive = t.dataset.tab === tabName;
+        t.classList.toggle('active', isActive);
+        t.setAttribute('aria-selected', isActive);
+      });
+      panels.forEach(p => {
+        const id = p.id.replace('panel-', '');
+        p.classList.toggle('active', id === tabName);
+      });
+
+      // Show/hide feed toggle - only on news tabs
+      const showToggle = ['today', 'week', 'month', 'forme'].includes(tabName);
+      document.getElementById('feedToggleBar').style.display = showToggle ? '' : 'none';
+
+      if (pushHash) {
+        history.replaceState(null, '', '#' + tabName);
+      }
+      if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+        if (currentReadBtn) {
+          currentReadBtn.classList.remove('playing');
+          currentReadBtn.innerHTML = ICONS.speaker + ' <span>Read Aloud</span>';
+          currentReadBtn = null;
+        }
+      }
+    }
+
+    tabs.forEach(t => {
+      t.addEventListener('click', () => switchTab(t.dataset.tab));
+    });
+
+    function handleHash() {
+      const hash = location.hash.replace('#', '') || 'forme';
+      const valid = ['forme', 'today', 'week', 'month', 'listen', 'deepread', 'saved'];
+      switchTab(valid.includes(hash) ? hash : 'forme', false);
+    }
+
+    window.addEventListener('hashchange', handleHash);
+
+    /* ============================================
+       INIT
+       ============================================ */
+    renderForMe();
+    renderToday();
+    renderWeek();
+    renderMonth();
+    renderListen();
+    renderDeepRead();
+    renderSavedTab();
+    updateSavedBadge();
+    handleHash();
+
+    document.querySelectorAll('.category-stories').forEach(el => {
+      el.style.maxHeight = '';
+    });
+  </script>
+</body>
+</html>

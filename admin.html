@@ -64,12 +64,13 @@
 
   <script>
     const SB_URL = 'https://ugmirwqwlggdemwklcwi.supabase.co';
-    const SB_KEY = prompt('Enter Supabase service role key:');
+    const SB_KEY = prompt('Enter Supabase service role key (starts with sb_secret or eyJ):') || '';
 
     const headers = {
       'apikey': SB_KEY,
       'Authorization': 'Bearer ' + SB_KEY,
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'X-Supabase-Auth': SB_KEY
     };
 
     async function sbGet(path) {

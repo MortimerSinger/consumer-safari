@@ -2474,6 +2474,11 @@
 
           <div class="this-week-section">
             <div class="section-label">This Week</div>
+            <div style="display:flex;gap:6px;margin-bottom:12px;">
+              <button class="feed-toggle-btn active" data-tw-filter="both" onclick="setThisWeekFilter('both')" style="font-size:11px;padding:4px 12px;">Both</button>
+              <button class="feed-toggle-btn" data-tw-filter="consumer" onclick="setThisWeekFilter('consumer')" style="font-size:11px;padding:4px 12px;">Consumer</button>
+              <button class="feed-toggle-btn" data-tw-filter="ai" onclick="setThisWeekFilter('ai')" style="font-size:11px;padding:4px 12px;">AI</button>
+            </div>
             <div id="thisWeekCalendar"></div>
           </div>
 
@@ -3299,17 +3304,26 @@
     }
 
 
+    var thisWeekFilter = 'both';
+    function setThisWeekFilter(filter) {
+      thisWeekFilter = filter;
+      document.querySelectorAll('[data-tw-filter]').forEach(function(b) {
+        b.classList.toggle('active', b.dataset.twFilter === filter);
+      });
+      renderThisWeek();
+    }
     function renderThisWeek() {
       var container = document.getElementById('thisWeekCalendar');
       if (!container || !DATA.thisWeek) return;
+      var filter = thisWeekFilter;
       var events = DATA.thisWeek;
-      if (currentFeedFilter !== 'both') {
+      if (filter !== 'both') {
         events = events.filter(function(e) {
-          return currentFeedFilter === 'consumer' ? e.type === 'consumer' : e.type === 'ai';
+          return e.type === filter;
         });
       }
       if (events.length === 0) {
-        container.innerHTML = '<p style="font-size:13px;color:var(--color-text-muted);">No ' + currentFeedFilter + ' events this week.</p>';
+        container.innerHTML = '<p style="font-size:13px;color:var(--color-text-muted);">No ' + filter + ' events this week.</p>';
         return;
       }
       container.innerHTML = '<ul class="this-week-list">' + events.map(function(e) {

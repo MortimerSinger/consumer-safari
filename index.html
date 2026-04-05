@@ -2833,7 +2833,12 @@
 
     function renderListen() {
       const feed = document.getElementById('podcastFeed');
-      const allPodcasts = [...DATA.toListen, ...(DATA.aiListen || [])];
+      const consumerPods = (DATA.toListen || []).map(p => ({...p, _feedType: 'consumer'}));
+      const aiPods = (DATA.aiListen || []).map(p => ({...p, _feedType: 'ai'}));
+      const allPodcasts = [...consumerPods, ...aiPods].filter(p => {
+        if (currentFeedFilter === 'both') return true;
+        return p._feedType === currentFeedFilter;
+      });
       feed.innerHTML = allPodcasts.map((p, i) => {
         const isSaved = savedArticles.some(a => a.url === p.url);
         const embedHtml = getEmbedHtml(p.url);
@@ -2867,7 +2872,12 @@
 
     function renderDeepRead() {
       const feed = document.getElementById('deepReadFeed');
-      const allDeepReads = [...DATA.deepRead, ...(DATA.aiDeepRead || [])];
+      const consumerReads = (DATA.deepRead || []).map(d => ({...d, _feedType: 'consumer'}));
+      const aiReads = (DATA.aiDeepRead || []).map(d => ({...d, _feedType: 'ai'}));
+      const allDeepReads = [...consumerReads, ...aiReads].filter(d => {
+        if (currentFeedFilter === 'both') return true;
+        return d._feedType === currentFeedFilter;
+      });
       feed.innerHTML = allDeepReads.map((d, i) => {
         const isSaved = savedArticles.some(a => a.url === d.url);
         const takeawayHtml = d.takeaway ? `
@@ -3244,6 +3254,8 @@
       renderToday();
       renderWeek();
       renderMonth();
+      renderListen();
+      renderDeepRead();
       renderSavedTab();
       // Reset collapsed states
       document.querySelectorAll('.category-stories').forEach(el => {
@@ -3736,7 +3748,7 @@
       });
 
       // Show/hide feed toggle - only on news tabs, not on deals
-      const showToggle = ['today', 'week', 'month', 'forme'].includes(tabName);
+      const showToggle = ['today', 'week', 'month', 'forme', 'listen', 'deep-read', 'saved'].includes(tabName);
       document.getElementById('feedToggleBar').style.display = showToggle ? '' : 'none';
 
       if (pushHash) {

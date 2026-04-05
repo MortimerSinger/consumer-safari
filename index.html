@@ -1791,7 +1791,7 @@
       background: var(--color-surface);
       border-radius: var(--radius-lg);
       padding: var(--space-5);
-      margin-top: var(--space-8);
+      margin-bottom: var(--space-5);
       display: none;
     }
 
@@ -1988,15 +1988,6 @@
           <h1 class="greeting" id="greeting"></h1>
           <p class="greeting-date" id="greetingDate"></p>
 
-          <div class="section-label">Your Brief</div>
-          <p class="personal-brief" id="personalBrief"></p>
-
-          <div class="section-label">Key Numbers</div>
-          <div class="key-numbers" id="keyNumbers"></div>
-
-          <div class="section-label">Emerging Patterns</div>
-          <ul class="patterns-list" id="patterns" role="list"></ul>
-
           <!-- EMAIL DIGEST BANNER -->
           <div class="email-digest-banner" id="emailDigestBanner">
             <div class="email-digest-header">
@@ -2015,6 +2006,17 @@
             </div>
             <div class="email-digest-confirm" id="digestConfirm">You'll receive the daily brief at 6am ET</div>
           </div>
+
+
+          <div class="section-label">Your Brief</div>
+          <p class="personal-brief" id="personalBrief"></p>
+
+          <div class="section-label">Key Numbers</div>
+          <div class="key-numbers" id="keyNumbers"></div>
+
+          <div class="section-label">Emerging Patterns</div>
+          <ul class="patterns-list" id="patterns" role="list"></ul>
+
         </div>
       </section>
 
@@ -2644,6 +2646,7 @@
       renderToday();
       renderWeek();
       renderMonth();
+      renderSavedTab();
       // Reset collapsed states
       document.querySelectorAll('.category-stories').forEach(el => {
         el.style.maxHeight = '';
@@ -2768,18 +2771,24 @@
 
       countEl.textContent = savedArticles.length + (savedArticles.length === 1 ? ' article' : ' articles');
 
-      if (savedArticles.length === 0) {
+      // Filter saved articles by current feed filter
+      const filteredSaved = currentFeedFilter === 'both' ? savedArticles : savedArticles.filter(a => {
+        const ft = getStoryFeedType(a.tag, a.feedType);
+        return ft === currentFeedFilter;
+      });
+
+      if (filteredSaved.length === 0) {
         list.innerHTML = signInBanner + `
           <div class="saved-empty">
             <div class="saved-empty-icon">${ICONS.bookmark}</div>
-            <div class="saved-empty-title">No saved articles yet</div>
-            <div class="saved-empty-sub">Tap the bookmark icon on any article, podcast, or deep read to save it here for later.</div>
+            <div class="saved-empty-title">${savedArticles.length === 0 ? 'No saved articles yet' : 'No ' + currentFeedFilter + ' articles saved'}</div>
+            <div class="saved-empty-sub">${savedArticles.length === 0 ? 'Tap the bookmark icon on any article, podcast, or deep read to save it here for later.' : 'Try switching the feed filter to see your other saved articles.'}</div>
           </div>
         `;
         return;
       }
 
-      list.innerHTML = signInBanner + savedArticles.map(a => {
+      list.innerHTML = signInBanner + filteredSaved.map(a => {
         const tagHtml = a.tag ? tagPillHtml(a.tag) : '';
         const savedTime = a.savedAt ? timeAgo(typeof a.savedAt === 'string' ? new Date(a.savedAt).getTime() : a.savedAt) : '';
         const noteData = userNotes[a.url];

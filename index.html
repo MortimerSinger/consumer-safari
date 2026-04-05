@@ -1692,7 +1692,7 @@
        ============================================ */
     const SUPABASE_URL = 'https://ugmirwqwlggdemwklcwi.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVnbWlyd3F3bGdnZGVtd2tsY3dpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzNTAxMDUsImV4cCI6MjA5MDkyNjEwNX0.Rg9h1bWV_TZoVa-deIdQzaUn24Eo1Ytcpe130H1ceFM';
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const _sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     /* ============================================
        DATA
@@ -2255,7 +2255,7 @@
 
     async function _supabaseAddSaved({ title, url, tag, source, excerpt }) {
       const exc = excerpt && excerpt.length > 160 ? excerpt.substring(0, 157) + '...' : excerpt;
-      const { error } = await supabase.from('saved_articles').insert({
+      const { error } = await _sb.from('saved_articles').insert({
         user_id: currentUser.id,
         title,
         url,
@@ -2276,7 +2276,7 @@
     }
 
     async function _supabaseRemoveSaved(url) {
-      const { error } = await supabase.from('saved_articles').delete()
+      const { error } = await _sb.from('saved_articles').delete()
         .eq('user_id', currentUser.id).eq('url', url);
       if (error) {
         console.error('Supabase remove error:', error);
@@ -2454,7 +2454,7 @@
     async function saveNote(articleUrl, noteText) {
       if (!currentUser) return;
       const now = new Date().toISOString();
-      const { error } = await supabase.from('article_notes').upsert(
+      const { error } = await _sb.from('article_notes').upsert(
         { user_id: currentUser.id, article_url: articleUrl, note: noteText, updated_at: now },
         { onConflict: 'user_id,article_url' }
       );
@@ -2464,7 +2464,7 @@
 
     async function loadNotes() {
       if (!currentUser) return;
-      const { data, error } = await supabase.from('article_notes').select('*').eq('user_id', currentUser.id);
+      const { data, error } = await _sb.from('article_notes').select('*').eq('user_id', currentUser.id);
       if (error) { console.error('Notes load error:', error); return; }
       userNotes = {};
       if (data) data.forEach(n => { userNotes[n.article_url] = { note: n.note, updated_at: n.updated_at }; });
@@ -2496,7 +2496,7 @@
        AUTH FUNCTIONS
        ============================================ */
     async function signInWithGoogle() {
-      await supabase.auth.signInWithOAuth({
+      await _sb.auth.signInWithOAuth({
         provider: 'google',
         options: { redirectTo: window.location.origin + window.location.pathname }
       });
@@ -2504,7 +2504,7 @@
 
     async function signOut() {
       closeUserDropdown();
-      await supabase.auth.signOut();
+      await _sb.auth.signOut();
       currentUser = null;
       userNotes = {};
       savedArticles = (function() {
@@ -2605,8 +2605,8 @@
       if (list) list.innerHTML = '<div class="saved-loading"><span class="spinner"></span>Loading your articles...</div>';
 
       const [savedResult, notesResult] = await Promise.all([
-        supabase.from('saved_articles').select('*').eq('user_id', currentUser.id).order('saved_at', { ascending: false }),
-        supabase.from('article_notes').select('*').eq('user_id', currentUser.id)
+        _sb.from('saved_articles').select('*').eq('user_id', currentUser.id).order('saved_at', { ascending: false }),
+        _sb.from('article_notes').select('*').eq('user_id', currentUser.id)
       ]);
 
       if (savedResult.error) { console.error('Load saved error:', savedResult.error); }
@@ -2639,7 +2639,7 @@
     }
 
     // Auth state listener
-    supabase.auth.onAuthStateChange((event, session) => {
+    _sb.auth.onAuthStateChange((event, session) => {
       currentUser = session ? session.user : null;
       updateAuthUI();
       if (currentUser) {

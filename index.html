@@ -1923,7 +1923,7 @@
     <!-- HEADER -->
     <header class="header" role="banner">
       <div class="header-top">
-        <div class="logo" aria-label="Consumer Safari — The Morning Briefing" style="cursor:pointer;" onclick="document.querySelector('.tab-btn[data-tab=\&apos;for-me\&apos;]').click(); window.scrollTo(0,0);">
+        <div class="logo" aria-label="Consumer Safari — The Morning Briefing" style="cursor:pointer;" onclick="goHome()">
           <img class="logo-monogram" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASQAAACMCAYAAADVwdTbAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAACUUlEQVR4nO3dQWrCUBRA0Z/iWgrZnItxc4Vs5ndQnOhIouQ2nDMUlKA/l4eDl2XOOQAKvo6+AIA7QQIyBAnIECQg4/L4wnXd/MvNGGOM28/38onPdca4ezxjJiQgQ5CADEECMgQJyBAkIEOQgAxBAjIECcgQJCBDkIAMQQIyBAnIECQgQ5CADEECMp72Ie31qR06vO6se4ecsY53nzETEpAhSECGIAEZggRkCBKQIUhAhiABGYIEZAgSkCFIQIYgARmCBGQIEpAhSECGIAEZggRkCBKQIUhAhiABGYIEZAgSkPH2p46c9UkXn+QpGh17z++e39K9Y0ICQgQJyBAkIEOQgAxBAjIECcgQJCBDkIAMQQIyBAnIECQgQ5CADEECMgQJyBAkIONpH5LdPHAM954JCQgRJCBDkIAMQQIyBAnIECQgQ5CADEECMgQJyBAkIEOQgAxBAjIECcgQJCDjaf0Ir7uu29zzfmsn4I8JCcgQJCBDkIAMQQIyBAnIECQgQ5CADEECMgQJyBAkIEOQgAxBAjIECcgQJCBDkIAMQQIyBAnIECQgQ5CADEECMgQJyBAkIEOQgAxBAjIECcgQJCBDkIAMQQIyBAnIECQgQ5CADEECMgQJyBAkIEOQgAxBAjIECcgQJCBDkIAMQQIyBAnIECQgQ5CADEECMi5HXwBjXNdtHn0N/4nv67xMSECGIAEZggRkCBKQIUhAhiABGYIEZAgSkCFIQIYgARmCBGQIEpAhSECGIAEZggRkLHNaLQM0mJCADEECMgQJyBAkIOMXQuotjfFHYBkAAAAASUVORK5CYII=" alt="TCP">
           <span class="logo-subtitle" style="color:var(--color-accent);font-family:var(--font-body);font-weight:700;font-size:16px;letter-spacing:-0.02em;margin-left:6px;flex-shrink:0;">CONSUMER SAFARI</span><span class="logo-subtitle" style="font-size:10px;margin-left:8px;opacity:0.6;">The Morning Briefing</span>
         </div>
@@ -2631,6 +2631,12 @@
         currentReadBtn = null;
       };
       synth.speak(utterance);
+    }
+
+    function goHome() {
+      var forMeBtn = document.querySelector('.tab-btn[data-tab="for-me"]');
+      if (forMeBtn) forMeBtn.click();
+      window.scrollTo(0, 0);
     }
 
     /* ============================================

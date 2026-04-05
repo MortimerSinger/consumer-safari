@@ -64,8 +64,7 @@
 
   <script>
     const SB_URL = 'https://ugmirwqwlggdemwklcwi.supabase.co';
-    const SB_KEY = sessionStorage.getItem('sb_admin_key') || prompt('Enter Supabase service role key:');
-    if (SB_KEY) sessionStorage.setItem('sb_admin_key', SB_KEY);
+    const SB_KEY = prompt('Enter Supabase service role key:');
 
     const headers = {
       'apikey': SB_KEY,

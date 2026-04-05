@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consumer Safari - Admin Dashboard</title>
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'General Sans', -apple-system, sans-serif; background: #0F0F0F; color: #E8E8E8; padding: 24px; max-width: 900px; margin: 0 auto; }
+    h1 { font-size: 24px; font-weight: 700; color: #9B5DE5; margin-bottom: 4px; }
+    .subtitle { font-size: 12px; color: #707070; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 32px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .stat-card { background: #1A1A1A; border-radius: 12px; padding: 20px; }
+    .stat-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #707070; margin-bottom: 6px; }
+    .stat-value { font-size: 28px; font-weight: 300; color: #E8E8E8; }
+    .stat-sub { font-size: 11px; color: #9B5DE5; margin-top: 4px; }
+    .section { margin-bottom: 32px; }
+    .section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #9B5DE5; margin-bottom: 12px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { text-align: left; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #707070; padding: 8px 12px; border-bottom: 2px solid #9B5DE5; }
+    td { padding: 10px 12px; border-bottom: 1px solid #2E2E2E; color: #A0A0A0; }
+    tr:hover td { background: #1A1A1A; }
+    .loading { color: #707070; font-size: 13px; }
+    .refresh-btn { background: #9B5DE5; color: #fff; border: none; border-radius: 6px; padding: 8px 20px; font-size: 12px; font-weight: 600; cursor: pointer; margin-bottom: 24px; }
+    .refresh-btn:hover { background: #B07AEA; }
+    .user-email { color: #9B5DE5; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+    .badge-ai { background: rgba(155,93,229,0.15); color: #9B5DE5; }
+    .badge-consumer { background: rgba(220,38,38,0.15); color: #EF4444; }
+  </style>
+</head>
+<body>
+  <h1>CONSUMER SAFARI</h1>
+  <p class="subtitle">Admin Dashboard</p>
+  <button class="refresh-btn" onclick="loadAll()">Refresh Data</button>
+
+  <div class="stats-grid" id="statsGrid">
+    <div class="stat-card"><div class="stat-label">Total Users</div><div class="stat-value" id="statUsers">--</div></div>
+    <div class="stat-card"><div class="stat-label">Email Subscribers</div><div class="stat-value" id="statSubs">--</div></div>
+    <div class="stat-card"><div class="stat-label">Page Views (Today)</div><div class="stat-value" id="statViews">--</div></div>
+    <div class="stat-card"><div class="stat-label">Saved Articles</div><div class="stat-value" id="statSaved">--</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Recent Sign-ins</div>
+    <table><thead><tr><th>User</th><th>Time</th></tr></thead><tbody id="signinsTable"><tr><td colspan="2" class="loading">Loading...</td></tr></tbody></table>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Popular Tabs (Last 7 Days)</div>
+    <table><thead><tr><th>Tab</th><th>Views</th></tr></thead><tbody id="tabsTable"><tr><td colspan="2" class="loading">Loading...</td></tr></tbody></table>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Recent Searches</div>
+    <table><thead><tr><th>Query</th><th>Time</th></tr></thead><tbody id="searchTable"><tr><td colspan="2" class="loading">Loading...</td></tr></tbody></table>
+  </div>
+
+  <div class="section">
+    <div class="section-title">All Users</div>
+    <table><thead><tr><th>Email</th><th>Name</th><th>Signed Up</th><th>Email Digest</th></tr></thead><tbody id="usersTable"><tr><td colspan="4" class="loading">Loading...</td></tr></tbody></table>
+  </div>
+
+  <script>
+    const SB_URL = 'https://ugmirwqwlggdemwklcwi.supabase.co';
+    const SB_KEY = sessionStorage.getItem('sb_admin_key') || prompt('Enter Supabase service role key:');
+    if (SB_KEY) sessionStorage.setItem('sb_admin_key', SB_KEY);
+
+    const headers = {
+      'apikey': SB_KEY,
+      'Authorization': 'Bearer ' + SB_KEY,
+      'Content-Type': 'application/json'
+    };
+
+    async function sbGet(path) {
+      const r = await fetch(SB_URL + '/rest/v1/' + path, { headers });
+      return r.json();
+    }
+
+    async function loadAll() {
+      // Users count
+      try {
+        const users = await sbGet('auth/admin/users?per_page=1000');
+        // Fallback: query saved_articles for distinct users
+      } catch(e) {}
+
+      // Email subscribers
+      try {
+        const subs = await sbGet('email_preferences?daily_digest=eq.true&select=email');
+        document.getElementById('statSubs').textContent = subs.length || 0;
+      } catch(e) { document.getElementById('statSubs').textContent = '?'; }
+
+      // Saved articles count
+      try {
+        const saved = await sbGet('saved_articles?select=id');
+        document.getElementById('statSaved').textContent = saved.length || 0;
+      } catch(e) { document.getElementById('statSaved').textContent = '?'; }
+
+      // Usage events
+      try {
+        const events = await sbGet('usage_events?select=event_type,event_data,created_at&order=created_at.desc&limit=500');
+
+        // Page views today
+        const today = new Date().toISOString().split('T')[0];
+        const todayViews = events.filter(e => e.event_type === 'page_view' && e.created_at.startsWith(today)).length;
+        document.getElementById('statViews').textContent = todayViews;
+
+        // Total unique sign-ins
+        const signins = events.filter(e => e.event_type === 'sign_in');
+        const uniqueEmails = [...new Set(signins.map(e => e.event_data?.email))];
+        document.getElementById('statUsers').textContent = uniqueEmails.length || 0;
+
+        // Recent sign-ins
+        document.getElementById('signinsTable').innerHTML = signins.slice(0, 10).map(e =>
+          '<tr><td class="user-email">' + (e.event_data?.email || 'unknown') + '</td><td>' + new Date(e.created_at).toLocaleString() + '</td></tr>'
+        ).join('') || '<tr><td colspan="2">No sign-ins yet</td></tr>';
+
+        // Tab views
+        const tabViews = {};
+        events.filter(e => e.event_type === 'tab_view').forEach(e => {
+          const tab = e.event_data?.tab || 'unknown';
+          tabViews[tab] = (tabViews[tab] || 0) + 1;
+        });
+        const sortedTabs = Object.entries(tabViews).sort((a, b) => b[1] - a[1]);
+        document.getElementById('tabsTable').innerHTML = sortedTabs.map(([tab, count]) =>
+          '<tr><td>' + tab + '</td><td>' + count + '</td></tr>'
+        ).join('') || '<tr><td colspan="2">No data yet</td></tr>';
+
+        // Recent searches
+        const searches = events.filter(e => e.event_type === 'search');
+        document.getElementById('searchTable').innerHTML = searches.slice(0, 15).map(e =>
+          '<tr><td>' + (e.event_data?.query || '') + '</td><td>' + new Date(e.created_at).toLocaleString() + '</td></tr>'
+        ).join('') || '<tr><td colspan="2">No searches yet</td></tr>';
+
+      } catch(e) {
+        console.error('Events error:', e);
+      }
+
+      // All users (from email preferences + sign-ins)
+      try {
+        const prefs = await sbGet('email_preferences?select=email,daily_digest,created_at');
+        document.getElementById('usersTable').innerHTML = prefs.map(u =>
+          '<tr><td class="user-email">' + u.email + '</td><td></td><td>' + new Date(u.created_at).toLocaleDateString() + '</td><td>' + (u.daily_digest ? 'Yes' : 'No') + '</td></tr>'
+        ).join('') || '<tr><td colspan="4">No users yet</td></tr>';
+      } catch(e) {}
+    }
+
+    loadAll();
+  </script>
+</body>
+</html>

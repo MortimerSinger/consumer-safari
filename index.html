@@ -4479,7 +4479,7 @@
     /* ============================================
        TEXT SIZE
        ============================================ */
-    var _textSizeLevel = 0;
+    var _textSizeLevel = 2; // default to largest
     var _textSizeLabels = ['Aa', 'Aa', 'Aa'];
 
     function applyTextSize(level) {
@@ -4504,8 +4504,8 @@
     // Initialize text size on load
     (function() {
       var saved = getCookie('cs_textsize');
-      var level = saved !== null ? parseInt(saved, 10) : 0;
-      if (isNaN(level) || level < 0 || level > 2) level = 0;
+      var level = saved !== null ? parseInt(saved, 10) : 2;
+      if (isNaN(level) || level < 0 || level > 2) level = 2;
       applyTextSize(level);
     })();
 

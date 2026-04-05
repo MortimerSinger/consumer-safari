@@ -3575,6 +3575,7 @@
        ============================================ */
     function setFeedFilter(filter) {
       currentFeedFilter = filter;
+      trackEvent('feed_filter', { filter: filter });
       // Update toggle buttons
       document.querySelectorAll('.feed-toggle-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.feed === filter);
@@ -4049,6 +4050,7 @@
       updateAuthUI();
       if (currentUser) {
         loadUserSavedArticles();
+        trackEvent('sign_in', { email: currentUser.email });
         renderForMe();
       renderCalendar();
       renderThisWeekPreview(); // Re-render greeting with user's name
@@ -4080,6 +4082,7 @@
         p.classList.toggle('active', id === tabName);
       });
 
+      trackEvent('tab_view', { tab: tabName });
       // Show/hide feed toggle - only on news tabs, not on deals
       const showToggle = ['today', 'week', 'month', 'forme', 'listen', 'deep-read', 'saved'].includes(tabName);
       document.getElementById('feedToggleBar').style.display = showToggle ? '' : 'none';
@@ -4176,6 +4179,7 @@
     }
 
     function searchAllStories(query) {
+      if (query && query.length > 2) trackEvent('search', { query: query });
       const q = query.toLowerCase().trim();
       if (!q) return [];
       const results = [];
@@ -4420,6 +4424,29 @@
     /* ============================================
        SERVICE WORKER (PWA)
        ============================================ */
+    /* ============================================
+       USAGE TRACKING
+       ============================================ */
+    function trackEvent(type, data) {
+      try {
+        var payload = { event_type: type, event_data: data || {} };
+        if (currentUser) payload.user_id = currentUser.id;
+        fetch(SUPABASE_URL + '/rest/v1/usage_events', {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify(payload)
+        }).catch(function() {});
+      } catch(e) {}
+    }
+
+    // Track page view on load
+    trackEvent('page_view', { referrer: document.referrer || 'direct' });
+
     // Logo click -> go home
     document.getElementById('logoHomeBtn').addEventListener('click', function(e) {
       e.preventDefault();

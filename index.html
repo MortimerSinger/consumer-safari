@@ -270,6 +270,17 @@
       -ms-overflow-style: none;
     }
     .tab-bar::-webkit-scrollbar { display: none; }
+    @media (max-width: 640px) {
+      .tab-bar {
+        flex-wrap: wrap;
+        overflow-x: visible;
+        justify-content: center;
+      }
+      .tab-btn {
+        font-size: 12px !important;
+        padding: 7px 9px !important;
+      }
+    }
 
     .tab-btn {
       flex-shrink: 0;

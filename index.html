@@ -2384,11 +2384,31 @@
       renderNewsFeed('monthFeed', DATA.monthNews, 'm', DATA.aiMonthNews);
     }
 
+    function getEmbedHtml(url) {
+      // YouTube
+      const ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
+      if (ytMatch) return `<iframe src="https://www.youtube.com/embed/${ytMatch[1]}" style="width:100%;aspect-ratio:16/9;border:none;border-radius:var(--radius-md);margin-top:var(--space-3);" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
+      // Spotify episode
+      const spotEp = url.match(/open\.spotify\.com\/episode\/([\w]+)/);
+      if (spotEp) return `<iframe src="https://open.spotify.com/embed/episode/${spotEp[1]}" style="width:100%;height:152px;border:none;border-radius:var(--radius-md);margin-top:var(--space-3);" allow="encrypted-media" loading="lazy"></iframe>`;
+      // Spotify show
+      const spotShow = url.match(/open\.spotify\.com\/show\/([\w]+)/);
+      if (spotShow) return `<iframe src="https://open.spotify.com/embed/show/${spotShow[1]}" style="width:100%;height:152px;border:none;border-radius:var(--radius-md);margin-top:var(--space-3);" allow="encrypted-media" loading="lazy"></iframe>`;
+      // Apple Podcasts
+      const appleMatch = url.match(/podcasts\.apple\.com/);
+      if (appleMatch) return `<iframe src="${url.replace('podcasts.apple.com','embed.podcasts.apple.com')}" style="width:100%;height:175px;border:none;border-radius:var(--radius-md);margin-top:var(--space-3);overflow:hidden;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="autoplay;encrypted-media" loading="lazy"></iframe>`;
+      return '';
+    }
+
     function renderListen() {
       const feed = document.getElementById('podcastFeed');
       const allPodcasts = [...DATA.toListen, ...(DATA.aiListen || [])];
       feed.innerHTML = allPodcasts.map((p, i) => {
         const isSaved = savedArticles.some(a => a.url === p.url);
+        const embedHtml = getEmbedHtml(p.url);
+        const externalLink = embedHtml
+          ? `<a href="${p.url}" target="_blank" rel="noopener" class="listen-link" style="font-size:11px;opacity:0.6;" aria-label="Open in new tab">Open externally</a>`
+          : `<a href="${p.url}" target="_blank" rel="noopener" class="listen-link" aria-label="Listen to ${p.title}">${ICONS.headphones} Listen</a>`;
         return `
           <article class="podcast-card">
             <div class="podcast-show">${p.show}</div>
@@ -2397,10 +2417,9 @@
               <span class="duration-badge">${p.duration}</span>
             </div>
             <p class="podcast-why"><strong>Why this matters:</strong> ${p.why}</p>
+            ${embedHtml}
             <div class="podcast-actions">
-              <a href="${p.url}" target="_blank" rel="noopener" class="listen-link" aria-label="Listen to ${p.title}">
-                ${ICONS.headphones} Listen
-              </a>
+              ${externalLink}
               <div class="card-actions" style="margin-left:auto;">
                 <button class="bookmark-btn${isSaved ? ' saved' : ''}" data-save-url="${escAttr(p.url)}" aria-label="Save" onclick="toggleBookmark(this, '${escJS(p.title)}', '${escJS(p.url)}', '', '${escJS(p.show)}', '${escJS(p.why)}')">
                   ${isSaved ? ICONS.bookmarkFilled : ICONS.bookmark}

@@ -3847,6 +3847,27 @@
     });
 
     /* ============================================
+       AUTO-REFRESH: check for new content every 30 min
+       ============================================ */
+    (function() {
+      var lastCheck = Date.now();
+      setInterval(function() {
+        fetch(window.location.href + '?_t=' + Date.now(), { cache: 'no-store' })
+          .then(function(r) { return r.text(); })
+          .then(function(html) {
+            var match = html.match(/"date"\s*:\s*"([^"]+)"/);
+            if (match && match[1] !== DATA.date) {
+              var banner = document.createElement('div');
+              banner.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:var(--color-accent);color:#fff;text-align:center;padding:12px 20px;font-family:var(--font-body);font-size:13px;font-weight:600;z-index:9999;cursor:pointer;';
+              banner.textContent = 'New briefing available. Tap to refresh.';
+              banner.onclick = function() { window.location.reload(true); };
+              document.body.appendChild(banner);
+            }
+          }).catch(function() {});
+      }, 30 * 60 * 1000); // every 30 minutes
+    })();
+
+    /* ============================================
        SERVICE WORKER (PWA)
        ============================================ */
     if ('serviceWorker' in navigator) {

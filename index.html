@@ -507,7 +507,9 @@
     }
 
     .story-linkout {
-      display: inline-flex;
+      display: inline-flex !important;
+      opacity: 1 !important;
+      max-height: none !important;
       align-items: center;
       gap: 4px;
       font-size: 12px;
@@ -2537,10 +2539,6 @@
               </div>
               <p class="story-blurb">${s.blurb}</p>
               <div class="story-expand-row">
-                <button class="expand-btn" onclick="toggleStoryExpand('story-${prefix}${si}')" aria-label="Expand article">
-                  <span class="expand-label">Read more</span>
-                  <span class="expand-chevron">${ICONS.chevron}</span>
-                </button>
                 <a href="${s.url}" target="_blank" rel="noopener" class="story-linkout">
                   Full article ${ICONS.externalLink}
                 </a>

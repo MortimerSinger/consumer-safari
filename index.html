@@ -303,6 +303,7 @@
       display: none;
       padding: var(--space-6) var(--space-5);
       animation: fadeIn 300ms ease;
+      overflow: hidden;
     }
 
     .tab-panel.active {
@@ -2538,7 +2539,7 @@
             <div class="section-label">This Week</div>
             <div id="thisWeekPreview"></div>
             <div style="text-align:center;margin-top:8px;"><button onclick="document.querySelector('.tab-btn[data-tab=events]').click();" style="background:none;border:none;color:var(--color-accent);font-family:var(--font-body);font-size:12px;font-weight:600;cursor:pointer;">See all events &rarr;</button></div>
-          </div></div>
+          </div>
 
           <div class="invite-section">
             <button class="invite-btn" onclick="inviteColleague()">
@@ -2547,7 +2548,6 @@
             </button>
             <p style="font-size:11px;color:var(--color-text-muted);margin-top:8px;">Know someone who'd value this? Send them an invite.</p>
           </div>
-
       </section>
 
       <!-- TODAY PANEL -->

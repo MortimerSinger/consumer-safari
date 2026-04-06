@@ -28,6 +28,7 @@
       var s = _gc('cs_theme');
       var pd = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
       if (s === 'dark' || (s === null && pd)) document.documentElement.classList.add('pre-dark');
+      if (s === 'light') document.documentElement.classList.remove('pre-dark');
     })();
   </script>
   <style>
@@ -4450,9 +4451,11 @@
       var btn = document.getElementById('themeToggleBtn');
       if (dark) {
         document.body.classList.add('dark-mode');
+        document.documentElement.classList.add('pre-dark');
         if (btn) { btn.innerHTML = _sunSVG; btn.setAttribute('aria-label', 'Switch to light mode'); }
       } else {
         document.body.classList.remove('dark-mode');
+        document.documentElement.classList.remove('pre-dark');
         if (btn) { btn.innerHTML = _moonSVG; btn.setAttribute('aria-label', 'Switch to dark mode'); }
       }
     }

@@ -64,7 +64,16 @@
 
   <script>
     const SB_URL = 'https://ugmirwqwlggdemwklcwi.supabase.co';
-    const SB_KEY = prompt('Enter Supabase service role key (starts with sb_secret or eyJ):') || '';
+    const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVnbWlyd3F3bGdnZGVtd2tsY3dpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NTM1MDEwNSwiZXhwIjoyMDkwOTI2MTA1fQ.KO1yh-W65huUoC_gdqG9T83EMC74tdIFeoS_aeD80_E';
+
+    // PIN gate
+    (function() {
+      var entered = prompt('Admin PIN:');
+      if (entered !== '5555') {
+        document.body.innerHTML = '<div style="text-align:center;margin-top:100px;font-family:sans-serif;color:#6D28D9;font-size:18px;">Access denied.</div>';
+        throw new Error('PIN incorrect');
+      }
+    })();
 
     const headers = {
       'apikey': SB_KEY,

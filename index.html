@@ -6164,7 +6164,7 @@
       const overlay = document.createElement('div');
       overlay.id = 'signInModal';
       overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;';
-      overlay.innerHTML = \`
+      overlay.innerHTML = `
         <div style="background:#fff;border-radius:16px;padding:32px 28px;max-width:360px;width:100%;box-shadow:0 8px 40px rgba(0,0,0,0.25);text-align:center;font-family:inherit;">
           <button onclick="document.getElementById('signInModal').remove()" style="position:absolute;top:12px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:#9CA3AF;line-height:1;" aria-label="Close">&times;</button>
           <div style="font-size:22px;margin-bottom:6px;">&#128274;</div>
@@ -6188,7 +6188,7 @@
           </div>
           <div id="modalMagicMsg" style="margin-top:8px;font-size:13px;min-height:18px;color:#6D28D9;text-align:center;"></div>
         </div>
-      \`;
+      `;
       // Close on backdrop click
       overlay.addEventListener('click', function(e) { if (e.target === overlay) overlay.remove(); });
       document.body.appendChild(overlay);

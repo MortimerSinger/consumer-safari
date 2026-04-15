@@ -3059,19 +3059,18 @@
           <div class="stat-card">
             <div class="stat-label">${n.label}</div>
             <div class="stat-value">${n.value}</div>
-            <span class="stat-change ${changeClass}">${arrow} ${n.change}</span>
+            <span class="stat-change ${changeClass}">${arrow} ${n.change || ''}</span>
           </div>
         `;
       }).join('');
 
       // Patterns
       const patternsEl = document.getElementById('patterns');
-      patternsEl.innerHTML = DATA.patterns.map(p => `
-        <li class="pattern-item">
-          <span class="pattern-bullet" aria-hidden="true"></span>
-          <span>${p}</span>
-        </li>
-      `).join('');
+      patternsEl.innerHTML = DATA.patterns.map(p => {
+        if (typeof p === 'string') return `<li class="pattern-item"><span class="pattern-bullet" aria-hidden="true"></span><span>${p}</span></li>`;
+        if (typeof p === 'object' && p.title) return `<li class="pattern-item"><span class="pattern-bullet" aria-hidden="true"></span><span><strong>${escHtml(p.title)}</strong><br><span style="color:var(--color-text-muted);font-size:0.93em;line-height:1.5;">${escHtml(p.detail || '')}</span></span></li>`;
+        return '';
+      }).join('');
     }
 
     function renderStoryCard(s, si, prefix) {

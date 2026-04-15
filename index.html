@@ -2587,6 +2587,43 @@
       <svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#fff"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#fff"/><path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#fff"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#fff"/></g></svg>
       Sign in with Google
     </button>
+
+    <!-- OR divider -->
+    <div style="display:flex;align-items:center;gap:10px;margin:18px auto 0;max-width:320px;width:100%;padding:0 20px;box-sizing:border-box;">
+      <div style="flex:1;height:1px;background:#D1D5DB;"></div>
+      <span style="font-size:12px;color:#9CA3AF;letter-spacing:0.05em;">or</span>
+      <div style="flex:1;height:1px;background:#D1D5DB;"></div>
+    </div>
+
+    <!-- Magic link email section -->
+    <div id="gateMagicSection" style="margin:14px auto 0;max-width:320px;width:100%;padding:0 20px;box-sizing:border-box;">
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <input
+          id="gateMagicEmail"
+          type="email"
+          placeholder="Enter your email address"
+          autocomplete="email"
+          style="width:100%;padding:13px 16px;font-size:16px;border:1.5px solid #6D28D9;border-radius:10px;background:#fff;color:#111827;outline:none;font-family:inherit;box-sizing:border-box;"
+          oninput="document.getElementById('gateMagicMsg').textContent=''"
+        >
+        <button
+          onclick="sendGateMagicLink()"
+          style="width:100%;padding:13px 16px;font-size:15px;font-weight:600;border:1.5px solid #6D28D9;border-radius:10px;background:transparent;color:#6D28D9;cursor:pointer;font-family:inherit;transition:background 0.15s;box-sizing:border-box;"
+          onmouseover="this.style.background='#F5F3FF'"
+          onmouseout="this.style.background='transparent'"
+        >Send sign-in link</button>
+      </div>
+      <div id="gateMagicMsg" style="margin-top:10px;font-size:13px;text-align:center;min-height:18px;color:#6D28D9;"></div>
+    </div>
+
+    <!-- Continue as Guest -->
+    <div style="margin-top:22px;text-align:center;">
+      <button
+        onclick="continueAsGuest()"
+        style="background:none;border:none;color:#9CA3AF;font-size:14px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;font-family:inherit;padding:4px 8px;"
+      >Continue as Guest</button>
+    </div>
+
     <p class="gate-footer">Powered by TCP Intelligence</p>
   </div>
 
@@ -4865,6 +4902,7 @@
        ============================================ */
     let currentFeedFilter = 'both'; // 'consumer', 'ai', 'both'
     let currentUser = null; // Supabase user object
+    let guestMode = false;  // true when user clicked "Continue as Guest"
     let userNotes = {}; // { articleUrl: { note, updated_at } }
     /* Persistent storage helpers -- tries multiple backends */
     const _store = {
@@ -5729,6 +5767,7 @@
     }
 
     function saveVoiceItem(btn, url, title, author, platform) {
+      if (guestMode && !currentUser) { showSignInModal(); return; }
       var tag = platform || 'Substack';
       toggleBookmark(btn, title, url, tag, author, 'Via ' + platform);
       btn.classList.add('saved');
@@ -5773,6 +5812,11 @@
         } else {
           _supabaseAddSaved({ title, url, tag, source, excerpt });
         }
+        return;
+      }
+      if (guestMode) {
+        // Guest: prompt sign-in instead of local save
+        showSignInModal();
         return;
       }
       // Local fallback path
@@ -6064,6 +6108,92 @@
       });
     }
 
+    /* ---- Magic link (gate) ---- */
+    async function sendGateMagicLink() {
+      const emailInput = document.getElementById('gateMagicEmail');
+      const msg = document.getElementById('gateMagicMsg');
+      if (!emailInput || !msg) return;
+      const emailValue = emailInput.value.trim();
+      if (!emailValue) { msg.style.color = '#F87171'; msg.textContent = 'Please enter your email address.'; return; }
+      msg.style.color = '#A78BFA'; msg.textContent = 'Sending...';
+      const { error } = await _sb.auth.signInWithOtp({
+        email: emailValue,
+        options: { emailRedirectTo: 'https://www.consumersafari.com' }
+      });
+      if (error) {
+        msg.style.color = '#F87171';
+        msg.textContent = 'Error: ' + (error.message || 'Could not send link.');
+      } else {
+        msg.style.color = '#6EE7B7';
+        msg.textContent = 'Check your email for a sign-in link';
+        emailInput.value = '';
+      }
+    }
+
+    /* ---- Modal magic link ---- */
+    async function sendModalMagicLink() {
+      const emailInput = document.getElementById('modalMagicEmail');
+      const msg = document.getElementById('modalMagicMsg');
+      if (!emailInput || !msg) return;
+      const emailValue = emailInput.value.trim();
+      if (!emailValue) { msg.style.color = '#F87171'; msg.textContent = 'Please enter your email address.'; return; }
+      msg.style.color = '#6D28D9'; msg.textContent = 'Sending...';
+      const { error } = await _sb.auth.signInWithOtp({
+        email: emailValue,
+        options: { emailRedirectTo: 'https://www.consumersafari.com' }
+      });
+      if (error) {
+        msg.style.color = '#F87171';
+        msg.textContent = 'Error: ' + (error.message || 'Could not send link.');
+      } else {
+        msg.style.color = '#059669';
+        msg.textContent = 'Check your email for a sign-in link';
+        emailInput.value = '';
+      }
+    }
+
+    /* ---- Guest mode ---- */
+    function continueAsGuest() {
+      guestMode = true;
+      updateAuthUI();
+    }
+
+    /* ---- Sign-in modal (for gated features) ---- */
+    function showSignInModal() {
+      if (document.getElementById('signInModal')) return; // already open
+      const overlay = document.createElement('div');
+      overlay.id = 'signInModal';
+      overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;';
+      overlay.innerHTML = \`
+        <div style="background:#fff;border-radius:16px;padding:32px 28px;max-width:360px;width:100%;box-shadow:0 8px 40px rgba(0,0,0,0.25);text-align:center;font-family:inherit;">
+          <button onclick="document.getElementById('signInModal').remove()" style="position:absolute;top:12px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:#9CA3AF;line-height:1;" aria-label="Close">&times;</button>
+          <div style="font-size:22px;margin-bottom:6px;">&#128274;</div>
+          <h3 style="margin:0 0 8px;font-size:17px;color:#111;font-weight:700;">Sign in to save &amp; subscribe</h3>
+          <p style="margin:0 0 20px;font-size:14px;color:#6B7280;line-height:1.5;">Sign in to save articles and get the daily email</p>
+          <button onclick="signInWithGoogle();document.getElementById('signInModal').remove();" style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:12px;border-radius:10px;background:#4285F4;color:#fff;border:none;font-size:15px;font-weight:600;cursor:pointer;margin-bottom:16px;font-family:inherit;">
+            <svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" width="18" height="18" aria-hidden="true"><g><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#fff"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#fff"/><path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#fff"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#fff"/></g></svg>
+            Sign in with Google
+          </button>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+            <div style="flex:1;height:1px;background:#E5E7EB;"></div>
+            <span style="font-size:12px;color:#9CA3AF;">or</span>
+            <div style="flex:1;height:1px;background:#E5E7EB;"></div>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <input id="modalMagicEmail" type="email" placeholder="Enter your email" autocomplete="email"
+              style="flex:1;padding:11px 12px;font-size:16px;border:1.5px solid #6D28D9;border-radius:10px;color:#111;outline:none;min-width:0;font-family:inherit;"
+              oninput="document.getElementById('modalMagicMsg').textContent=''">
+            <button onclick="sendModalMagicLink()"
+              style="padding:11px 14px;font-size:13px;font-weight:600;border:1.5px solid #6D28D9;border-radius:10px;background:transparent;color:#6D28D9;cursor:pointer;white-space:nowrap;font-family:inherit;">Send link</button>
+          </div>
+          <div id="modalMagicMsg" style="margin-top:8px;font-size:13px;min-height:18px;color:#6D28D9;text-align:center;"></div>
+        </div>
+      \`;
+      // Close on backdrop click
+      overlay.addEventListener('click', function(e) { if (e.target === overlay) overlay.remove(); });
+      document.body.appendChild(overlay);
+    }
+
     async function signOut() {
       closeUserDropdown();
       await _sb.auth.signOut();
@@ -6080,7 +6210,7 @@
     function updateAuthUI() {
       const gate = document.getElementById('landingGate');
       const app = document.getElementById('mainApp');
-      if (currentUser) {
+      if (currentUser || guestMode) {
         if (gate) gate.style.display = 'none';
         if (app) { app.style.display = ''; app.classList.remove('gated'); }
       } else {
@@ -6535,7 +6665,13 @@
     }
 
     async function handleDigestToggle(checked) {
-      if (!currentUser) return;
+      if (!currentUser) {
+        showSignInModal();
+        // Reset toggle visually
+        const toggle = document.getElementById('digestToggle');
+        if (toggle) toggle.checked = !checked;
+        return;
+      }
       const confirm = document.getElementById('digestConfirm');
       try {
         await _sb.from('email_preferences').upsert({

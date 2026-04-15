@@ -3486,10 +3486,10 @@
     let _shareData = { title: '', url: '' };
 
     async function shareContent(title, url, btn) {
-      const text = title + ' via Traub Capital Morning Briefing';
+      const text = title + '\n\n' + url + '\n\nvia Consumer Safari (consumersafari.com)';
       if (navigator.share) {
         try {
-          await navigator.share({ title, text, url });
+          await navigator.share({ title: title, text: text, url: url });
         } catch(e) { /* user cancelled */ }
       } else {
         _shareData = { title, url };

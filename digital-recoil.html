@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Digital Recoil & The Analog Enthusiast Economy — Traub Capital Partners</title>
+  <meta name="description" content="A structural correction, not a trend. Five signatures of consumer businesses that cannot be disintermediated. A new white paper from Mortimer Singer at Traub Capital Partners.">
+
+  <!-- Open Graph / LinkedIn -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.consumersafari.com/digital-recoil">
+  <meta property="og:title" content="The Digital Recoil & The Analog Enthusiast Economy">
+  <meta property="og:description" content="A structural correction, not a trend. Five signatures of consumer businesses that cannot be disintermediated. A new white paper from Mortimer Singer at Traub Capital Partners.">
+  <meta property="og:image" content="https://www.consumersafari.com/digital-recoil-og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="Consumer Safari">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Digital Recoil & The Analog Enthusiast Economy">
+  <meta name="twitter:description" content="A structural correction, not a trend. Five signatures of consumer businesses that cannot be disintermediated.">
+  <meta name="twitter:image" content="https://www.consumersafari.com/digital-recoil-og.jpg">
+
+  <link rel="icon" type="image/png" href="/tcp-monogram-violet.png">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+
+  <style>
+    :root {
+      --accent: #6D28D9;
+      --accent-dark: #5B21B6;
+      --accent-light: #8B5CF6;
+      --bg: #FFFFFF;
+      --bg-subtle: #F9FAFB;
+      --surface: #FFFFFF;
+      --text: #111827;
+      --text-muted: #4B5563;
+      --text-subtle: #9CA3AF;
+      --border: #E5E7EB;
+      --violet-tint: #F5F3FF;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0A0A14;
+        --bg-subtle: #111122;
+        --surface: #14142A;
+        --text: #F3F4F6;
+        --text-muted: #CBD5E1;
+        --text-subtle: #94A3B8;
+        --border: #2A2A44;
+        --violet-tint: #1E1B4B;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .nav {
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-brand img { width: 28px; height: 28px; }
+    .nav-brand-text {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+    .nav-home {
+      font-size: 14px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .nav-home:hover { color: var(--accent); }
+
+    .hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 24px 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; gap: 40px; padding: 20px 20px 40px; }
+    }
+
+    .hero-cover {
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.15), 0 8px 20px rgba(109,40,217,0.1);
+      display: block;
+    }
+
+    .hero-eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .hero-title {
+      font-size: 48px;
+      font-weight: 800;
+      line-height: 1.08;
+      margin: 0 0 12px;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+    @media (max-width: 860px) { .hero-title { font-size: 36px; } }
+
+    .hero-subtitle {
+      font-size: 19px;
+      line-height: 1.5;
+      color: var(--text-muted);
+      margin: 0 0 24px;
+      font-weight: 400;
+    }
+    .hero-byline {
+      font-size: 14px;
+      color: var(--text-subtle);
+      margin: 0 0 32px;
+    }
+    .hero-byline strong { color: var(--text-muted); font-weight: 600; }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: white !important;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 16px 28px;
+      border-radius: 10px;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .btn-primary:hover { background: var(--accent-dark); transform: translateY(-1px); }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      padding: 16px 24px;
+      border: 1.5px solid var(--accent);
+      border-radius: 10px;
+      transition: background 0.15s;
+    }
+    .btn-secondary:hover { background: var(--violet-tint); }
+
+    .abstract-section {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 40px 24px 60px;
+    }
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .abstract-text {
+      font-size: 20px;
+      line-height: 1.7;
+      color: var(--text);
+      margin: 0 0 24px;
+      font-weight: 400;
+    }
+    @media (max-width: 860px) { .abstract-text { font-size: 18px; } }
+    .abstract-text:last-child { margin-bottom: 0; }
+
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: var(--accent);
+      margin: 0 auto 32px;
+      border-radius: 2px;
+    }
+
+    .email-section {
+      background: var(--violet-tint);
+      padding: 56px 24px;
+      margin-top: 20px;
+    }
+    .email-inner {
+      max-width: 560px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .email-heading {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text);
+      margin: 0 0 12px;
+      letter-spacing: -0.01em;
+    }
+    .email-subheading {
+      font-size: 17px;
+      color: var(--text-muted);
+      margin: 0 0 28px;
+      line-height: 1.5;
+    }
+    .email-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+    .email-input {
+      width: 100%;
+      padding: 15px 18px;
+      font-size: 16px;
+      border: 1.5px solid var(--accent);
+      border-radius: 10px;
+      background: var(--bg);
+      color: var(--text);
+      outline: none;
+      font-family: inherit;
+    }
+    .email-btn {
+      width: 100%;
+      padding: 15px 18px;
+      font-size: 16px;
+      font-weight: 700;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s;
+    }
+    .email-btn:hover { background: var(--accent-dark); }
+    .email-msg {
+      margin-top: 14px;
+      font-size: 14px;
+      min-height: 20px;
+    }
+    .email-msg.success { color: #059669; }
+    .email-msg.error { color: #DC2626; }
+
+    .footer {
+      padding: 48px 24px 56px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+    .footer-brand {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .footer-cta {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 14px;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .footer-cta:hover { text-decoration: underline; }
+    .footer-copy {
+      font-size: 12px;
+      color: var(--text-subtle);
+      margin-top: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="/" class="nav-brand">
+      <img src="/tcp-monogram-violet.png" alt="TCP">
+      <span class="nav-brand-text">Consumer Safari</span>
+    </a>
+    <a href="/" class="nav-home">Back to briefing →</a>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <img src="/digital-recoil-cover.jpg" alt="The Digital Recoil & The Analog Enthusiast Economy — cover" class="hero-cover">
+    </div>
+    <div>
+      <div class="hero-eyebrow">TCP Consumer Signal Series · Paper No. 1</div>
+      <h1 class="hero-title">The Digital Recoil</h1>
+      <p class="hero-subtitle">A structural correction, not a trend. Five signatures of consumer businesses that cannot be disintermediated.</p>
+      <p class="hero-byline"><strong>Mortimer Singer</strong>, Managing Partner, Traub Capital Partners &nbsp;·&nbsp; April 2026</p>
+      <div class="cta-row">
+        <a href="/digital-recoil.pdf" class="btn-primary" download id="downloadBtn" onclick="trackDownload()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download the full paper (PDF)
+        </a>
+        <a href="#subscribe" class="btn-secondary">Subscribe to Consumer Safari</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="abstract-section">
+    <div class="section-label">Abstract</div>
+    <div class="divider"></div>
+    <p class="abstract-text">The digital recoil is not a trend. It is a structural correction. For most of twenty-five years in consumer, I evaluated businesses the way everyone else did. TAM, CAC, LTV, blended margins, a politer than most nod to brand equity on the last slide. It works, until it doesn't. What we kept seeing, deal after deal, was that the brands building around physical experiences, earned communities, and identity rather than convenience were quietly producing better numbers than anything optimized purely for the screen. Not a little better. Structurally better.</p>
+    <p class="abstract-text">Across verticals from outdoor recreation to equestrian sport to wellness to artisan food, the enthusiast brands compounding most reliably share five structural characteristics: physical-first experience, community by default, multi-layer monetization, high-value consumers, and the secular tailwind of the digital recoil itself. These are not coincidences. They are the structural signatures of businesses that cannot be disintermediated by an algorithm, because their value is created in rooms, on trails, in arenas, and around tables where people actually show up. The question is no longer whether the digital recoil is real. The question is whether your brand is positioned for it.</p>
+  </section>
+
+  <section id="subscribe" class="email-section">
+    <div class="email-inner">
+      <h2 class="email-heading">Subscribe to Consumer Safari</h2>
+      <p class="email-subheading">Daily intelligence on consumer markets, M&amp;A, retail, and AI. Plus every new paper in the TCP Consumer Signal Series, delivered to your inbox.</p>
+      <form class="email-form" onsubmit="handleSubscribe(event)">
+        <input id="emailInput" type="email" class="email-input" placeholder="Your email address" required autocomplete="email">
+        <button type="submit" class="email-btn" id="subscribeBtn">Subscribe</button>
+      </form>
+      <div id="emailMsg" class="email-msg"></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-brand">Powered by TCP Intelligence</div>
+    <a href="/" class="footer-cta">Read more from Consumer Safari →</a>
+    <div class="footer-copy">© 2026 Traub Capital Partners. All rights reserved.</div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = 'https://ugmirwqwlggdemwklcwi.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVnbWlyd3F3bGdnZGVtd2tsY3dpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzNTAxMDUsImV4cCI6MjA5MDkyNjEwNX0.Rg9h1bWV_TZoVa-deIdQzaUn24Eo1Ytcpe130H1ceFM';
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Capture UTM params
+    function getUTMs() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        utm_source: params.get('utm_source') || 'direct',
+        utm_medium: params.get('utm_medium') || 'none',
+        utm_campaign: params.get('utm_campaign') || 'digital-recoil',
+        utm_content: params.get('utm_content') || null
+      };
+    }
+
+    // Log page view with UTMs
+    (async function logPageView() {
+      try {
+        const utms = getUTMs();
+        await supabase.from('usage_events').insert({
+          event_type: 'digital_recoil_landing_view',
+          event_data: { ...utms, referrer: document.referrer || null }
+        });
+      } catch(e) { console.log('pageview log skipped', e); }
+    })();
+
+    async function trackDownload() {
+      try {
+        const utms = getUTMs();
+        await supabase.from('usage_events').insert({
+          event_type: 'digital_recoil_pdf_download',
+          event_data: utms
+        });
+      } catch(e) {}
+    }
+
+    async function handleSubscribe(e) {
+      e.preventDefault();
+      const btn = document.getElementById('subscribeBtn');
+      const input = document.getElementById('emailInput');
+      const msg = document.getElementById('emailMsg');
+      const email = input.value.trim();
+      if (!email || !email.includes('@')) {
+        msg.textContent = 'Please enter a valid email address.';
+        msg.className = 'email-msg error';
+        return;
+      }
+      btn.disabled = true;
+      btn.textContent = 'Subscribing...';
+      msg.textContent = '';
+      msg.className = 'email-msg';
+
+      try {
+        const utms = getUTMs();
+        // Insert into email_preferences with source tag
+        const { error } = await supabase.from('email_preferences').upsert({
+          email: email,
+          daily_digest: true,
+          source: 'digital-recoil-inbound'
+        }, { onConflict: 'email' });
+
+        // Log event
+        await supabase.from('usage_events').insert({
+          event_type: 'digital_recoil_subscribe',
+          event_data: { email, ...utms }
+        });
+
+        if (error && !error.message.includes('duplicate')) {
+          console.error(error);
+          // Try without source column as fallback (in case table doesn't have it)
+          await supabase.from('email_preferences').upsert({
+            email: email,
+            daily_digest: true
+          }, { onConflict: 'email' });
+        }
+
+        msg.textContent = 'Subscribed. Check your inbox for tomorrow\'s briefing.';
+        msg.className = 'email-msg success';
+        input.value = '';
+        btn.textContent = 'Subscribed ✓';
+      } catch (err) {
+        console.error(err);
+        msg.textContent = 'Something went wrong. Please try again or email briefing@consumersafari.com.';
+        msg.className = 'email-msg error';
+        btn.disabled = false;
+        btn.textContent = 'Subscribe';
+      }
+    }
+  </script>
+</body>
+</html>

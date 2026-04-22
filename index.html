@@ -4013,13 +4013,13 @@
     }
 
     function saveWhitePaper(btn, url, title) {
-      if (typeof _saveArticle === 'function') {
-        _saveArticle({ title: title, url: url, source: 'Traub Capital Partners', tag: 'White Paper', excerpt: 'TCP white paper' });
-      } else if (typeof toggleBookmark === 'function') {
-        toggleBookmark({ title: title, url: url, source: 'Traub Capital Partners', tag: 'White Paper' });
-      }
-      btn.textContent = 'Saved';
-      btn.classList.add('saved');
+      try {
+        toggleBookmark(btn, title, url, 'White Paper', 'Traub Capital Partners', 'TCP white paper');
+      } catch(e) { console.error('saveWhitePaper failed', e); }
+      // Refresh saved-state UI on the button
+      const isSaved = (savedArticles || []).some(a => a.url === url);
+      btn.textContent = isSaved ? 'Saved' : 'Save';
+      btn.classList.toggle('saved', isSaved);
     }
 
     /* ============================================

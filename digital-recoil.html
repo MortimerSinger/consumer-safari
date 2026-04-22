@@ -184,6 +184,32 @@
       max-width: 780px;
       margin: 0 auto;
       padding: 8px 24px 48px;
+      scroll-margin-top: 20px;
+    }
+
+    .scroll-indicator {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 8px 0 16px;
+      animation: scrollBounce 1.8s ease-in-out infinite;
+      cursor: pointer;
+    }
+    .scroll-indicator-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .scroll-indicator svg {
+      display: block;
+    }
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateY(0); opacity: 0.85; }
+      50% { transform: translateY(6px); opacity: 1; }
     }
     .section-label {
       font-size: 12px;
@@ -333,7 +359,12 @@
     </div>
   </section>
 
-  <section class="abstract-section">
+  <a href="#overview" id="scrollIndicator" class="scroll-indicator" aria-label="Scroll to Overview">
+    <span class="scroll-indicator-label">Overview</span>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+  </a>
+
+  <section id="overview" class="abstract-section">
     <div class="section-label">Overview</div>
     <div class="divider"></div>
     <p class="abstract-text">The digital recoil is not a trend. It is a structural correction. For most of twenty-five years in consumer, I evaluated businesses the way everyone else did. TAM, CAC, LTV, blended margins, a politer than most nod to brand equity on the last slide. It works, until it doesn't. What we kept seeing, deal after deal, was that the brands building around physical experiences, earned communities, and identity rather than convenience were quietly producing better numbers than anything optimized purely for the screen. Not a little better. Structurally better.</p>
@@ -384,6 +415,21 @@
           event_data: { ...utms, referrer: document.referrer || null }
         });
       } catch(e) { console.log('pageview log skipped', e); }
+    })();
+
+    // Hide scroll indicator once user scrolls past hero
+    (function(){
+      const el = document.getElementById('scrollIndicator');
+      if (!el) return;
+      let hidden = false;
+      window.addEventListener('scroll', () => {
+        if (!hidden && window.scrollY > 120) {
+          el.style.transition = 'opacity 300ms ease';
+          el.style.opacity = '0';
+          setTimeout(() => { el.style.display = 'none'; }, 350);
+          hidden = true;
+        }
+      }, { passive: true });
     })();
 
     async function trackDownload() {

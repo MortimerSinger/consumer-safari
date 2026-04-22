@@ -4016,10 +4016,11 @@
       try {
         toggleBookmark(btn, title, url, 'White Paper', 'Traub Capital Partners', 'TCP white paper');
       } catch(e) { console.error('saveWhitePaper failed', e); }
-      // Refresh saved-state UI on the button
-      const isSaved = (savedArticles || []).some(a => a.url === url);
-      btn.textContent = isSaved ? 'Saved' : 'Save';
-      btn.classList.toggle('saved', isSaved);
+      // _syncBookmarkButtons will update the button once the async save completes.
+      // Also re-check a short moment later to catch the supabase round-trip.
+      setTimeout(function() {
+        try { _syncBookmarkButtons(url); } catch(e) {}
+      }, 600);
     }
 
     /* ============================================
@@ -4097,6 +4098,14 @@
         if (b.getAttribute('data-save-url') === url) {
           b.classList.toggle('saved', isSaved);
           b.innerHTML = isSaved ? ICONS.bookmarkFilled : ICONS.bookmark;
+        }
+      });
+      // Also sync whitepaper save buttons (they use .voice-save-btn)
+      document.querySelectorAll('#panel-whitepapers .voice-save-btn').forEach(b => {
+        var onclick = b.getAttribute('onclick') || '';
+        if (onclick.indexOf(url) !== -1) {
+          b.classList.toggle('saved', isSaved);
+          b.textContent = isSaved ? 'Saved' : 'Save';
         }
       });
     }

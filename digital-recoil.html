@@ -477,7 +477,7 @@
   <script>
     const SUPABASE_URL = 'https://ugmirwqwlggdemwklcwi.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVnbWlyd3F3bGdnZGVtd2tsY3dpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzNTAxMDUsImV4cCI6MjA5MDkyNjEwNX0.Rg9h1bWV_TZoVa-deIdQzaUn24Eo1Ytcpe130H1ceFM';
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     // Capture UTM params
     function getUTMs() {
@@ -494,7 +494,7 @@
     (async function logPageView() {
       try {
         const utms = getUTMs();
-        await supabase.from('usage_events').insert({
+        await sb.from('usage_events').insert({
           event_type: 'digital_recoil_landing_view',
           event_data: { ...utms, referrer: document.referrer || null }
         });
@@ -524,7 +524,7 @@
     function sharePaper() {
       if (navigator.share) {
         navigator.share({ title: SHARE_TITLE, text: SHARE_TEXT, url: SHARE_URL }).catch(() => {});
-        try { supabase && supabase.from('usage_events').insert({ event_type: 'digital_recoil_share', event_data: { channel: 'native' } }); } catch(e) {}
+        try { sb && sb.from('usage_events').insert({ event_type: 'digital_recoil_share', event_data: { channel: 'native' } }); } catch(e) {}
         return;
       }
       const menu = document.getElementById('shareMenu');
@@ -561,7 +561,7 @@
           if (channel === 'email') { window.location.href = target; }
           else { window.open(target, '_blank', 'noopener'); }
         }
-        try { supabase && supabase.from('usage_events').insert({ event_type: 'digital_recoil_share', event_data: { channel: channel } }); } catch(err) {}
+        try { sb && sb.from('usage_events').insert({ event_type: 'digital_recoil_share', event_data: { channel: channel } }); } catch(err) {}
         if (channel !== 'copy') {
           document.getElementById('shareMenu').classList.remove('open');
         }
@@ -571,7 +571,7 @@
     async function trackDownload() {
       try {
         const utms = getUTMs();
-        await supabase.from('usage_events').insert({
+        await sb.from('usage_events').insert({
           event_type: 'digital_recoil_pdf_download',
           event_data: utms
         });
@@ -597,14 +597,14 @@
       try {
         const utms = getUTMs();
         // Insert into email_preferences with source tag
-        const { error } = await supabase.from('email_preferences').upsert({
+        const { error } = await sb.from('email_preferences').upsert({
           email: email,
           daily_digest: true,
           source: 'digital-recoil-inbound'
         }, { onConflict: 'email' });
 
         // Log event
-        await supabase.from('usage_events').insert({
+        await sb.from('usage_events').insert({
           event_type: 'digital_recoil_subscribe',
           event_data: { email, ...utms }
         });
@@ -612,7 +612,7 @@
         if (error && !error.message.includes('duplicate')) {
           console.error(error);
           // Try without source column as fallback (in case table doesn't have it)
-          await supabase.from('email_preferences').upsert({
+          await sb.from('email_preferences').upsert({
             email: email,
             daily_digest: true
           }, { onConflict: 'email' });

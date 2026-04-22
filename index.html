@@ -262,6 +262,9 @@
     /* ============================================
        TAB BAR
        ============================================ */
+    .tab-bar-wrap {
+      position: relative;
+    }
     .tab-bar {
       display: flex;
       gap: var(--space-1);
@@ -271,6 +274,29 @@
       -ms-overflow-style: none;
     }
     .tab-bar::-webkit-scrollbar { display: none; }
+    .tab-scroll-hint {
+      position: absolute;
+      top: 50%;
+      right: 2px;
+      transform: translateY(-50%);
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      color: #fff;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+      animation: scrollPulse 1.6s ease-in-out infinite;
+      z-index: 2;
+    }
+    .tab-scroll-hint.visible { display: flex; }
+    @keyframes scrollPulse {
+      0%, 100% { transform: translate(0, -50%); }
+      50% { transform: translate(3px, -50%); }
+    }
     @media (max-width: 640px) {
       .tab-bar {
         flex-wrap: nowrap;
@@ -2804,7 +2830,8 @@
           </button>
         </div>
       </div>
-      <nav class="tab-bar" role="tablist" aria-label="Briefing sections">
+      <div class="tab-bar-wrap">
+      <nav class="tab-bar" id="tabBar" role="tablist" aria-label="Briefing sections">
         <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="panel-forme" data-tab="forme">For Me</button>
         <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-today" data-tab="today">Today</button>
         <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-week" data-tab="week">7 Days</button>
@@ -2816,6 +2843,10 @@
         <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-events" data-tab="events">Events</button>
         <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-voices" data-tab="voices">Voices</button>
       </nav>
+      <div class="tab-scroll-hint" id="tabScrollHint" aria-hidden="true">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+      </div>
+      </div>
       <div class="feed-toggle-bar" id="feedToggleBar">
         <span class="feed-toggle-label">Feed:</span>
         <div class="feed-toggle" role="radiogroup" aria-label="Feed filter">
@@ -4583,6 +4614,28 @@
        ============================================ */
     const tabs = document.querySelectorAll('.tab-btn, .saved-pill');
     const panels = document.querySelectorAll('.tab-panel');
+
+    // Tab bar overflow hint
+    (function(){
+      const bar = document.getElementById('tabBar');
+      const hint = document.getElementById('tabScrollHint');
+      if (!bar || !hint) return;
+      function update() {
+        const overflow = bar.scrollWidth - bar.clientWidth;
+        const atEnd = bar.scrollLeft + bar.clientWidth >= bar.scrollWidth - 4;
+        if (overflow > 4 && !atEnd) {
+          hint.classList.add('visible');
+        } else {
+          hint.classList.remove('visible');
+        }
+      }
+      update();
+      bar.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      // Re-check after fonts load
+      setTimeout(update, 500);
+      setTimeout(update, 1500);
+    })();
 
     function switchTab(tabName, pushHash = true) {
       tabs.forEach(t => {

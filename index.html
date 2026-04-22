@@ -273,13 +273,13 @@
     .tab-bar::-webkit-scrollbar { display: none; }
     @media (max-width: 640px) {
       .tab-bar {
-        flex-wrap: wrap;
-        overflow-x: visible;
-        justify-content: center;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
       }
       .tab-btn {
-        font-size: 12px !important;
-        padding: 7px 9px !important;
+        font-size: 11px !important;
+        padding: 7px 6px !important;
       }
     }
 
@@ -305,6 +305,19 @@
 
     .tab-btn.active {
       color: var(--color-text);
+      border-bottom-color: var(--color-accent);
+    }
+
+    .tab-btn-highlight {
+      color: var(--color-accent) !important;
+      font-weight: 700 !important;
+    }
+    .tab-btn-highlight:hover {
+      color: var(--color-accent) !important;
+      opacity: 0.85;
+    }
+    .tab-btn-highlight.active {
+      color: var(--color-accent) !important;
       border-bottom-color: var(--color-accent);
     }
 
@@ -2766,10 +2779,10 @@
         <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-listen" data-tab="listen">Listen</button>
         <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-deepread" data-tab="deepread">Deep Read</button>
         <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-deals" data-tab="deals">Deals</button>
+        <button class="tab-btn tab-btn-highlight" role="tab" aria-selected="false" aria-controls="panel-whitepapers" data-tab="whitepapers">W/Papers</button>
         <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-events" data-tab="events">Events</button>
-        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-saved" data-tab="saved">Saved</button>
         <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-voices" data-tab="voices">Voices</button>
-        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-whitepapers" data-tab="whitepapers">White Papers</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-saved" data-tab="saved">Saved</button>
       </nav>
       <div class="feed-toggle-bar" id="feedToggleBar">
         <span class="feed-toggle-label">Feed:</span>

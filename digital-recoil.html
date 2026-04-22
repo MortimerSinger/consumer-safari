@@ -189,20 +189,13 @@
 
     .scroll-indicator {
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      gap: 4px;
       color: var(--accent);
       text-decoration: none;
-      padding: 8px 0 16px;
+      padding: 8px 0 20px;
       animation: scrollBounce 1.8s ease-in-out infinite;
       cursor: pointer;
-    }
-    .scroll-indicator-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
     }
     .scroll-indicator svg {
       display: block;
@@ -360,8 +353,7 @@
   </section>
 
   <a href="#overview" id="scrollIndicator" class="scroll-indicator" aria-label="Scroll to Overview">
-    <span class="scroll-indicator-label">Overview</span>
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
   </a>
 
   <section id="overview" class="abstract-section">

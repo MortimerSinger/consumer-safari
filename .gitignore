@@ -1,0 +1,21 @@
+# Secrets
+.env
+.env.*
+*.pem
+*.key
+
+# Per-day data files (may contain content but never secrets)
+email_data_2026-*.json
+
+# Per-day rendered output
+email_2026_*.html
+email_2026_*_corrected.html
+email_html_2026-*.html
+
+# Per-day update scripts (now superseded by build_email_template.py)
+update_2026_*.py
+build_email_2026_*.py
+
+# Python
+__pycache__/
+*.pyc

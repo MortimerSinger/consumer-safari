@@ -4693,21 +4693,50 @@
     window.addEventListener('hashchange', handleHash);
 
     /* ============================================
-       INIT
+       INIT — fetches DATA from Supabase, falls back to inline DATA
        ============================================ */
-    renderForMe();
-    renderToday();
-    renderWeek();
-    renderMonth();
-    renderListen();
-    renderDeepRead();
-    renderDealTracker();
-    renderCalendar();
-    renderThisWeekPreview();
-    renderSavedTab();
-    renderWhitePapers();
-    updateSavedBadge();
-    handleHash();
+    async function loadCurrentBriefing() {
+      const SB_URL = 'https://ugmirwqwlggdemwklcwi.supabase.co';
+      const SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVnbWlyd3F3bGdnZGVtd2tsY3dpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzNTAxMDUsImV4cCI6MjA5MDkyNjEwNX0.Rg9h1bWV_TZoVa-deIdQzaUn24Eo1Ytcpe130H1ceFM';
+      try {
+        const ctrl = new AbortController();
+        const t = setTimeout(() => ctrl.abort(), 4000);
+        const r = await fetch(`${SB_URL}/rest/v1/briefings?is_current=eq.true&select=data,date,updated_at&limit=1`, {
+          headers: { 'apikey': SB_ANON, 'Authorization': `Bearer ${SB_ANON}` },
+          signal: ctrl.signal,
+        });
+        clearTimeout(t);
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        const rows = await r.json();
+        if (Array.isArray(rows) && rows.length > 0 && rows[0].data && typeof rows[0].data === 'object') {
+          // Replace the inline DATA fallback
+          window.DATA = rows[0].data;
+          console.log('[briefing] loaded from Supabase, updated', rows[0].updated_at);
+          return true;
+        }
+      } catch (e) {
+        console.warn('[briefing] Supabase fetch failed, falling back to inline DATA:', e.message);
+      }
+      return false;
+    }
+
+    async function initApp() {
+      await loadCurrentBriefing();
+      renderForMe();
+      renderToday();
+      renderWeek();
+      renderMonth();
+      renderListen();
+      renderDeepRead();
+      renderDealTracker();
+      renderCalendar();
+      renderThisWeekPreview();
+      renderSavedTab();
+      renderWhitePapers();
+      updateSavedBadge();
+      handleHash();
+    }
+    initApp();
 
     // Show auth UI in initial state (logged out) once DOM is ready
     updateAuthUI();

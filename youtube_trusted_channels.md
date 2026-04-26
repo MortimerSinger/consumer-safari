@@ -68,6 +68,14 @@ Match channel names case-insensitively and tolerate minor variations
 - **Mo Gawdat** — former Google X CBO; AI, happiness, future of work, ethics
 - **AI Upload** — Morty's pick (verify channel handle on first match)
 - **The Institute of Art and Ideas** — IAI / iai.tv; philosophy, science, AI, ideas debates and lectures
+- **AI Founders** — Morty's pick (verify channel handle on first match)
+- **AI Master** — Morty's pick (verify channel handle on first match)
+- **Anthropic** — Anthropic's official channel; Claude launches, research demos, Dario Amodei talks, safety updates
+- **Perplexity** — Perplexity AI's official channel; Comet, Computer, model and product updates, founder talks
+- **TRIGGERnometry** — Konstantin Kisin + Francis Foster; long-form interviews on culture, politics, economics, AI
+- **Roman Yampolskiy** — AI safety researcher (Univ. of Louisville); existential AI risk, alignment, superintelligence (channel: UCPIq6Bb-1iLmqyksJjy4kLQ)
+- **AI Revolution** — Morty's pick (multiple channels share this name; verify exact handle on first match)
+- **Chris Williamson / Modern Wisdom** — long-form podcast on health, performance, philosophy, business, culture
 
 ---
 

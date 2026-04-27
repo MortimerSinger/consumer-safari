@@ -1,9 +1,10 @@
 # Consumer Safari — Daily Archive Index
 
-Total days: **23**
+Total days: **24**
 
 | Date | Stories | File |
 |------|---------|------|
+| 2026-04-27 | 6 consumer · 5 AI | [2026-04-27.md](2026-04-27.md) |
 | 2026-04-26 | 8 consumer · 5 AI | [2026-04-26.md](2026-04-26.md) |
 | 2026-04-25 | 5 consumer · 4 AI | [2026-04-25.md](2026-04-25.md) |
 | 2026-04-24 | 8 consumer · 5 AI | [2026-04-24.md](2026-04-24.md) |

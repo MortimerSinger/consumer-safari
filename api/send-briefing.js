@@ -277,20 +277,26 @@ export default async function handler(req, res) {
     return;
   }
 
-  // Send sequentially with light pacing to avoid Resend rate limits
+  // Send sequentially with pacing under Resend's 5/sec free-tier limit (200ms minimum)
+  // Plus single retry on 429 with 1s backoff
   let sent = 0;
   let failed = 0;
   const failures = [];
   for (const r of recipients) {
-    const result = await sendOne(r.email, data.subject, html, process.env.RESEND_API_KEY);
+    let result = await sendOne(r.email, data.subject, html, process.env.RESEND_API_KEY);
+    // Retry once on 429 rate-limit with 1s backoff
+    if (!result.ok && result.status === 429) {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      result = await sendOne(r.email, data.subject, html, process.env.RESEND_API_KEY);
+    }
     if (result.ok) {
       sent++;
     } else {
       failed++;
       failures.push({ email: r.email, status: result.status, body: result.body });
     }
-    // ~120ms gap; well under Resend's 10/sec limit
-    await new Promise(resolve => setTimeout(resolve, 120));
+    // ~220ms gap to stay under Resend's 5/sec free-tier limit
+    await new Promise(resolve => setTimeout(resolve, 220));
   }
 
   res.status(200).json({

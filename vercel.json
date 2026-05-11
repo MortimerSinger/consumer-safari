@@ -20,5 +20,9 @@
     { "source": "/digital-recoil", "destination": "/digital-recoil.html" },
     { "source": "/white-papers/digital-recoil", "destination": "/digital-recoil.html" },
     { "source": "/white-papers", "destination": "/index.html" }
+  ],
+  "redirects": [
+    { "source": "/white-papers/ai-agents-101", "destination": "https://aiagents101.tips", "permanent": false },
+    { "source": "/ai-agents-101", "destination": "https://aiagents101.tips", "permanent": false }
   ]
 }

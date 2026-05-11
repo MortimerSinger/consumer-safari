@@ -1,8 +1,23 @@
 # Re-enable Google Sign-in After Supabase Pro Upgrade
 
-**Status:** Google sign-in hidden 2026-05-07. Magic-link is the only flow.
-**Why:** Default Supabase OAuth redirect shows scary `ugmirwqwlggdemwklcwi.supabase.co` URL on Google's sign-in screen, looking like a phishing site to users.
-**Fix:** Custom auth domain (Supabase Pro feature, ~$25/mo).
+**Status:** ✅ COMPLETE 2026-05-11. Google sign-in restored with custom auth domain `auth.consumersafari.com`.
+**Why:** Default Supabase OAuth redirect was showing scary `ugmirwqwlggdemwklcwi.supabase.co` URL on Google's sign-in screen.
+**Fix:** Custom auth domain (Supabase Pro $25/mo + Custom Domain add-on $10/mo).
+
+## What happened
+1. May 7: Hid Google sign-in UI, shipped magic-link-only as interim fix
+2. May 7-11: Magic-link served all sign-ins cleanly (no conversion data captured)
+3. May 11: Upgraded to Supabase Pro, activated `auth.consumersafari.com`, updated Google Cloud OAuth, restored UI
+4. May 11 9:58am ET: Verified working in production
+
+## Bug encountered (for future reference)
+Squarespace silently failed to propagate the `_acme-challenge` TXT record on initial save. The UI showed the record as saved, but the authoritative Google Domains nameservers returned NXDOMAIN. Edit operations on existing TXT records also did not propagate. **Fix: delete the record and recreate it from scratch** — then it propagated within seconds.
+
+## To re-enable original state (if ever needed)
+1. Delete `auth.consumersafari.com` in Supabase → Settings → General → Custom Domains
+2. Remove $10 Custom Domain add-on in Supabase → Add-ons
+3. Update Google Cloud OAuth redirect URI back to `https://ugmirwqwlggdemwklcwi.supabase.co/auth/v1/callback`
+4. Delete CNAME and `_acme-challenge.auth` TXT records from Squarespace DNS
 
 ## Steps After Upgrade
 

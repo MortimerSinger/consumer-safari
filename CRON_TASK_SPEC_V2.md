@@ -48,7 +48,9 @@ Voices research: site:substack.com for consumer brands, beauty, M&A, AI labor, a
 
 ## STEP 1a: YOUTUBE VETTING
 
-Same rules as before. Read /home/user/workspace/morning-briefing/youtube_trusted_channels.md and only ship videos from channels on that list. NEVER use a youtube.com/results?search_query=... URL.
+Read /home/user/workspace/morning-briefing/youtube_trusted_channels.md and only ship videos from channels on that list. NEVER use a youtube.com/results?search_query=... URL.
+
+IMPORTANT: YouTube is OPTIONAL. The toListen/aiListen fields are not required by the validator. If you cannot find a video from an allowlisted channel within ~2 minutes of search, OMIT toListen and aiListen entirely from the payload and continue. Do NOT escalate for a YouTube miss. Do NOT include a non-allowlisted video. Just leave the slot empty and ship the briefing.
 
 ## STEP 2: COMPOSE THE DAILY PAYLOAD
 

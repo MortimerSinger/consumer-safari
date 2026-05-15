@@ -3205,12 +3205,15 @@
     function renderForMe() {
       // Personalize greeting with signed-in user's first name
       const userName = currentUser?.user_metadata?.full_name?.split(' ')[0] || currentUser?.user_metadata?.name?.split(' ')[0] || '';
-      const hour = new Date().getHours();
+      const now = new Date();
+      const hour = now.getHours();
       const timeGreeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
       document.getElementById('greeting').textContent = userName ? `${timeGreeting}, ${userName}.` : `${timeGreeting}.`;
-      document.getElementById('greetingDate').textContent = DATA.date;
+      // Always show today's actual date from the device clock — never trust stale inline DATA.date
+      const todayStr = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      document.getElementById('greetingDate').textContent = todayStr;
       document.getElementById('personalBrief').textContent = (DATA?.todayForMe?.summary) || DATA?.summary || '';
-      document.getElementById('headerDate').textContent = DATA.date;
+      document.getElementById('headerDate').textContent = todayStr;
 
       // Key Numbers — defensive against missing/malformed data
       const numbersEl = document.getElementById('keyNumbers');

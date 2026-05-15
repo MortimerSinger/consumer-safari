@@ -16,7 +16,7 @@ self.addEventListener('fetch', e => {
       .then(response => {
         // Cache a copy for offline use
         const clone = response.clone();
-        caches.open('cs-v2').then(cache => cache.put(e.request, clone));
+        caches.open('cs-v3').then(cache => cache.put(e.request, clone));
         return response;
       })
       .catch(() => caches.match(e.request))

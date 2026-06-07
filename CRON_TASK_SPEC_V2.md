@@ -71,10 +71,35 @@ Build a JSON payload for /api/update-briefing in "rotate" mode. Save to /tmp/cro
   "toListen": [...],     // optional
   "aiListen": [...],     // optional
   "voices": [...],       // optional (array of {author, handle, platform, title, url, date, feedType:'consumer'|'ai'})
-  "newDeals": [...]      // optional, prepended to dealTracker (cap 15)
+  "newDeals": [...]      // REQUIRED whenever today's research includes M&A/investment stories — see Step 2a
 }
 
 The function rotates yesterday's todayNews → top of weekNews (cap 10) and overflow → monthNews (cap 30). It preserves dealTracker, calendarEvents, whitePapers, greeting from the existing row.
+
+## STEP 2a: DEALS EXTRACTION (CRITICAL — DO NOT SKIP)
+
+Whenever your research surfaces an M&A transaction, acquisition, take-private, divestiture, or material funding round, you MUST also add it to the `newDeals` array in the rotate payload. The Vercel function prepends these to `dealTracker` (cap 15). If you skip this step, the deal tracker on the live site goes stale even when the brief itself looks fresh.
+
+Triggers — emit a `newDeals` entry for ANY of:
+- Acquisitions announced or closed (any size)
+- Take-privates, divestitures, spinouts
+- Material funding rounds (Series A or larger, or any round ≥ $20M)
+- Letters of intent / definitive agreements / regulatory clearances on a previously-announced deal
+
+Required `newDeals` schema (one object per deal):
+{
+  "company": "<target / acquired company>",
+  "buyer": "<acquirer or lead investor>",
+  "amount": "<$ amount or 'Undisclosed'>",
+  "category": "<Beauty / CPG / Food / Retail / Digital Health / Media / etc.>",
+  "date": "<Month D, YYYY>",                       // human-readable, NOT iso
+  "url": "<canonical source URL>",
+  "note": "<one short sentence: multiple, EBITDA, strategic rationale, or close timing>"
+}
+
+Deduplication: do NOT include a deal if its `company` (case-insensitive) already appears in today's dealTracker. The endpoint preserves dealTracker from the current row, so check `data.dealTracker` before composing newDeals.
+
+Validation rule: if today's `todayNews` includes ANY story under category '💼 M&A & Investments' or any headline containing 'acquire', 'acquires', 'acquisition', 'buys', 'takeover', 'take-private', 'merger', 'merges', 'divests', 'spinout', or 'raises', then `newDeals` MUST be non-empty. If your composer can't extract a valid `newDeals` entry from such a story, escalate rather than silently shipping with an empty newDeals — the deal tracker is the most-clicked module on the site.
 
 ## STEP 3: WRITE TO SUPABASE (via Vercel Function)
 

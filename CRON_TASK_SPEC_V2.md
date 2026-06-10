@@ -97,7 +97,7 @@ Required `newDeals` schema (one object per deal):
   "note": "<one short sentence: multiple, EBITDA, strategic rationale, or close timing>"
 }
 
-Deduplication: do NOT include a deal if its `company` (case-insensitive) already appears in today's dealTracker. The endpoint preserves dealTracker from the current row, so check `data.dealTracker` before composing newDeals.
+Deduplication: the /api/update-briefing endpoint now performs case-insensitive dedup on `company` against the existing dealTracker AND within the submitted payload. You do NOT need to fetch the current briefing to dedupe locally. Submit newDeals based purely on today's research; the server will drop duplicates silently. Malformed entries (no company name) are also dropped. (Optional read path: GET `https://ugmirwqwlggdemwklcwi.supabase.co/rest/v1/briefings?is_current=eq.true&select=data` with `apikey` + `Authorization: Bearer` headers set to the Supabase publishable key currently inlined in `index.html`. Use this only if you need other current-state fields like calendarEvents or whitePapers.)
 
 Validation rule: if today's `todayNews` includes ANY story under category '💼 M&A & Investments' or any headline containing 'acquire', 'acquires', 'acquisition', 'buys', 'takeover', 'take-private', 'merger', 'merges', 'divests', 'spinout', or 'raises', then `newDeals` MUST be non-empty. If your composer can't extract a valid `newDeals` entry from such a story, escalate rather than silently shipping with an empty newDeals — the deal tracker is the most-clicked module on the site.
 

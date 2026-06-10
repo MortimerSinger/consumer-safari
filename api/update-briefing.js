@@ -250,10 +250,24 @@ function rotate(current, payload) {
   newAiWeek = newAiWeek.slice(0, 10);
   let newAiMonth = [...aiOverflow, ...prevAiMonth].slice(0, 30);
 
-  // dealTracker: prepend newDeals if provided, cap 15
+  // dealTracker: prepend newDeals (deduped against existing by case-insensitive company), cap 15
   let dealTracker = (current && current.dealTracker) || [];
   if (Array.isArray(payload.newDeals) && payload.newDeals.length > 0) {
-    dealTracker = [...payload.newDeals, ...dealTracker].slice(0, 15);
+    const norm = (s) => String(s || '').trim().toLowerCase();
+    const existingCompanies = new Set(dealTracker.map(d => norm(d && d.company)));
+    const seenInPayload = new Set();
+    const freshDeals = [];
+    for (const d of payload.newDeals) {
+      const key = norm(d && d.company);
+      if (!key) continue;                       // skip malformed entries (no company)
+      if (existingCompanies.has(key)) continue; // already in tracker
+      if (seenInPayload.has(key)) continue;     // duplicate within this same payload
+      seenInPayload.add(key);
+      freshDeals.push(d);
+    }
+    if (freshDeals.length > 0) {
+      dealTracker = [...freshDeals, ...dealTracker].slice(0, 15);
+    }
   }
 
   // Replace optional fields if explicitly provided in payload; else preserve from current

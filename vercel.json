@@ -3,26 +3,66 @@
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate, proxy-revalidate" },
-        { "key": "Pragma", "value": "no-cache" },
-        { "key": "Expires", "value": "0" }
+        {
+          "key": "Cache-Control",
+          "value": "no-store, no-cache, must-revalidate, proxy-revalidate"
+        },
+        {
+          "key": "Pragma",
+          "value": "no-cache"
+        },
+        {
+          "key": "Expires",
+          "value": "0"
+        }
       ]
     },
     {
       "source": "/(.*\\.pdf)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=3600" },
-        { "key": "Content-Disposition", "value": "attachment" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment"
+        }
       ]
     }
   ],
   "rewrites": [
-    { "source": "/digital-recoil", "destination": "/digital-recoil.html" },
-    { "source": "/white-papers/digital-recoil", "destination": "/digital-recoil.html" },
-    { "source": "/white-papers", "destination": "/index.html" }
+    {
+      "source": "/white-papers/there-is-no-cage",
+      "destination": "/there-is-no-cage.html"
+    },
+    {
+      "source": "/there-is-no-cage",
+      "destination": "/there-is-no-cage.html"
+    },
+    {
+      "source": "/digital-recoil",
+      "destination": "/digital-recoil.html"
+    },
+    {
+      "source": "/white-papers/digital-recoil",
+      "destination": "/digital-recoil.html"
+    },
+    {
+      "source": "/white-papers",
+      "destination": "/index.html"
+    }
   ],
   "redirects": [
-    { "source": "/white-papers/ai-agents-101", "destination": "https://aiagents101.tips", "permanent": false },
-    { "source": "/ai-agents-101", "destination": "https://aiagents101.tips", "permanent": false }
+    {
+      "source": "/white-papers/ai-agents-101",
+      "destination": "https://aiagents101.tips",
+      "permanent": false
+    },
+    {
+      "source": "/ai-agents-101",
+      "destination": "https://aiagents101.tips",
+      "permanent": false
+    }
   ]
 }

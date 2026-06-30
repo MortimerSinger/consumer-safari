@@ -54,7 +54,14 @@ IMPORTANT: YouTube is OPTIONAL. The toListen/aiListen fields are not required by
 
 ## STEP 2: COMPOSE THE DAILY PAYLOAD
 
-Build a JSON payload for /api/update-briefing in "rotate" mode. Save to /tmp/cron_payload.json. Required keys:
+Compose the payload INLINE in this run. There is NO composer script anywhere in the repo (no `cron_daily_refresh_v2.py`, no `compose_payload.py`, no shared helper). Do not search for one or escalate looking for one — write the JSON yourself based on Step 1 research and save it directly to `/tmp/cron_payload.json` (use `python3 -c 'import json; json.dump({...}, open("/tmp/cron_payload.json","w"))'` or a heredoc-style `cat > /tmp/cron_payload.json <<JSON ... JSON`). The pattern is intentionally script-free so each day's composition is bespoke to that day's research.
+
+The only Python helpers in the repo are:
+- `update_briefing.py` — legacy script (DO NOT use; pre-Vercel-function flow)
+- `build_email_template.py` — used internally by /api/send-briefing
+- `write_daily_archive.py` — runs AFTER the write to generate the archive .md (currently buggy; agent typically generates archive .md inline instead)
+
+Build the JSON payload for /api/update-briefing in "rotate" mode. Save to /tmp/cron_payload.json. Required keys:
 
 {
   "mode": "rotate",
